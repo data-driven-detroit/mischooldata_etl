@@ -38,6 +38,10 @@ def main(edition_date, metadata_only):
             'ChronicallyAbsentCount': '__chronically_absent',
         })
         .assign(
+            total_students=lambda df: df["__total_students"],
+            total_students_error=lambda df: df["__total_students"],
+            chronically_absent=lambda df:df["__chronically_absent"],
+            chronically_absent_error=lambda df:df["__chronically_absent"],
 
         )
     )
