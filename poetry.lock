@@ -1417,6 +1417,21 @@ files = [
 all = ["flake8 (>=7.1.1)", "mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
 
 [[package]]
+name = "inequalitytools"
+version = "0.1.6"
+description = "A tool for parsing the datasets from mischooldata.org that include suppression."
+optional = false
+python-versions = "^3.10"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/data-driven-detroit/inequalitytools.git"
+reference = "HEAD"
+resolved_reference = "a606d2a23827370dabba54b1e6170e6ca60e382a"
+
+[[package]]
 name = "iniconfig"
 version = "2.0.0"
 description = "brain-dead simple config-ini parsing"
@@ -3489,4 +3504,4 @@ test = ["zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10, <=3.13"
-content-hash = "2149908c39fec12036620d39975757090547937a0552af1b69077c8055b9cd8d"
+content-hash = "afdc89d9015506dfb0bfb8bf053acab992cff5f3fcebada77b3142f9008c4464"

@@ -45,7 +45,15 @@ def main(edition_date, metadata_only):
             'ChronicallyAbsentCount': '__chronically_absent',
         })
         .assign(
+<<<<<<< HEAD
             
+=======
+            total_students=lambda df: df["__total_students"],
+            total_students_error=lambda df: df["__total_students"],
+            chronically_absent=lambda df:df["__chronically_absent"],
+            chronically_absent_error=lambda df:df["__chronically_absent"],
+
+>>>>>>> 3e5f82b5c147b9b57e67756fe5d2b6dc91f67dcf
         )
     )
 
