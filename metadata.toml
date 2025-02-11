@@ -1,0 +1,68 @@
+name = "mischooldata_etls"
+description = "The ETL Scripts for loading MISchoolData Datasets"
+schema = "education"
+
+
+[tables.school_attendance]
+name="school_attendance"
+description = "The attendance file published by mischool data filtered to school level"
+unit_of_analysis = "Schools"
+universe = "Schools in Michigan Districts"
+owner = "Center for Educational Performance and Information"
+collector = "Michigan Department of Education"
+collection_method = "I don't know -- but it this is probably findable and should be recorded (MV)"
+collection_reason = "Help residents, educators, and policy makers make informed decisions to improve student success."
+source_url = "mischooldata.org"
+notes = "The 'error' column is calculated by D3 using this python tool: https://github.com/data-driven-detroit/inequalitytools.git"
+# use_conditions = "Leave commented if not using"
+cadence = "Yearly - released in mid September. Calendar site: https://www.mischooldata.org/recently-posted-page/."
+
+[[tables.school_attendance.variables]]
+name = "district_code"
+description = "The district code of the school measured (connects to eem_districts)"
+
+[[tables.school_attendance.variables]]
+name = "building_code"
+description = "The building code of the school measured (connects to eem_schools)"
+
+[[tables.school_attendance.variables]]
+name = "report_category"
+description = "The overarching category for the 'report_subgroup' for filtering the measurement. Filter to 'grade' on this column to get to all students."
+
+[[tables.school_attendance.variables]]
+name = "report_subgroup"
+description = "The subgroup measured. Filter to 'all' on this column to get to all students."
+
+[[tables.school_attendance.variables]]
+name = "total_students"
+description = "The count of students in this report category."
+
+[[tables.school_attendance.variables]]
+name = "total_students_error"
+description = "Error introducted on the 'total_students' measurement from suppression"
+
+[[tables.school_attendance.variables]]
+name = "chronically_absent"
+description = "The count of chronically absent students (missed more than 10% days, ~18, in a year) in this report category."
+
+[[tables.school_attendance.variables]]
+name = "chronically_absent_error"
+description = "Error introducted on the 'chronically_absent' measurement from suppression"
+
+[[tables.school_attendance.variables]]
+name = "start"
+description = "The first of July (Q3) before the school year measured."
+
+[[tables.school_attendance.variables]]
+name = "end"
+description = "The last day of June (end Q2) after the school year measured."
+
+[tables.school_attendance.editions.2024-07-01]
+edition_date = "2024-07-01"
+notes = "First upload of this dataset"
+raw_path = ""
+start = "2023-07-01"
+end = "2024-06-30"
+published = "2024-09-17"
+acquired = "2025-02-11"
+
