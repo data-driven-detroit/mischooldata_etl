@@ -1,45 +1,21 @@
 import click
 import pandas as pd
 import pandera as pa
-from pandera.typing import Series
+from sqlalchemy.orm import sessionmaker
 from pandera.errors import SchemaError, SchemaErrors
 import tomli
 
-from mischooldata_etls import setup_logging, db_engine, metadata_engine
 from metadata_audit.capture import record_metadata
-from sqlalchemy.orm import sessionmaker
+
+from mischooldata_etls import setup_logging, db_engine, metadata_engine
+from mischooldata_etls.schema import SchoolAttendance
 
 logger = setup_logging()
 
-table_name = "mischooldata_etls"
+table_name = "school_attendance"
 
 with open("metadata.toml", "rb") as md:
     metadata = tomli.load(md)
-
-
-# Every loader script starts with a pydantic model -- This is both to
-# validate the clean-up process output and to ensure that fields agree
-# with the metadata provided to the metadata system.
-class TableSchema(pa.DataFrameModel):
-    """
-    This is one of two tables that make sense to include
-    """
-
-    code: str = pa.Field(unique=True)
-    title: str = pa.Field()
-    description: str = pa.Field(nullable=True)
-
-    class Config:  # type: ignore
-        strict = True
-        coerce = True
-
-    @pa.check("description")
-    def max_nulls(cls, description: Series[str]) -> bool:
-        """
-        It's okay for some of these to be null, but if there are too many
-        it could indicate a problem.
-        """
-        return description.isna().sum() < 200
 
 
 @click.command()
@@ -53,21 +29,26 @@ def main(edition_date, metadata_only):
 
     result = (
         pd.read_csv(edition["raw_path"])
-        .rename(
-            columns={
-                "Code": "code",
-                "Title": "title",
-                "Description": "description",
-            }
+        .rename(columns={
+            'DistrictCode': 'district_code',
+            'BuildingCode': 'building_code',
+            'ReportCategory': 'report_category',
+            'ReportSubGroup': 'report_subgroup',
+            'TotalStudents': '__total_students',
+            'ChronicallyAbsentCount': '__chronically_absent',
+        })
+        .assign(
+
         )
-        .drop("Unnamed: 0", axis=1)
     )
+
+    logger.info(result.columns)
 
     logger.info(f"Cleaning {table_name} was successful validating schema.")
 
     # Validate
     try:
-        validated = TableSchema.validate(result)
+        validated = SchoolAttendance.validate(result)
         logger.info(
             f"Validating {table_name} was successful. Recording metadata."
         )
@@ -79,7 +60,7 @@ def main(edition_date, metadata_only):
         logger.info("Connected to metadata schema.")
 
         record_metadata(
-            TableSchema,
+            SchoolAttendance,
             __file__,
             table_name,
             metadata,
