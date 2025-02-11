@@ -32,3 +32,26 @@ def setup_logging():
     return logging.getLogger(config["app"]["name"])
 
 
+def pad_code(code: int):
+    return f'{code:0>5}'
+
+
+def unwrap_value(inequality) -> float:
+    return inequality.unwrap()
+
+
+def unwrap_error(inequality) -> float:
+    match inequality:
+        case Supressed():
+            return 0
+        case LessThan(_inner_value=inner):
+            return inner / 2
+        case Interval(_inner_value=_, delta=delta):
+            return delta
+        case Exact(_inner_value=_):
+            return 0
+        case float() | int():
+            return 0
+        case _:
+            raise TypeError(f"Object of type {type(inequality)} cannot be unwrapped.")
+

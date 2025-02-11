@@ -7,7 +7,14 @@ import tomli
 
 from metadata_audit.capture import record_metadata
 
-from mischooldata_etls import setup_logging, db_engine, metadata_engine
+from mischooldata_etls import (
+    setup_logging,
+    db_engine,
+    metadata_engine,
+    pad_code,
+    unwrap_value,
+    unwrap_error
+)
 from mischooldata_etls.schema import SchoolAttendance
 
 logger = setup_logging()
@@ -38,12 +45,11 @@ def main(edition_date, metadata_only):
             'ChronicallyAbsentCount': '__chronically_absent',
         })
         .assign(
-
+            
         )
     )
 
     logger.info(result.columns)
-
     logger.info(f"Cleaning {table_name} was successful validating schema.")
 
     # Validate
