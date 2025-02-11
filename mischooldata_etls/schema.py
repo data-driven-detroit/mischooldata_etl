@@ -25,10 +25,10 @@ class SchoolAttendance(pa.DataFrameModel):
     building_code: str = pa.Field(coerce=True)
     report_category: str = pa.Field(coerce=True)
     report_subgroup: str = pa.Field(coerce=True)
-    total_students: int = pa.Field(coerce=True)
-    total_students_error: int = pa.Field(coerce=True)
-    chronically_absent: int = pa.Field(coerce=True)
-    chronically_absent_error: int = pa.Field(coerce=True)
+    total_students: int = pa.Field(nullable=True) # these are covered by pd.Int64Dtype so no coerce
+    total_students_error: int = pa.Field(nullable=True)
+    chronically_absent: int = pa.Field(nullable=True)
+    chronically_absent_error: int = pa.Field(nullable=True)
     start: date = pa.Field(nullable=False)
     end: date = pa.Field(nullable=False)
     

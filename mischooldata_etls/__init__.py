@@ -5,6 +5,7 @@ import logging.config
 from sqlalchemy import create_engine
 import tomli
 
+from inequalitytools.inequality import Supressed, Interval, Exact, LessThan
 
 with open(Path().cwd() / "config.toml", "rb") as f:
     config = tomli.load(f)
