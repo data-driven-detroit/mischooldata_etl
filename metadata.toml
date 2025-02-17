@@ -49,11 +49,11 @@ name = "chronically_absent_error"
 description = "Error introducted on the 'chronically_absent' measurement from suppression"
 
 [[tables.school_attendance.variables]]
-name = "start"
+name = "start_date"
 description = "The first of July (Q3) before the school year measured."
 
 [[tables.school_attendance.variables]]
-name = "end"
+name = "end_date"
 description = "The last day of June (end Q2) after the school year measured."
 
 [tables.school_attendance.editions.2024-07-01]
@@ -83,7 +83,6 @@ end = "2022-06-30"
 published = "2022-09-17"
 acquired = "2023-11-27"
 
-
 [tables.school_attendance.editions.2021-07-01]
 edition_date = "2021-07-01"
 notes = "First upload of this dataset"
@@ -92,7 +91,6 @@ start = "2020-07-01"
 end = "2021-06-30"
 published = "2021-09-17"
 acquired = "2023-11-27"
-
 
 [tables.school_attendance.editions.2020-07-01]
 edition_date = "2020-07-01"
@@ -147,4 +145,5 @@ start = "2014-07-01"
 end = "2015-06-30"
 published = "2015-09-17"
 acquired = "2023-11-27"
+
 

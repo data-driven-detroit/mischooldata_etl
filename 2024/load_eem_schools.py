@@ -19,7 +19,7 @@ from mischooldata_etls.schema import SchoolAttendance
 
 logger = setup_logging()
 
-table_name = "school_attendance"
+table_name = "eem_schools"
 
 with open("metadata.toml", "rb") as md:
     metadata = tomli.load(md)
