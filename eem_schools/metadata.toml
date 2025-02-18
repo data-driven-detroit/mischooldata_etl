@@ -1,0 +1,127 @@
+# The Education Entity Master file -- basically the file that contains all
+# the school and district information. We geocode this file to become the
+# reference for further spatial analysis.
+[tables.eem_schools]
+name="eem_schools"
+description = "The CEPI 'Education Entity Master' file that holds all base information about schools and districts. Filtered to schools, then geocoded with the census geocoder."
+unit_of_analysis = "Schools"
+universe = "Michigan School buildings (sometimes inactive)"
+owner = "CEPI; US Census Bureau (for geocoding)"
+collector = "CEPI; US Census Bureau (geocoding)"
+# collection_We geocode with census geo"method = "Leave commented if not using"
+collection_reason = "Help residents, educators, and policy makers make informed decisions to improve student success."
+source_url = "mischooldata.org"
+# notes = "Leave commented if not using"
+# use_conditions = "Leave commented if not using"
+cadence = "Yearly -- released in early February"
+
+
+[[tables.eem_schools.variables]]
+name = "isd_code"
+description = "The 2-digit code for the 'intermediate school district' associated with the school."
+
+[[tables.eem_schools.variables]]
+name = "isd_name"
+description = "The name of the ISD associated with the school"
+
+[[tables.eem_schools.variables]]
+name = "district_code"
+description = "The 5-digit code for the local district associated with the school."
+
+[[tables.eem_schools.variables]]
+name = "district_name"
+description = "The name of the district associated with the code."
+
+[[tables.eem_schools.variables]]
+name = "building_code"
+description = "The 5-digit code associated with the school building itself."
+
+[[tables.eem_schools.variables]]
+name = "building_name"
+description = "The name of the school or non-school building."
+
+[[tables.eem_schools.variables]]
+name = "county_code"
+description = "NOT FIPS! The 2-digit code for the county in which the school is located."
+standard = "MCIR: https://www.mcir.org/wp-content/uploads/2016/03/Michigan-County-Codes.pdf"
+
+[[tables.eem_schools.variables]]
+name = "county_name"
+description = "The short name of the county in which the school is located."
+
+[[tables.eem_schools.variables]]
+name = "entity_type"
+description = "The entity type describes whether the school is charter / not, whether the building is a school or another type of educational facility or ancillary district building"
+
+[[tables.eem_schools.variables]]
+name = "school_level"
+description = "Whether the school is elementry / middle / high or some combination."
+
+[[tables.eem_schools.variables]]
+name = "locale_name"
+description = "A small descriptor of the municipality that the school is in, follows the pattern <City | Town | Suburb | Rural>: <Small | Midsize | Large | Distant | Fringe | Remote>. Worth looking into further on a map."
+
+[[tables.eem_schools.variables]]
+name = "school_emphasis"
+description = "Whether the school is 'general education' or 'alternative' or 'vocational' education, etc."
+
+[[tables.eem_schools.variables]]
+name = "setting"
+description = "Similar to emphasis, but with more detail on the actual location -- for instance is the school in a juvenile detention facility."
+
+[[tables.eem_schools.variables]]
+name = "email_address"
+description = "The email address of the school."
+
+[[tables.eem_schools.variables]]
+name = "phone_number"
+description = "The school phone number."
+
+[[tables.eem_schools.variables]]
+name = "street_address"
+description = "The school street address"
+
+[[tables.eem_schools.variables]]
+name = "city"
+description = "The school city"
+
+[[tables.eem_schools.variables]]
+name = "state"
+description = "The school state"
+
+[[tables.eem_schools.variables]]
+name = "zip_code"
+description = "The school zip code."
+
+[[tables.eem_schools.variables]]
+name = "school_type"
+description = "Again, similar to setting and emphasis -- more detailed than emphasis, less so than setting."
+
+[[tables.eem_schools.variables]]
+name = "status"
+description = "Whether the school is open, closed, empty or pending close."
+
+[[tables.eem_schools.variables]]
+name = "matchtype"
+description = "Whether the geocoder found an exact or inexact match."
+
+[[tables.eem_schools.variables]]
+name = "geometry"
+description = "The centroid geometry for the school."
+
+[[tables.eem_schools.variables]]
+name = "start_date"
+description = "The start date of Q3 of the year the school year begins"
+
+[[tables.eem_schools.variables]]
+name = "end_date"
+description = "The end date of Q2 of the year the school year ends"
+
+[tables.eem_schools.editions.2024-07-01]
+edition_date = "2024-07-01"
+notes = "First upload of this dataset"
+raw_path = ""
+start = "2023-07-01"
+end = "2024-06-29"
+published = "2024-02-05"
+acquired = "2025-02-15"
