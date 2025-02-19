@@ -9,9 +9,8 @@ from .archive import archive_eem
 
 logger = setup_logging()
 
-# Open file 
-open_eem(logger)
-transform_eem(logger)
-validate_eem(logger)
-load_eem()
-archive_eem()
+open_eem(logger) # -> ../../tmp/eem_working.csv
+transform_eem(logger) # -> ../../tmp/eem_working.parquet (includes geography)
+validate_eem(logger) # Pandera checking
+load_eem(logger) # ...eem_working.parquet -> database
+archive_eem(logger) # ... eem_working.parquet -> vault/ ... somewhere ... / eem_2023_2024_20250218.parquet.gzip

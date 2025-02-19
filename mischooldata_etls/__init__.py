@@ -33,10 +33,6 @@ def setup_logging():
     return logging.getLogger(config["app"]["name"])
 
 
-def pad_code(code: int):
-    return f'{code:0>5}'
-
-
 def unwrap_value(inequality) -> float:
     return inequality.unwrap()
 
