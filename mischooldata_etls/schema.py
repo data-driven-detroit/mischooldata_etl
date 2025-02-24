@@ -32,4 +32,3 @@ class KindergardenCount(pa.DataFrameModel):
 class NonResidentStatus(pa.DataFrameModel):
     pass
 
-

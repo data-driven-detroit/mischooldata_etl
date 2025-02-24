@@ -11,7 +11,6 @@ the file again. In the future we can figure out how to make this an
 'upsert.'
 """
 
-import pandas as pd
 import geopandas as gpd
 from sqlalchemy import text
 from sqlalchemy.exc import ProgrammingError
@@ -47,7 +46,8 @@ def load_eem(logger):
             if result.fetchone().matches_found != 0:
                 logger.error(
                     "Some rows from current file have conflicting keys on "
-                    "'district_code', 'building_code', and 'start_date'"
+                    "'district_code', 'building_code', and 'start_date'. "
+                    "Remove these rows on the table before continuing."
                 )
                 
                 raise AssertionError("Resolve database-new upload conflicts and try again.")

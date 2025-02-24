@@ -116,10 +116,10 @@ description = "The start date of Q3 of the year the school year begins"
 name = "end_date"
 description = "The end date of Q2 of the year the school year ends"
 
-[editions.2024-07-01]
+[editions.2024-06-29]
 edition_date = "2024-07-01"
 notes = "First upload of this dataset"
-raw_path = ""
+raw_path = "V:\\DATA\\Education\\Education entities\\Data\\2024\\eem_2024.csv"
 start = "2023-07-01"
 end = "2024-06-29"
 published = "2024-02-05"
