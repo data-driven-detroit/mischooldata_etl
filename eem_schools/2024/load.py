@@ -41,7 +41,7 @@ def load_eem(logger):
 
     with db_engine.connect() as db:
         try:
-            result = db.execute(prev_q, params={"new": check_against})
+            result = db.execute(prev_q, {"check_against": check_against})
 
             if result.fetchone().matches_found != 0:
                 logger.error(

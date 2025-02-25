@@ -11,7 +11,7 @@ import censusgeocode as cg
 from mischooldata_etls import db_engine
 
 
-EDITION_DATE = "2024-07-01"
+EDITION_DATE = "2024-06-29"
 EEM_DIR = Path(__file__).resolve().parent.parent
 
 field_reference = json.loads(
@@ -31,7 +31,10 @@ def clean_fields(df):
             isd_code=lambda df: df["__isd_code"].astype(str).str.zfill(2),
             district_code=lambda df: df["__district_code"].astype(str).str.zfill(5),
             building_code=lambda df: df["__building_code"].astype(str).str.zfill(5),
+            county_code=lambda df: df["__county_code"].astype(str).str.zfill(2),
+            phone_number=lambda df: df["__phone_number"].astype(pd.Int64Dtype()).astype(str),
         )
+        .astype({"zip_code": str})
         .query("(district_code != '00000') & (building_code != '00000')") # Remove summary rows
         .drop(columns=field_reference["tmp_variables"])
     )
@@ -63,7 +66,9 @@ def pull_previous(ungeocoded, logger):
 
     prev_q = text( #TODO: change this back to eem schools once the first runs are complete
         """
-        SELECT DISTINCT ON (building_code, street_address) *
+        SELECT DISTINCT ON (building_code, street_address) building_code, 
+                                                           matchtype, 
+                                                           geometry
         FROM education.tmp_eem_schools
         WHERE (building_code, street_address) IN :batch
         """
@@ -136,6 +141,7 @@ def geocode(df, logger):
             "countyfp": "__countyfp", 
             "tract": "__tract", 
             "block": "__block",
+            "id": "building_code",
         })
         .assign(
             statefp=lambda df: df["__statefp"].str.zfill(2),
@@ -147,9 +153,15 @@ def geocode(df, logger):
             geometry=lambda df: gpd.points_from_xy(df["lon"], df["lat"]),
             block_geoid=lambda df: df["statefp"] + df["countyfp"] + df["tract"] + df["block"],
         )
-    )
+    )[[
+        "building_code",
+        "block_geoid",
+        "geometry",
+    ]]
 
-    return gpd.GeoDataFrame(geocoded, geometry="geometry", crs="EPSG:4326")
+    merged = df.merge(geocoded, on="building_code")
+
+    return gpd.GeoDataFrame(merged, geometry="geometry", crs="EPSG:4326")
 
 
 def transform_eem(logger):
@@ -178,7 +190,6 @@ def transform_eem(logger):
             previously_geocoded[[
                 "building_code",
                 "matchtype",
-                "geometry"
             ]], 
             on="building_code", 
             how="left", 
@@ -190,9 +201,11 @@ def transform_eem(logger):
 
     new_geocoded = geocode(new_buildings, logger) # This is a gdf
 
+    previous_merged = previously_geocoded.merge(dated, on="building_code")
+
     geocoded = pd.concat(
         [
-            previously_geocoded,
+            previous_merged,
             new_geocoded,
         ]
     )

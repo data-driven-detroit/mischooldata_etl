@@ -6,6 +6,7 @@ from datetime import date
 import geopandas as gpd
 import pandera as pa
 from pandera.typing import Series
+from pandera.typing.geopandas import GeoSeries
 
 
 EEM_DIR = Path(__file__).resolve().parent.parent
@@ -29,20 +30,20 @@ class EEMSchools(pa.DataFrameModel):
     school_level: str = pa.Field()
     locale_name: str = pa.Field()
     school_emphasis: str = pa.Field()
-    setting: str = pa.Field()
-    email_address: str = pa.Field()
-    phone_number: str = pa.Field()
+    setting: str = pa.Field(nullable=True)
+    email_address: str = pa.Field(nullable=True)
+    phone_number: str = pa.Field(nullable=True)
     street_address: str = pa.Field()
     city: str = pa.Field()
     state: str = pa.Field()
     zip_code: str = pa.Field()
-    school_type: str = pa.Field()
+    school_type: str = pa.Field(nullable=True)
     status: str = pa.Field()
-    matchtype: str = pa.Field()
-    block_geoid: str = pa.Field()
-    geometry: str = pa.Field()
-    start_date: date = pa.Field()
-    end_date: date = pa.Field()
+    matchtype: str = pa.Field(nullable=True)
+    block_geoid: str = pa.Field(nullable=True)
+    geometry: GeoSeries = pa.Field(nullable=True)
+    start_date: date = pa.Field(coerce=True)
+    end_date: date = pa.Field(coerce=True)
 
     @pa.check("isd_code")
     def isd_code_correct_len(cls, district_code: Series[str]) -> Series[bool]:
