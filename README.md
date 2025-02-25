@@ -1,5 +1,25 @@
 # Updating education data
 
+## Creating a `config.toml`
+
+In order to access the database strings automatically, you need to create a `config.toml` file in the base directory.
+
+It should have the following structure, pointing at EDW.
+
+```toml
+[app]
+name="education"
+
+[db]
+user=""
+password=""
+host=""
+name="data"
+port=5432
+
+metadata_schema="metadata"
+```
+
 ## Create a virtual environment
 
 I typically use python's venv package. You may need to install this.
@@ -36,7 +56,7 @@ Once your environment is activated, from the project root folder, install requir
 pip install -r requrements.txt
 ```
 
-## Installing this package -> IMPORTANT
+## IMPORTANT: Installing this package 
 
 You need to install the package itself as 'editable.'
 

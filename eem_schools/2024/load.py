@@ -10,7 +10,7 @@ If this fails, for now, do a manual delete from the DB and start with
 the file again. In the future we can figure out how to make this an 
 'upsert.'
 """
-
+from pathlib import Path
 import geopandas as gpd
 from sqlalchemy import text
 from sqlalchemy.exc import ProgrammingError
@@ -19,11 +19,11 @@ from mischooldata_etls import db_engine, metadata_engine
 
 
 def load_eem(logger):
-
+    EEM_DIR = Path(__file__).resolve().parent.parent
     SCHEMA = "education"
 
     # Open working parquet file
-    df = gpd.read_file("../../tmp/eem_working_geocoded.parquet")
+    df = gpd.read_file(EEM_DIR.parent / "tmp" / "eem_working_geocoded.geojson")
 
     # Check for rows that have been already inserted
     prev_q = text("""
