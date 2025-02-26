@@ -8,7 +8,7 @@ import shutil
 
 
 def open_student_counts(logger):
-    logger.info("Opening Student Count from file defined in metadata")
+    logger.info("Opening Student Counts from file defined in metadata")
 
     EDITION_DATE = "2024-06-29"
     SC_DIR = Path(__file__).resolve().parent.parent
@@ -24,4 +24,5 @@ def open_student_counts(logger):
     # Copy the file to a temp file for working
     tmp_path = SC_DIR.parent / "tmp"
 
-    shutil.copy(path, tmp_path / "student_count_working.csv")
+    shutil.copy(path, tmp_path / "student_counts_working.csv")
+
