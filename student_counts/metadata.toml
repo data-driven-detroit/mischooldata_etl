@@ -1,142 +1,158 @@
-[tables.student_counts]
+# The Student Counts file -- basically the file that contains all
+# the school and district information. We geocode this file to become the
+# reference for further spatial analysis.
+
+#TODO: Need to rewrite the content below for Student Counts.
 name="student_counts"
-description = "The attendance file published by mischool data filtered to school level"
+description = "The CEPI 'Student Counts' file that holds all base information about schools and districts. Filtered to schools, then geocoded with the census geocoder."
 unit_of_analysis = "Schools"
-universe = "Schools in Michigan Districts"
-owner = "Center for Educational Performance and Information"
-collector = "Michigan Department of Education"
-collection_method = "I don't know -- but it this is probably findable and should be recorded (MV)"
+universe = "Michigan School buildings (sometimes inactive)"
+owner = "CEPI; US Census Bureau (for geocoding)"
+collector = "CEPI; US Census Bureau (geocoding)"
+collection_method = "Collected from mischool data then geocoded with Census Bureau Geocoder"
 collection_reason = "Help residents, educators, and policy makers make informed decisions to improve student success."
 source_url = "mischooldata.org"
-notes = "The 'error' column is calculated by D3 using this python tool: https://github.com/data-driven-detroit/inequalitytools.git"
-cadence = "Yearly -- released in mid September. Calendar site: https://www.mischooldata.org/recently-posted-page/."
+# notes = "Leave commented if not using"
+# use_conditions = "Leave commented if not using"
+cadence = "Yearly -- released in early February"
 
-[[tables.student_counts.variables]]
-name = "district_code"
-description = "The district code of the school measured (connects to eem_districts)"
+[[variables]]
+name = "schoollevel"
+description = "The educational level associated with a school."
 
-[[tables.student_counts.variables]]
-name = "building_code"
-description = "The building code of the school measured (connects to eem_schools)"
+[[variables]]
+name = "locale_name"
+description = "The geographic setting of a school based on its location."
 
-[[tables.student_counts.variables]]
-name = "report_category"
-description = "The overarching category for the 'report_subgroup' for filtering the measurement. Filter to 'grade' on this column to get to all students."
+[[variables]]
+name = "mistem_name"
+description = "The Michigan STEM region associated with a school."
 
-[[tables.student_counts.variables]]
-name = "report_subgroup"
-description = "The subgroup measured. Filter to 'all' on this column to get to all students."
+[[variables]]
+name = "mistem_code"
+description = "The 2-digit code for the Michigan STEM region."
 
-[[tables.student_counts.variables]]
-name = "total_students"
-description = "The count of students in this report category."
+[[variables]]
+name = "total_enrollment"
+description = "Total number of students enrolled."
 
-[[tables.student_counts.variables]]
-name = "total_students_error"
-description = "Error introducted on the 'total_students' measurement from suppression"
+[[variables]]
+name = "male_enrollment"
+description = "Total number of male students enrolled."
 
-[[tables.student_counts.variables]]
-name = "chronically_absent"
-description = "The count of chronically absent students (missed more than 10% days, ~18, in a year) in this report category."
+[[variables]]
+name = "female_enrollment"
+description = "Total number of female students enrolled."
 
-[[tables.student_counts.variables]]
-name = "chronically_absent_error"
-description = "Error introducted on the 'chronically_absent' measurement from suppression"
+[[variables]]
+name = "american_indian_enrollment"
+description = "Total number of students enrolled who identify as American Indian or Alaska Native."
+ 
+[[variables]]
+name = "asian_enrollment"
+description = "Total number of students enrolled who identify as Asian."
 
-[[tables.student_counts.variables]]
-name = "start_date"
-description = "The first of July (Q3) before the school year measured."
+[[variables]]
+name = "african_american_enrollment"
+description = "Total number of students enrolled who identify as African American."
 
-[[tables.student_counts.variables]]
-name = "end_date"
-description = "The last day of June (end Q2) after the school year measured."
+[[variables]]
+name = "hispanic_enrollment"
+description = "Total number of students enrolled who identify as Hispanic or Latino."
 
-[tables.student_counts.editions.2024-07-01]
+[[variables]]
+name = "hawaiian_enrollment"
+description = "Total number of students enrolled who identify as Native Hawaiian or Other Pacific Islander."
+
+[[variables]]
+name = "white_enrollment"
+description = "Total number of students enrolled who identify as White."
+
+[[variables]]
+name = "two_or_more_races_enrollment"
+description = "Total number of students enrolled who identify as having two or more races."
+
+[[variables]]
+name = "early_middle_college_enrollment"
+description = "Total number of students enrolled in Early Middle College programs."
+
+[[variables]]
+name = "prekindergarten_enrollment"
+description = "Total number of students enrolled in prekindergarten programs (typically for children aged 3-5)."
+
+[[variables]]
+name = "kindergarten_enrollment"
+description = "Total number of students enrolled in kindergarten programs (typically for children aged 5-6)."
+
+[[variables]]
+name = "grade_1_enrollment"
+description = "Total number of students enrolled in 1st grade."
+
+[[variables]]
+name = "grade_2_enrollment"
+description = "Total number of students enrolled in 2nd grade."
+
+[[variables]]
+name = "grade_3_enrollment"
+description = "Total number of students enrolled in 3rd grade."
+
+[[variables]]
+name = "grade_4_enrollment"
+description = "Total number of students enrolled in 4th grade."
+
+[[variables]]
+name = "grade_5_enrollment"
+description = "Total number of students enrolled in 5th grade."
+
+[[variables]]
+name = "grade_6_enrollment"
+description = "Total number of students enrolled in 6th grade."
+
+[[variables]]
+name = "grade_7_enrollment"
+description = "Total number of students enrolled in 7th grade."
+
+[[variables]]
+name = "grade_8_enrollment"
+description = "Total number of students enrolled in 8th grade."
+
+[[variables]]
+name = "grade_9_enrollment"
+description = "Total number of students enrolled in 9th grade."
+
+[[variables]]
+name = "grade_10_enrollment"
+description = "Total number of students enrolled in 10th grade."
+
+[[variables]]
+name = "grade_11_enrollment"
+description = "Total number of students enrolled in 11th grade."
+
+[[variables]]
+name = "grade_12_enrollment"
+description = "Total number of students enrolled in 12th grade."
+
+[[variables]]
+name = "ungraded_enrollment"
+description = "Total number of students enrolled in programs that do not have a specific grade level designationled."
+
+[[variables]]
+name = "economic_disadvantaged_enrollment"
+description = "Total number of students enrolled who are identified as economically disadvantaged."
+
+[[variables]]
+name = "special_education_enrollment"
+description = "Total number of students enrolled in special education programs."
+
+[[variables]]
+name = "english_language_learners_enrollment"
+description = "Total number of students enrolled who are identified as English Language Learners (ELL), or students whose primary language is not English."
+
+[editions.2024-06-29]
 edition_date = "2024-07-01"
 notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2024\\Raw\\attendance_2024.csv"
+raw_path = "V:\\DATA\\Education\\Student counts\\Data\\2024\\Raw\\student_count_2024.csv"
 start = "2023-07-01"
-end = "2024-06-30"
-published = "2024-09-17"
-acquired = "2025-02-11"
-
-[tables.student_counts.editions.2023-07-01]
-edition_date = "2023-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2023\\Raw\\attendance_2023.csv"
-start = "2022-07-01"
-end = "2023-06-30"
-published = "2023-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2022-07-01]
-edition_date = "2022-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2022\\Raw\\attendance_2022.csv"
-start = "2021-07-01"
-end = "2022-06-30"
-published = "2022-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2021-07-01]
-edition_date = "2021-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2021\\Raw\\attendance_2021.csv"
-start = "2020-07-01"
-end = "2021-06-30"
-published = "2021-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2020-07-01]
-edition_date = "2020-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2020\\Raw\\attendance_2020.csv"
-start = "2019-07-01"
-end = "2020-06-30"
-published = "2020-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2019-07-01]
-edition_date = "2019-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2019\\Raw\\attendance_2019.csv"
-start = "2018-07-01"
-end = "2019-06-30"
-published = "2019-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2018-07-01]
-edition_date = "2018-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2018\\Raw\\attendance_2018.csv"
-start = "2017-07-01"
-end = "2018-06-30"
-published = "2018-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2017-07-01]
-edition_date = "2017-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2017\\Raw\\attendance_2017.csv"
-start = "2016-07-01"
-end = "2017-06-30"
-published = "2017-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2016-07-01]
-edition_date = "2016-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2016\\Raw\\attendance_2016.csv"
-start = "2015-07-01"
-end = "2016-06-30"
-published = "2016-09-17"
-acquired = "2023-11-27"
-
-[tables.student_counts.editions.2015-07-01]
-edition_date = "2015-07-01"
-notes = "First upload of this dataset"
-raw_path = "V:\\DATA\\Education\\Chronic absentee\\Data\\2015\\Raw\\attendance_2015.csv"
-start = "2014-07-01"
-end = "2015-06-30"
-published = "2015-09-17"
-acquired = "2023-11-27"
+end = "2024-06-29"
+published = "??" #TODO
+acquired = "??" #TODO
