@@ -1,0 +1,30 @@
+{
+    "renames": {
+        "DistrictCode": "district_code",
+        "DistrictName": "district_name",
+        "BuildingCode": "building_code",
+        "BuildingName": "building_name",
+        "ReportCategory": "report_category",
+        "ReportSubGroup": "report_subgroup",
+        "TotalStudents": "total_students",
+        "ChronicallyAbsentCount": "chronically_absent",
+        "NotChronicallyAbsentCount": "not_chronically_absent",
+        "AR_AllStudents": "rate_all_students",
+        "AR_ChronicallyAbsent": "rate_chronically_absent",
+        "AR_NotChronicallyAbsent": "rate_not_chronically_absent"
+    },
+    "deletes": [
+        "ChronicallyAbsentPercent",
+        "NotChronicallyAbsentPercent",
+        "CountyCode",
+        "CountyName",
+        "EntityType",
+        "SchoolLevel",
+        "Locale",
+        "MISTEM_NAME",
+        "MISTEM_CODE",
+        "SchoolYear",
+        "IsdCode",
+        "IsdName"
+    ]
+}

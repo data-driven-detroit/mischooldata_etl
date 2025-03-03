@@ -1,0 +1,33 @@
+{
+    "rename": {
+        "ISDCode": "__isd_code",
+        "ISDName": "isd_name",
+        "DistrictCode": "__district_code",
+        "DistrictName": "district_name",
+        "BuildingCode": "__building_code",
+        "BuildingName": "building_name",
+        "COUNTY_CODE": "__county_code",
+        "COUNTY_NAME": "county_name",
+        "EntityType": "entity_type",
+        "SCHOOL_LEVEL": "school_level",
+        "LOCALE_NAME": "locale_name",
+        "SCHOOL_EMPHASIS": "school_emphasis",
+        "SETTING": "setting",
+        "EMAIL_ADDRESS": "email_address",
+        "PhoneNumber": "__phone_number",
+        "ADDRESS_LINE_1": "street_address",
+        "CITY": "city",
+        "STATE": "state",
+        "ZIP_CODE": "zip_code",
+        "SCHOOL_TYPE": "school_type",
+        "Status": "status"
+    },
+    "tmp_variables": [
+        "__isd_code",
+        "__district_code",
+        "__building_code",
+        "__county_code",
+        "__phone_number",
+        "SchoolYear"
+    ]
+}

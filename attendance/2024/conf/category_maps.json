@@ -1,0 +1,10 @@
+{
+    "Grade": "grade",
+    "Ethnicity": "ethnicity",
+    "Gender": "gender",
+    "Economically Disadvantaged": "economically_disadvantaged",
+    "Students with Disabilities": "students_with_disabilities",
+    "Homeless": "homeless",
+    "English Learners": "english_learners",
+    "Migrant Status": "migrant_status"
+}
