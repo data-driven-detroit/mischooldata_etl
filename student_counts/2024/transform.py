@@ -19,15 +19,32 @@ def clean_fields(df):
     Mostly renames following the config file, then makes sure the 
     various codes are the right length.
     """
+
+    'SchoolYear', 'ISDCode', 'ISDName', 'DistrictCode', 'DistrictName',
+    'BuildingCode', 'BuildingName', 'CountyCode', 'CountyName',
+    'EntityType', 'SchoolLevel', 'LOCALE_NAME', 'MISTEM_NAME',
+    'MISTEM_CODE', 'TOTAL_ENROLLMENT', 'MALE_ENROLLMENT',
+    'FEMALE_ENROLLMENT', 'AMERICAN_INDIAN_ENROLLMENT', 'ASIAN_ENROLLMENT',
+    'AFRICAN_AMERICAN_ENROLLMENT', 'HISPANIC_ENROLLMENT',
+    'HAWAIIAN_ENROLLMENT', 'WHITE_ENROLLMENT',
+    'TWO_OR_MORE_RACES_ENROLLMENT', 'EARLY_MIDDLE_COLLEGE_ENROLLMENT',
+    'PREKINDERGARTEN_ENROLLMENT', 'KINDERGARTEN_ENROLLMENT',
+    'GRADE_1_ENROLLMENT', 'GRADE_2_ENROLLMENT', 'GRADE_3_ENROLLMENT',
+    'GRADE_4_ENROLLMENT', 'GRADE_5_ENROLLMENT', 'GRADE_6_ENROLLMENT',
+    'GRADE_7_ENROLLMENT', 'GRADE_8_ENROLLMENT', 'GRADE_9_ENROLLMENT',
+    'GRADE_10_ENROLLMENT', 'GRADE_11_ENROLLMENT', 'GRADE_12_ENROLLMENT',
+    'UNGRADED_ENROLLMENT', 'ECONOMIC_DISADVANTAGED_ENROLLMENT',
+    'SPECIAL_EDUCATION_ENROLLMENT', 'ENGLISH_LANGUAGE_LEARNERS_ENROLLMENT'
+
     return (
         df
-        .rename(columns = {"isdcode": "isd_code",
+        .rename(columns = {"ISDCode": "__isd_code",
                            "isdname": "isd_name",
-                           "districtcode": "district_code", 
-                           "buildingcode": "building_code", 
+                           "districtcode": "__district_code", 
+                           "buildingcode": "__building_code", 
                            "districtname": "district_name",
                            "buildingname": "building_name",
-                           "countycode": "county_code",
+                           "countycode": "__county_code",
                            "countyname": "county_name",
                            "entitytype": "entity_type",
                            "schoollevel": "school_level"})
@@ -64,6 +81,8 @@ def transform_student_counts(logger):
     edition = metadata["editions"][EDITION_DATE]
 
     df = pd.read_csv(SC_DIR.parent / "tmp" / "student_counts_working.csv")
+
+    logger.info(df.columns)
 
     # Main clean-up
     cleaned_fields = clean_fields(df)

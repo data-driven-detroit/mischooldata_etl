@@ -14,5 +14,9 @@ config.toml
 *.parquet
 *.parquet.gzip
 
+# Any csv or json in a 'conf' folder is fair game
+!**/conf/*.json
+!**/conf/*.csv
+
 # The logging config is okay
 !logging_config.json
