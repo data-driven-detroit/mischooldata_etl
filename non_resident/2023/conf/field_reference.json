@@ -1,0 +1,39 @@
+{
+    "rename": {
+        "OperatingDistrictCode": "operating_district_code",
+        "ResidentDistrictCode": "resident_district_code",
+        "StudentResidency": "student_residency",
+        "GradeCode": "grade_code",
+        "StudentCount": "student_count",
+        "StudentFTECount": "student_fte_count"
+    },
+    "recodes": {
+        "student_residency": {
+            "All other resident students": "other_res_students",
+            "Section 105 school of choice (within same ISD)": "105_same_isd",
+            "All other non-resident students": "other_non_res_students",
+            "Non-public school student (Non-Resident)": "non_public_school_student_non_res",
+            "Section 105c school of choice (outside contiguous ISD)": "105c_outside_isd",
+            "Home schooled non-resident": "non_res_homeschooled",
+            "Non-public school student (Resident)": "non_public_school_student_res",
+            "Section 24 juvenile detention facility": "sec_24_juv_detention",
+            "Non-K-12 district": "non_k12_district",
+            "School for the Deaf/blind MSB-Low Incidence Outreach": "school_for_deaf_blind_msb_low_inc",
+            "No cooperative agreement, no release, not exempted": "no_coop_no_release_not_exempted",
+            "Home-schooled resident": "home_schooled_res",
+            "For new PSAs (fall only)": "new_psa",
+            "Section 6(4) (d) non-special education juvenile detention": "non_spec_ed_juv_detention",
+            "Emotionally impaired served by DCH": "emotionally_impaired_dch"
+        }
+    },
+    "column_order": [
+        "operating_district_code",
+        "resident_district_code",
+        "grade_code",
+        "student_residency",
+        "student_count",
+        "student_fte_count",
+        "start_date",
+        "end_date"
+    ]
+}

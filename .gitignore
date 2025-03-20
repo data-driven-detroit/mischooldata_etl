@@ -16,3 +16,7 @@ config.toml
 
 # The logging config is okay
 !logging_config.json
+
+# csvs and json files in conf dirs is OK
+!**/conf/*.json
+!**/conf/*.csv
