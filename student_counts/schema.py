@@ -1,4 +1,6 @@
+from datetime import date
 import pandera as pa
+from pandera.typing import Series
 
 
 class StudentCounts(pa.DataFrameModel):
@@ -10,13 +12,14 @@ class StudentCounts(pa.DataFrameModel):
     building_code: str = pa.Field(coerce=True)
     report_category: str = pa.Field(coerce=True)
     report_subgroup: str = pa.Field(coerce=True)
-    total_students: int = pa.Field(nullable=True) # these are covered by pd.Int64Dtype so no coerce
-    total_students_error: int = pa.Field(nullable=True)
-    chronically_absent: int = pa.Field(nullable=True)
-    chronically_absent_error: int = pa.Field(nullable=True)
-    start_date: date = pa.Field(nullable=False)
-    end_date: date = pa.Field(nullable=False)
-    
+    start_date: date = pa.Field(nullable=False, coerce=True)
+    end_date: date = pa.Field(nullable=False, coerce=True)
+    count: int = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
+    count_error: int = pa.Field(nullable=True)
+
+    class Config:
+        strict = True    
+
     @pa.check("district_code")
     def district_code_correct_len(cls, district_code: Series[str]) -> Series[bool]:
         return district_code.str.len() == 5
@@ -33,3 +36,5 @@ class StudentCounts(pa.DataFrameModel):
     def building_code_not_zeros(cls, building_code: Series[str]) -> Series[bool]:
         return building_code != '00000'
 
+
+STUDENT_COUNTS_COLUMNS = list(StudentCounts.to_schema().columns)

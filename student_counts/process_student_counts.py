@@ -7,6 +7,6 @@ from load import load_student_counts
 
 logger = setup_logging()
 
-open_student_counts(logger) # -> ../../tmp/student_counts_working.csv
-transform_student_counts(logger) # -> ../../tmp/student_counts_working.parquet (includes geography)
-load_student_counts(logger) # ...student_counts_working.parquet -> database
+open_student_counts(logger)
+transform_student_counts(logger)
+load_student_counts(logger)

@@ -1,7 +1,5 @@
 {
     "renames": {
-        "SchoolYear": "school_year",
-        "ISDCode": "isd_code",
         "DistrictCode": "district_code",
         "BuildingCode": "building_code",
         "MALE_ENROLLMENT": "gender_male",
