@@ -71,9 +71,21 @@ You need to install the package itself as 'editable.'
 ```
 
 
-## Recoding Standards
+## Dataset Standards
 
-### Two-digit grade strings
+### Break out columns
+
+Take care when querying these datasets, because they often include break outs. These breakouts are handled by two columns typically, `report_category` and `report_subgroup`. The following are typical `report_category` values:
+
+- `total`
+- `grade`
+- `race`
+- `equity`
+- `gender`
+
+In the raw data the dataset total can live in various `report_category` columns -- no matter what category it comes in as, we set the `report_category` column to `total` and the `report_subgroup` column to `total`.
+
+#### Two-digit grade strings
 
 All grades should be represented as two digit strings. Sometimes these values are included in category breakouts (hence the string) where they are reported as two-digit strings. Even if the grade category does have other report groups on it, the 2-digit string standard should be followed.
 
