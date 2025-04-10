@@ -70,7 +70,14 @@ You need to install the package itself as 'editable.'
 > python ./eem_schools/2024/eem_schools_2024_etl.py
 ```
 
-## Order of operations
+
+## Recoding Standards
+
+### Two-digit grade strings
+
+All grades should be represented as two digit strings. Sometimes these values are included in category breakouts (hence the string) where they are reported as two-digit strings. Even if the grade category does have other report groups on it, the 2-digit string standard should be followed.
+
+## Release Dates
 
 ### Late summer
 - *are we able to get preview access?*
