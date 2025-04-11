@@ -1,0 +1,14 @@
+{
+    "renames": {
+        "DistrictCode": "district_code",
+        "BuildingCode": "building_code",
+        "ReportCategory": "report_category",
+        "StudentCount": "count",
+        "StudentCountStable": "count_stable",
+        "StudentCountMobile": "count_mobile",
+        "StudentCountIncoming": "count_incoming",
+        "MobilityRate": "mobility_rate"
+    },
+    "recodes": {
+    }
+}

@@ -1,9 +1,10 @@
 from datetime import date
+import pandas as pd
 import pandera as pa
 from pandera.typing import Series
 
 
-class StudentCounts(pa.DataFrameModel):
+class StudentMobility(pa.DataFrameModel):
     """
     The table for this needs to be replaced with the breakdowns avaialable from
     the full attendance file.
@@ -14,8 +15,11 @@ class StudentCounts(pa.DataFrameModel):
     report_subgroup: str = pa.Field(coerce=True)
     start_date: date = pa.Field(nullable=False, coerce=True)
     end_date: date = pa.Field(nullable=False, coerce=True)
-    count: int = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
-    count_error: int = pa.Field(nullable=True)
+    count: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
+    count_stable: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
+    count_mobile: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
+    count_incoming: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
+    mobility_rate: float = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
 
     class Config:
         strict = True    
@@ -37,4 +41,4 @@ class StudentCounts(pa.DataFrameModel):
         return building_code != '00000'
 
 
-STUDENT_COUNTS_COLUMNS = list(StudentCounts.to_schema().columns)
+STUDENT_MOBILITY_COLUMNS = list(StudentMobility.to_schema().columns)
