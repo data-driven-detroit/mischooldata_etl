@@ -25,15 +25,5 @@
             "Section 6(4) (d) non-special education juvenile detention": "non_spec_ed_juv_detention",
             "Emotionally impaired served by DCH": "emotionally_impaired_dch"
         }
-    },
-    "column_order": [
-        "operating_district_code",
-        "resident_district_code",
-        "grade_code",
-        "student_residency",
-        "student_count",
-        "student_fte_count",
-        "start_date",
-        "end_date"
-    ]
+    }
 }

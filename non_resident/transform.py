@@ -7,6 +7,7 @@ import datetime
 
 from schema import NON_RESIDENT_COLUMNS
 
+
 TODAY = datetime.date.today().strftime("%Y%m%d")
 WORKING_DIR = Path(__file__).parent
 
