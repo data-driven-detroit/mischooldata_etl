@@ -7,7 +7,10 @@ import tomli
 
 from inequalitytools.inequality import Supressed, Interval, Exact, LessThan
 
-with open(Path().cwd() / "config.toml", "rb") as f:
+
+BASE_DIR = Path(__file__).parent.parent
+
+with open(BASE_DIR / "config.toml", "rb") as f:
     config = tomli.load(f)
 
 
@@ -25,9 +28,10 @@ metadata_engine = create_engine(
 
 
 def setup_logging():
-    with open(Path.cwd() / "logging_config.json") as f:
+    with open(BASE_DIR / "logging_config.json") as f:
         logging_config = json.load(f)
 
+    logging_config["handlers"]["file"]["filename"] = str(BASE_DIR / "logs" / "mischooldata_etls.log") 
     logging.config.dictConfig(logging_config)
 
     return logging.getLogger(config["app"]["name"])

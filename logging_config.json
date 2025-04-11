@@ -17,7 +17,6 @@
             "class": "logging.handlers.RotatingFileHandler",
             "level": "DEBUG",
             "formatter": "simple",
-            "filename": "logs/mischooldata_etls.log",
             "maxBytes": 5000000,
             "backupCount": 5
         }

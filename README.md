@@ -89,6 +89,8 @@ In the raw data the dataset total can live in various `report_category` columns 
 
 All grades should be represented as two digit strings. Sometimes these values are included in category breakouts (hence the string) where they are reported as two-digit strings. Even if the grade category does have other report groups on it, the 2-digit string standard should be followed.
 
+Kindergarten is coded as `00`. Prekindergarten is `prek`.
+
 ## Release Dates
 
 ### Late summer
