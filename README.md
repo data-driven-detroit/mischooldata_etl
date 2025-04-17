@@ -61,13 +61,13 @@ pip install -r requirements.txt
 You need to install the package itself as 'editable.'
 
 ```bash
-> pip install -e .
+pip install -e .
 ```
 
 ## When running a file you have to run from the root file
 
 ```bash
-> python ./eem_schools/2024/eem_schools_2024_etl.py
+python ./eem_schools/2024/eem_schools_2024_etl.py
 ```
 
 
