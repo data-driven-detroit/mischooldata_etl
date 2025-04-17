@@ -2,7 +2,7 @@
     "renames": {
         "DistrictCode": "district_code",
         "BuildingCode": "building_code",
-        "ReportCategory": "report_category",
+        "ReportCategory": "report_category_orig",
         "StudentCount": "count",
         "StudentCountStable": "count_stable",
         "StudentCountMobile": "count_mobile",

@@ -1,0 +1,29 @@
+report_category_orig,report_category,report_subgroup
+All Students,total,all_students
+Male,gender,male
+Economically Disadvantaged,equity,economically_disadvantaged
+Female,gender,female
+Students with Disabilities,equity,students_with_disabilities
+"White, not of Hispanic origin",race,white
+"Black, not of Hispanic origin",race,black
+Hispanic,race,hispanic
+English Language Learners,equity,english_language_learners
+Asian,race,asian
+American Indian or Alaskan Native,race,american_indian
+Grade 2,grade,02
+Grade 4,grade,04
+Grade 3,grade,03
+Grade 1,grade,01
+Grade 5,grade,05
+Two or more races,race,two_or_more
+Kindergarten,grade,00
+Migrant,equity,migrant
+Grade 6,grade,06
+Grade 8,grade,08
+Grade 7,grade,07
+Grade 12,grade,12
+Grade 10,grade,10
+Grade 11,grade,11
+Grade 9,grade,09
+Native Hawaiian or Other Pacific Islander,race,hawaiian
+Ungraded,grade,ungraded

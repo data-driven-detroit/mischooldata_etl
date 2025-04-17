@@ -15,11 +15,14 @@ class StudentMobility(pa.DataFrameModel):
     report_subgroup: str = pa.Field(coerce=True)
     start_date: date = pa.Field(nullable=False, coerce=True)
     end_date: date = pa.Field(nullable=False, coerce=True)
-    count: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
-    count_stable: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
-    count_mobile: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
-    count_incoming: pd.Int46Dtype = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
-    mobility_rate: float = pa.Field(nullable=False) # these are covered by pd.Int64Dtype so no coerce
+    count: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
+    count_error: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
+    count_stable: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
+    count_stable_error: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
+    count_mobile: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
+    count_mobile_error: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
+    count_incoming: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
+    count_incoming_error: pd.Int64Dtype = pa.Field(nullable=False, coerce=True)
 
     class Config:
         strict = True    
