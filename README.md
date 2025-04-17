@@ -53,7 +53,7 @@ source env/bin/activate
 Once your environment is activated, from the project root folder, install requirements with
 
 ```shell
-pip install -r requrements.txt
+pip install -r requirements.txt
 ```
 
 ## IMPORTANT: Installing this package 
