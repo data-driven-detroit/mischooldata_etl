@@ -1,4 +1,3 @@
-
 from transform import transform_assessments
 from load import load_assessments
 
