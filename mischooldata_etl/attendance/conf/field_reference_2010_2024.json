@@ -1,0 +1,50 @@
+{
+    "in_types": {
+        "IsdCode": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    }, 
+    "renames": {
+        "IsdCode": "isd_code",
+        "DistrictCode": "district_code",
+        "BuildingCode": "building_code",
+        "ReportCategory": "report_category",
+        "ReportSubGroup": "report_sub_group",
+        "TotalStudents": "total_students",
+        "ChronicallyAbsentCount": "chronically_absent_count",
+        "NotChronicallyAbsentCount": "not_chronically_absent_count",
+        "AR_AllStudents": "ar_all_students",
+        "AR_ChronicallyAbsent": "ar_chronically_absent",
+        "AR_NotChronicallyAbsent": "ar_not_chronically_absent"
+    },
+    "out_types": {
+        "isd_code": "str",
+        "district_code": "str",
+        "building_code": "str"
+    }, 
+    "suppressed_cols": [
+        "total_students",
+        "chronically_absent_count",
+        "not_chronically_absent_count",
+        "ar_all_students",
+        "ar_chronically_absent",
+        "ar_not_chronically_absent"
+    ],
+    "stubnames": [
+    ],
+    "recodes": {},
+    "out_cols": [
+        "isd_code",
+        "district_code",
+        "building_code",
+        "report_category",
+        "report_sub_group",
+        "total_students",
+        "chronically_absent_count",
+        "not_chronically_absent_count",
+        "ar_all_students",
+        "ar_chronically_absent",
+        "ar_not_chronically_absent"
+    ]
+}
+

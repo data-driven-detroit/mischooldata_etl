@@ -36,11 +36,11 @@ def load_attendance():
             portion["test_population"] = portion["test_population"].fillna("NA")
 
             portion.to_sql( 
-                "assessments", db, schema="education", if_exists=if_exists, index=False
+                "attendance", db, schema="education", if_exists=if_exists, index=False
             )
             if_exists = "append"
 
 
 if __name__ == "__main__":
-    load_assessments()
+    load_attendance()
 
