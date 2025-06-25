@@ -1,8 +1,7 @@
+from transform import transform_college_readiness
+from load import load_college_readiness
 
-from transform import transform_attendance
-from load import load_attendance
 
-
-transform_attendance()
-load_attendance()
+transform_college_readiness()
+load_college_readiness()
 
