@@ -30,7 +30,7 @@ def apply_padding(frame):
     return frame
 
 
-def transform_assessments():
+def transform_attendance():
     output_dir = WORKING_DIR / "output" / "combined_years.csv" 
     if output_dir.exists():
         print("Files already compiled. To rerun complication script delete 'output/combined_years.csv'")
@@ -63,4 +63,4 @@ def transform_assessments():
 
 
 if __name__ == "__main__":
-    transform_assessments()
+    transform_attendance()
