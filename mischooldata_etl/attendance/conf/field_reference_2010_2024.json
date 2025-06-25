@@ -40,11 +40,17 @@
         "report_category",
         "report_sub_group",
         "total_students",
+        "total_students_error",
         "chronically_absent_count",
+        "chronically_absent_count_error",
         "not_chronically_absent_count",
+        "not_chronically_absent_count_error",
         "ar_all_students",
+        "ar_all_students_error",
         "ar_chronically_absent",
+        "ar_chronically_absent_error",
         "ar_not_chronically_absent",
+        "ar_not_chronically_absent_error"
         "start_date",
         "end_date"
     ]
