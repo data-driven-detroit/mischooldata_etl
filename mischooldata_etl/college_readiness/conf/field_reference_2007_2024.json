@@ -26,10 +26,13 @@
     }, 
     "suppressed_cols": [
         "math_num_assessed",
+        "math_score_average",
         "math_count_ready",
         "all_subject_num_assessed",
+        "all_subject_score_average",
         "all_count_ready",
         "ebrw_num_assessed",
+        "ebrw_score_average",
         "ebrw_count_ready"
     ],
     "stubnames": [
