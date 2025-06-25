@@ -1,16 +1,19 @@
 year,start_date,end_date,field_reference_file,source_file
-2010,2009-07-01,2010-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2010/Raw/attendance_2010.csv
-2011,2010-07-01,2011-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2011/Raw/attendance_2011.csv
-2012,2011-07-01,2012-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2012/Raw/attendance_2012.csv
-2013,2012-07-01,2013-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2013/Raw/attendance_2013.csv
-2014,2013-07-01,2014-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2014/Raw/attendance_2014.csv
-2015,2014-07-01,2015-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2015/Raw/attendance_2015.csv
-2016,2015-07-01,2016-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2016/Raw/attendance_2016.csv
-2017,2016-07-01,2017-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2017/Raw/attendance_2017.csv
-2018,2017-07-01,2018-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2018/Raw/attendance_2018.csv
-2019,2018-07-01,2019-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2019/Raw/attendance_2019.csv
-2020,2019-07-01,2020-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2020/Raw/attendance_2020.csv
-2021,2020-07-01,2021-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2021/Raw/attendance_2021.csv
-2022,2021-07-01,2022-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2022/Raw/attendance_2022.csv
-2023,2022-07-01,2023-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2023/Raw/attendance_2023.csv
-2024,2023-07-01,2024-06-30,field_reference_2010_2024.json,/home/mistress/vault/DATA/Education/Chronic absentee/Data/2024/Raw/attendance_2024.csv
+2007,2006-07-01,2007-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2007/Raw/college_readiness_2007.csv
+2008,2007-07-01,2008-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2008/Raw/college_readiness_2008.csv
+2009,2008-07-01,2009-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2009/Raw/college_readiness_2009.csv
+2010,2009-07-01,2010-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2010/Raw/college_readiness_2010.csv
+2011,2010-07-01,2011-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2011/Raw/college_readiness_2011.csv
+2012,2011-07-01,2012-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2012/Raw/college_readiness_2012.csv
+2013,2012-07-01,2013-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2013/Raw/college_readiness_2013.csv
+2014,2013-07-01,2014-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2014/Raw/college_readiness_2014.csv
+2015,2014-07-01,2015-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2015/Raw/college_readiness_2015.csv
+2016,2015-07-01,2016-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2016/Raw/college_readiness_2016.csv
+2017,2016-07-01,2017-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2017/Raw/college_readiness_2017.csv
+2018,2017-07-01,2018-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2018/Raw/college_readiness_2018.csv
+2019,2018-07-01,2019-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2019/Raw/college_readiness_2019.csv
+2020,2019-07-01,2020-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2020/Raw/college_readiness_2020.csv
+2021,2020-07-01,2021-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2021/Raw/college_readiness_2021.csv
+2022,2021-07-01,2022-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2022/Raw/college_readiness_2022.csv
+2023,2022-07-01,2023-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2023/Raw/college_readiness_2023.csv
+2024,2023-07-01,2024-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education//Eleventh grade SAT/Data/2024/Raw/college_readiness_2024.csv
