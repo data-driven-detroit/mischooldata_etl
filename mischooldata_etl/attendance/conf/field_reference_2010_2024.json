@@ -50,7 +50,7 @@
         "ar_chronically_absent",
         "ar_chronically_absent_error",
         "ar_not_chronically_absent",
-        "ar_not_chronically_absent_error"
+        "ar_not_chronically_absent_error",
         "start_date",
         "end_date"
     ]
