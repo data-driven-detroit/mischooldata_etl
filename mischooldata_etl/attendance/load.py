@@ -33,8 +33,6 @@ def load_attendance():
         ), start=1): 
             print(f"Loading chunk {i} into database.")
 
-            portion["test_population"] = portion["test_population"].fillna("NA")
-
             portion.to_sql( 
                 "attendance", db, schema="education", if_exists=if_exists, index=False
             )
