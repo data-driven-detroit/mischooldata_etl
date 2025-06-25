@@ -26,13 +26,10 @@
     }, 
     "suppressed_cols": [
         "math_num_assessed",
-        "math_score_average",
         "math_count_ready",
         "all_subject_num_assessed",
-        "all_subject_score_average",
         "all_count_ready",
         "ebrw_num_assessed",
-        "ebrw_score_average",
         "ebrw_count_ready"
     ],
     "stubnames": [
@@ -48,19 +45,16 @@
         "all_count_ready",
         "all_count_ready_error",
         "all_subject_score_average",
-        "all_subject_score_average_error",
         "ebrw_num_assessed",
         "ebrw_num_assessed_error",
         "ebrw_count_ready",
         "ebrw_count_ready_error",
         "ebrw_score_average",
-        "ebrw_score_average_error",
         "math_num_assessed",
         "math_num_assessed_error",
         "math_count_ready",
         "math_count_ready_error",
         "math_score_average",
-        "math_score_average_error",
         "start_date",
         "end_date"
     ]
