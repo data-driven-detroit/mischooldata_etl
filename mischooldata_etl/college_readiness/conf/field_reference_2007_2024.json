@@ -52,8 +52,8 @@
         "all_subject_score_average_error",
         "ebrw_num_assessed",
         "ebrw_num_assessed_error",
-        "ebrw_count_ready"
-        "ebrw_count_ready_error"
+        "ebrw_count_ready",
+        "ebrw_count_ready_error",
         "ebrw_score_average",
         "ebrw_score_average_error",
         "math_num_assessed",
