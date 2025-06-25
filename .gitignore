@@ -20,3 +20,5 @@ config.toml
 # csvs and json files in conf dirs is OK
 !**/conf/*.json
 !**/conf/*.csv
+
+*.egg-info

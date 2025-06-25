@@ -23,7 +23,19 @@ def transform_process(frame, field_reference):
     return frame
 
 
+def apply_padding(frame):
+    for col, padding in [("isd_code", 2), ("district_code", 5), ("building_code", 5)]:
+        frame[col] = frame[col].str.zfill(padding)
+
+    return frame
+
+
 def transform_assessments():
+    output_dir = WORKING_DIR / "output" / "combined_years.csv" 
+    if output_dir.exists():
+        print("Files already compiled. To rerun complication script delete 'output/combined_years.csv'")
+        return
+
     dataset_years = pd.read_csv(WORKING_DIR / "conf" / "dataset_years.csv")
     
     mode, header = "w", True
@@ -42,14 +54,11 @@ def transform_assessments():
             )
             .rename(columns=field_reference["renames"])
             .pipe(lambda frame: transform_process(frame, field_reference))
+            .pipe(apply_padding)
             .assign(start_date=year["start_date"], end_date=year["end_date"])
         )[field_reference["out_cols"]]
 
-        frame.to_csv(
-            WORKING_DIR / "output" / "combined_years.csv", 
-            mode=mode,
-            header=header,
-        )
+        frame.to_csv(output_dir, mode=mode, header=header, index=False)
         mode, header = "a", False # Append all but the first
 
 

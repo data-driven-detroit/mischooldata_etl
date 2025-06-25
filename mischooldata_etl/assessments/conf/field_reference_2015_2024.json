@@ -33,6 +33,12 @@
         "ScaleScore50": "scale_score_50",
         "ScaleScore75": "scale_score_75"
     },
+    "out_types": {
+        "isd_code": "str",
+        "district_code": "str",
+        "building_code": "str",
+        "test_population": "str"
+    }, 
     "suppressed_cols": [
         "total_advanced",
         "total_proficient",
