@@ -25,7 +25,7 @@ def transform_process(frame, field_reference):
 
 def apply_padding(frame):
     for col, padding in [("isd_code", 2), ("district_code", 5), ("building_code", 5)]:
-        frame[col] = frame[col].str.zfill(padding)
+        frame[col] = frame[col].astype(int).astype(str).str.zfill(padding)
 
     return frame
 
