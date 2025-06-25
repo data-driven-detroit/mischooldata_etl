@@ -1,8 +1,8 @@
 
-from transform import transform_assessments
-from load import load_assessments
+from transform import transform_attendance
+from load import load_attendance
 
 
-transform_assessments()
-load_assessments()
+transform_attendance()
+load_attendance()
 

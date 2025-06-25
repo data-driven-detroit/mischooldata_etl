@@ -19,7 +19,7 @@ db_engine = create_engine(
 )
 
 
-def load_assessments():
+def load_attendance():
     field_reference = json.loads(
         (WORKING_DIR / "conf" / "field_reference_2015_2024.json").read_text()
     )
