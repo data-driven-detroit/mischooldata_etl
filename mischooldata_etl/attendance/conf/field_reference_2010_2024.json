@@ -44,7 +44,7 @@
         "not_chronically_absent_count",
         "ar_all_students",
         "ar_chronically_absent",
-        "ar_not_chronically_absent"
+        "ar_not_chronically_absent",
         "start_date",
         "end_date"
     ]
