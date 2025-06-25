@@ -86,7 +86,7 @@
         "scale_score_50",
         "scale_score_50_error",
         "scale_score_75",
-        "scale_score_75_error"
+        "scale_score_75_error",
         "std_dev_scale_score",
         "std_dev_scale_score_error",
         "total_advanced",
