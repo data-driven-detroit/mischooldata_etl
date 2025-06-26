@@ -1,0 +1,68 @@
+{
+    "in_types": {
+        "IsdCode": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    }, 
+    "renames": {
+        "ISD Code": "isd_code",
+        "DistrictCode": "district_code",
+        "BuildingCode": "building_code",
+        "Gender": "gender",
+        "Total Graduates (All Students)": "total_graduates",
+        "Total Enrolled in an IHE within 0-6 months": "enrolled_within_6_mos",
+        "Total Enrolled in an IHE within 0-12 months": "enrolled_within_12_mos",
+        "Total Enrolled in an IHE within 0-16 months": "enrolled_within_16_mos",
+        "Total Enrolled in an IHE within 0-24 months": "enrolled_within_24_mos",
+        "Total Enrolled in an IHE within 0-36 months": "enrolled_within_36_mos",
+        "Total Enrolled in an IHE within 0-48 months": "enrolled_within_48_mos",
+        "Total Accumulating 24 Credits within 0-12 months": "acc_24_credits_12_mos",
+        "Total Accumulating 24 Credits within 0-16 months": "acc_24_credits_16_mos",
+        "Total Accumulating 24 Credits within 0-24 months": "acc_24_credits_24_mos",
+        "Total Accumulating 24 Credits within 0-36 months": "acc_24_credits_36_mos",
+        "Total Accumulating 24 Credits within 0-48 months": "acc_24_credits_48_mos"
+    },
+    "out_types": {
+        "isd_code": "str",
+        "district_code": "str",
+        "building_code": "str"
+    }, 
+    "suppressed_cols": [
+        "total_graduates",
+        "enrolled_within_6_mos",
+        "enrolled_within_12_mos",
+        "enrolled_within_16_mos",
+        "enrolled_within_24_mos",
+        "enrolled_within_36_mos",
+        "enrolled_within_48_mos",
+        "acc_24_credits_12_mos",
+        "acc_24_credits_16_mos",
+        "acc_24_credits_24_mos",
+        "acc_24_credits_36_mos",
+        "acc_24_credits_48_mos"
+    ],
+    "stubnames": [
+    ],
+    "recodes": {},
+    "out_cols": [
+        "isd_code",
+        "district_code",
+        "building_code",
+        "total_graduates",
+        "enrolled_within_6_mos",
+        "enrolled_within_12_mos",
+        "enrolled_within_16_mos",
+        "enrolled_within_24_mos",
+        "enrolled_within_36_mos",
+        "enrolled_within_48_mos",
+        "acc_24_credits_12_mos",
+        "acc_24_credits_16_mos",
+        "acc_24_credits_24_mos",
+        "acc_24_credits_36_mos",
+        "acc_24_credits_48_mos",
+        "start_date",
+        "end_date"
+    ]
+}
+
+
