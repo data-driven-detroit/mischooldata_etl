@@ -1,6 +1,6 @@
 {
     "in_types": {
-        "IsdCode": "str",
+        "ISD Code": "str",
         "DistrictCode": "str",
         "BuildingCode": "str"
     }, 
