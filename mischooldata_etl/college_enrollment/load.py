@@ -6,7 +6,7 @@ import tomli
 
 
 WORKING_DIR = Path(__file__).parent
-BASE_DIR = Path(__file__).parent.parent.parent
+BASE_DIR = Path(__file__).parent.parent
 
 with open(BASE_DIR / "config.toml", "rb") as f:
     config = tomli.load(f)
