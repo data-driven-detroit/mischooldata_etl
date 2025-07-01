@@ -19,7 +19,7 @@ db_engine = create_engine(
 )
 
 
-def load_college_enrollment():
+def load_grad_dropout():
     field_reference = json.loads(
         (WORKING_DIR / "conf" / "field_reference_2016_2024.json").read_text()
     )

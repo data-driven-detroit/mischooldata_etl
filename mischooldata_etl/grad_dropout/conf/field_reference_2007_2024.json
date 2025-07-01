@@ -1,0 +1,54 @@
+{
+    "in_types": {
+        "ISD Code": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    }, 
+    "renames": {
+        "IsdCode": "isd_code",
+        "DistrictCode": "district_code",
+        "BuildingCode": "building_code",
+        "CohortYear": "cohort_year",
+        "RateYear": "rate_year",
+        "Subgroup": "subgroup",
+        "Crosstabs": "crosstabs",
+        "CohortCount": "cohort_count",
+        "OnTrackGraduatedCount": "on_track_graduated_count",
+        "DropoutCount": "dropout_count",
+        "OffTrackContinuingCount": "off_track_continuing_count",
+        "OtherCompleterCount": "other_completer_count"
+    },
+    "out_types": {
+        "isd_code": "str",
+        "district_code": "str",
+        "building_code": "str"
+    }, 
+    "suppressed_cols": [
+        "cohort_count",
+        "on_track_graduated_count",
+        "dropout_count",
+        "off_track_continuing_count",
+        "other_completer_count"
+    ],
+    "stubnames": [
+    ],
+    "recodes": {},
+    "out_cols": [
+        "isd_code",
+        "district_code",
+        "building_code",
+        "cohort_year",
+        "rate_year",
+        "subgroup",
+        "crosstabs",
+        "cohort_count",
+        "on_track_graduated_count",
+        "dropout_count",
+        "off_track_continuing_count",
+        "other_completer_count"
+        "start_date",
+        "end_date"
+    ]
+}
+
+
