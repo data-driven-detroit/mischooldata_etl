@@ -1,0 +1,68 @@
+{
+    "in_types": {
+        "IsdCode": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    }, 
+    "renames": {
+        "ISDCode": "isd_code",
+        "ISDName": "isd_name",
+        "DistrictCode": "district_code",
+        "DistrictName": "district_name",
+        "BuildingCode": "building_code",
+        "BuildingName": "building_name",
+        "COUNTY_CODE": "county_code",
+        "COUNTY_NAME": "county_name",
+        "EntityType": "entity_type",
+        "SCHOOL_LEVEL": "school_level",
+        "LOCALE_NAME": "locale_name",
+        "SCHOOL_EMPHASIS": "school_emphasis",
+        "SETTING": "setting",
+        "EMAIL_ADDRESS": "email_address",
+        "PhoneNumber": "phone_number",
+        "ADDRESS_LINE_1": "address",
+        "CITY": "city",
+        "STATE": "state",
+        "ZIP_CODE": "zip_code",
+        "SCHOOL_TYPE": "school_type",
+        "Status": "status"
+    },
+    "out_types": {
+        "isd_code": "str",
+        "district_code": "str",
+        "building_code": "str",
+         "county_code": "str"
+    }, 
+    "suppressed_cols": [
+    ],
+    "stubnames": [
+    ],
+    "recodes": {},
+    "out_cols": [
+        "isd_code",
+        "isd_name",
+        "district_code",
+        "district_name",
+        "building_code",
+        "building_name",
+        "county_code",
+        "county_name",
+        "entity_type",
+        "school_level",
+        "locale_name",
+        "school_emphasis",
+        "setting",
+        "email_address",
+        "phone_number",
+        "address",
+        "city",
+        "state",
+        "zip_code",
+        "school_type",
+        "status",
+        "start_date",
+        "end_date"
+    ]
+}
+
+

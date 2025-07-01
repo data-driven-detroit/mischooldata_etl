@@ -19,7 +19,7 @@ db_engine = create_engine(
 )
 
 
-def load_grad_dropout():
+def load_eem():
     field_reference = json.loads(
         (WORKING_DIR / "conf" / "field_reference_2007_2024.json").read_text()
     )
@@ -34,10 +34,10 @@ def load_grad_dropout():
             print(f"Loading chunk {i} into database.")
 
             portion.to_sql( 
-                "grad_dropout", db, schema="education", if_exists=if_exists, index=False
+                "eem", db, schema="education", if_exists=if_exists, index=False
             )
             if_exists = "append"
 
 
 if __name__ == "__main__":
-    load_grad_dropout()
+    load_eem()

@@ -30,7 +30,7 @@ def apply_padding(frame):
     return frame
 
 
-def transform_grad_dropout():
+def transform_eem():
     output_dir = WORKING_DIR / "output" / "combined_years.csv" 
     if output_dir.exists():
         print("Files already compiled. To rerun complication script delete 'output/combined_years.csv'")
@@ -63,4 +63,4 @@ def transform_grad_dropout():
 
 
 if __name__ == "__main__":
-    transform_grad_dropout()
+    transform_eem()
