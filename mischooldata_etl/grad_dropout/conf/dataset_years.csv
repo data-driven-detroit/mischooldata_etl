@@ -12,7 +12,7 @@ year,start_date,end_date,field_reference_file,source_file
 2017,2016-07-01,2017-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2017/Raw/grad_drop_out_2017.csv
 2018,2017-07-01,2018-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2018/Raw/grad_drop_out_2018.csv
 2019,2018-07-01,2019-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2019/Raw/grad_drop_out_2019.csv
-2020,2019-07-01,2020-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2020/Raw/grad_drop_out_2020.csv
+2020,2019-07-01,2020-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2020/Raw/graduation_dropout_2020.csv
 2021,2020-07-01,2021-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2021/Raw/grad_drop_out_2021.csv
 2022,2021-07-01,2022-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2022/Raw/grad_drop_out_2022.csv
 2023,2022-07-01,2023-06-30,field_reference_2007_2024.json,/home/mistress/vault/DATA/Education/Graduation and drop outs/Data/2023/Raw/grad_drop_out_2023.csv
