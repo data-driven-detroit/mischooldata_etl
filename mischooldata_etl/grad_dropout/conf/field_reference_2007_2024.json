@@ -42,10 +42,15 @@
         "subgroup",
         "crosstabs",
         "cohort_count",
-        "on_track_graduated_count",
+        "cohort_count_error",
         "dropout_count",
+        "dropout_count_error",
+        "on_track_graduated_count",
+        "on_track_graduated_count_error",
         "off_track_continuing_count",
+        "off_track_continuing_count_error",
         "other_completer_count",
+        "other_completer_count_error",
         "start_date",
         "end_date"
     ]
