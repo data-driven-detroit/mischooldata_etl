@@ -38,6 +38,7 @@
         "isd_code",
         "district_code",
         "building_code",
+        "building_name",
         "cohort_year",
         "rate_year",
         "subgroup",
