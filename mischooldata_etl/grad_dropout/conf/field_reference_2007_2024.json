@@ -8,6 +8,7 @@
         "IsdCode": "isd_code",
         "DistrictCode": "district_code",
         "BuildingCode": "building_code",
+        "BuildingName": "building_name", 
         "CohortYear": "cohort_year",
         "RateYear": "rate_year",
         "Subgroup": "subgroup",
