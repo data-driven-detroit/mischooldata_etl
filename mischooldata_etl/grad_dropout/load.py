@@ -21,7 +21,7 @@ db_engine = create_engine(
 
 def load_grad_dropout():
     field_reference = json.loads(
-        (WORKING_DIR / "conf" / "field_reference_2016_2024.json").read_text()
+        (WORKING_DIR / "conf" / "field_reference_2007_2024.json").read_text()
     )
 
     with db_engine.connect() as db:
@@ -34,7 +34,7 @@ def load_grad_dropout():
             print(f"Loading chunk {i} into database.")
 
             portion.to_sql( 
-                "attendance", db, schema="education", if_exists=if_exists, index=False
+                "grad_dropout", db, schema="education", if_exists=if_exists, index=False
             )
             if_exists = "append"
 
