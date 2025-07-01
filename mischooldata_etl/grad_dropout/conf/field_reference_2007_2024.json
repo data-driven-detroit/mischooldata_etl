@@ -45,7 +45,7 @@
         "on_track_graduated_count",
         "dropout_count",
         "off_track_continuing_count",
-        "other_completer_count"
+        "other_completer_count",
         "start_date",
         "end_date"
     ]
