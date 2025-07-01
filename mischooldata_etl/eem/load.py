@@ -21,7 +21,7 @@ db_engine = create_engine(
 
 def load_eem():
     field_reference = json.loads(
-        (WORKING_DIR / "conf" / "field_reference_2007_2024.json").read_text()
+        (WORKING_DIR / "conf" / "field_reference_2010_2025.json").read_text()
     )
 
     with db_engine.connect() as db:
