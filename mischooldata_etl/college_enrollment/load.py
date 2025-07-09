@@ -34,7 +34,7 @@ def load_college_enrollment():
             print(f"Loading chunk {i} into database.")
 
             portion.to_sql( 
-                "attendance", db, schema="education", if_exists=if_exists, index=False
+                "college_enrollment", db, schema="education", if_exists=if_exists, index=False
             )
             if_exists = "append"
 
