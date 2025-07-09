@@ -2,7 +2,7 @@
     "in_types": {
         "ISD Code": "str",
         "DistrictCode": "str",
-        "BuildingCode": "str"
+        "ONSR": "str"
     }, 
     "renames": {
         "ISD Code": "isd_code",
@@ -21,6 +21,7 @@
     "out_types": {
         "isd_code": "str",
         "district_code": "str"
+        "onsr": "str"
     }, 
     "suppressed_cols": [
     ],
