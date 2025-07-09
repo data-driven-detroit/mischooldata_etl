@@ -7,8 +7,6 @@
     "renames": {
         "ISD Code": "isd_code",
         "DistrictCode": "district_code",
-        "ONSR": "onsr",
-        "ONSR Name": "onsr_name",
         "EntityType": "entity_type",
         "SchoolLevel": "school_level",
         "Locale": "locale",
@@ -31,8 +29,6 @@
     "out_cols": [
         "isd_code",
         "district_code",
-        "onsr",
-        "onsr_name",
         "entity_type",
         "school_level",
         "locale",
