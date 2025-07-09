@@ -21,7 +21,7 @@ db_engine = create_engine(
 
 def load_early_childhood():
     field_reference = json.loads(
-        (WORKING_DIR / "conf" / "field_reference_2010_2024.json").read_text()
+        (WORKING_DIR / "conf" / "field_reference_2012_2024.json").read_text()
     )
 
     with db_engine.connect() as db:
