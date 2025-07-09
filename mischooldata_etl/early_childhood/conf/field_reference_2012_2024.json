@@ -2,11 +2,14 @@
     "in_types": {
         "ISD Code": "str",
         "DistrictCode": "str",
-        "ONSR": "str"
+        "ONSR": "str",
+        "ONSR Name": "str"
     }, 
     "renames": {
         "ISD Code": "isd_code",
         "DistrictCode": "district_code",
+        "ONSR": "onsr",
+        "ONSR Name": "onsr_name",
         "EntityType": "entity_type",
         "SchoolLevel": "school_level",
         "Locale": "locale",
@@ -19,7 +22,8 @@
     "out_types": {
         "isd_code": "str",
         "district_code": "str",
-        "onsr": "str"
+        "onsr": "str",
+        "onsr_name": "str"
     }, 
     "suppressed_cols": [
     ],
