@@ -1,0 +1,48 @@
+{
+    "in_types": {
+        "ISD Code": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    }, 
+    "renames": {
+        "ISD Code": "isd_code",
+        "DistrictCode": "district_code",
+        "ONSR": "onsr",
+        "ONSR Name": "onsr_name",
+        "EntityType": "entity_type",
+        "SchoolLevel": "school_level",
+        "Locale": "locale",
+        "PROGRAM": "program",
+        "ETHNICITY": "ethnicity",
+        "TESTING_GROUP": "testing_group",
+        "COUNT": "count",
+        "PERCENT": "percent"
+    },
+    "out_types": {
+        "isd_code": "str",
+        "district_code": "str"
+    }, 
+    "suppressed_cols": [
+    ],
+    "stubnames": [
+    ],
+    "recodes": {},
+    "out_cols": [
+        "isd_code",
+        "district_code",
+        "onsr",
+        "onsr_name",
+        "entity_type",
+        "school_level",
+        "locale",
+        "program",
+        "ethnicity",
+        "testing_group",
+        "count",
+        "percent",
+        "start_date",
+        "end_date"
+    ]
+}
+
+
