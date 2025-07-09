@@ -20,7 +20,7 @@
     },
     "out_types": {
         "isd_code": "str",
-        "district_code": "str"
+        "district_code": "str",
         "onsr": "str"
     }, 
     "suppressed_cols": [
