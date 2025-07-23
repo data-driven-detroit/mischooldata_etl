@@ -1,0 +1,47 @@
+column_name,data_type,required,default_value,description
+isd_code,str,true,,Intermediate School District Code
+district_code,str,true,,District Code
+building_code,str,true,,Building Code
+test_type,str,true,,Type of test administered
+test_population,str,true,NA,Population taking the test
+grade_content_tested,str,true,,Grade and content area tested
+subject,str,true,,Subject area
+report_category,str,true,,Reporting category
+avg_scale_score,float,false,,Average scale score
+avg_scale_score_error,str,false,,Error flag for average scale score
+max_scale_score,float,false,,Maximum scale score
+max_scale_score_error,str,false,,Error flag for maximum scale score
+mean_pts_earned,float,false,,Mean points earned
+mean_pts_earned_error,str,false,,Error flag for mean points earned
+min_scale_score,float,false,,Minimum scale score
+min_scale_score_error,str,false,,Error flag for minimum scale score
+number_assessed,int,false,,Number of students assessed
+number_assessed_error,str,false,,Error flag for number assessed
+scale_score_25,float,false,,25th percentile scale score
+scale_score_25_error,str,false,,Error flag for 25th percentile
+scale_score_50,float,false,,50th percentile scale score
+scale_score_50_error,str,false,,Error flag for 50th percentile
+scale_score_75,float,false,,75th percentile scale score
+scale_score_75_error,str,false,,Error flag for 75th percentile
+std_dev_scale_score,float,false,,Standard deviation of scale scores
+std_dev_scale_score_error,str,false,,Error flag for standard deviation
+total_advanced,int,false,,Total students at advanced level
+total_advanced_error,str,false,,Error flag for advanced count
+total_attained,int,false,,Total students who attained proficiency
+total_attained_error,str,false,,Error flag for attained count
+total_did_not_meet,int,false,,Total students who did not meet standards
+total_did_not_meet_error,str,false,,Error flag for did not meet count
+total_emerging_towards,int,false,,Total students emerging towards proficiency
+total_emerging_towards_error,str,false,,Error flag for emerging count
+total_met,int,false,,Total students who met standards
+total_met_error,str,false,,Error flag for met count
+total_not_proficient,int,false,,Total students not proficient
+total_not_proficient_error,str,false,,Error flag for not proficient count
+total_partially_proficient,int,false,,Total students partially proficient
+total_partially_proficient_error,str,false,,Error flag for partially proficient count
+total_proficient,int,false,,Total students proficient
+total_proficient_error,str,false,,Error flag for proficient count
+total_surpassed,int,false,,Total students who surpassed standards
+total_surpassed_error,str,false,,Error flag for surpassed count
+start_date,str,true,,Academic year start date
+end_date,str,true,,Academic year end date
