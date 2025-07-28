@@ -8,6 +8,13 @@ WORKING_DIR = Path(__file__).parent
 
 
 def geocode_schools():
+    output_file = WORKING_DIR / "output" / "geocoded_schools.geojson"
+    
+    if output_file.exists():
+        print("Geocoded file already completed at {str(output_file}. Delete this "
+              "if you'd like to re-run the geocode.")
+        return
+
     field_reference = json.loads(
         (WORKING_DIR / "conf" / "field_reference_2010_2025.json").read_text()
     )
@@ -31,5 +38,5 @@ def geocode_schools():
     geocoded = pd.concat(result)
     geocoded.rename({
         "id": "building_code" # put this back to the original name
-    }).to_file(WORKING_DIR / "output" / "geocoded_schools.geojson")
+    }).to_file()
 
