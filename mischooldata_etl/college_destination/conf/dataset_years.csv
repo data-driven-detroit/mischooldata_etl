@@ -1,0 +1,2 @@
+year,start_date,end_date,field_reference_file,source_file
+2024,2023-07-01,2024-06-30,field_reference_2010_2025.json,/path/to/data/college_destination_2024.csv
