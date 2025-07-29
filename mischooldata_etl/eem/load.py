@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import pandas as pd
+import geopandas as gpd
 from sqlalchemy import create_engine
 import tomli
 
@@ -31,10 +32,34 @@ def load_eem():
             chunksize=20_000,
             dtype=field_reference["out_types"],
         ), start=1): 
-            print(f"Loading chunk {i} into database.")
+            print(f"Loading chunk {i} into database")
 
             portion.to_sql( 
                 "eem", db, schema="education", if_exists=if_exists, index=False
+            )
+            if_exists = "append"
+
+
+def load_school_geocode():
+    with db_engine.connect() as db:
+        if_exists = "replace"
+        for i, portion in enumerate(gpd.read_file(
+            WORKING_DIR / "output" / "geocoded_schools.geojson",
+            chunksize=10_000, # I don't actually know if this works.
+            dtype={
+                "building_code": "str",
+                "state": "str",
+                "county": "str",
+                "tract": "str",
+                "block": "str",
+                "start_date": pd.DatetimeTZDtype(),
+                "end_date": pd.DatetimeTZDtype(),
+            }
+        )):
+            print(f"Loading chunk {i} into database")
+
+            portion.to_sql( 
+                "school_geocodes", db, schema="education", if_exists=if_exists, index=False
             )
             if_exists = "append"
 
