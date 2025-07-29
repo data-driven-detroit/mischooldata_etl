@@ -42,10 +42,8 @@ def load_eem():
 
 def load_school_geocode():
     with db_engine.connect() as db:
-        if_exists = "replace"
-        for i, portion in enumerate(gpd.read_file(
+        frame = gpd.read_file(
             WORKING_DIR / "output" / "geocoded_schools.geojson",
-            chunksize=10_000, # I don't actually know if this works.
             dtype={
                 "building_code": "str",
                 "state": "str",
@@ -54,13 +52,11 @@ def load_school_geocode():
                 "block": "str",
             },
             parse_dates=True
-        )):
-            print(f"Loading chunk {i} into database")
+        )
 
-            portion.to_sql( 
-                "school_geocodes", db, schema="education", if_exists=if_exists, index=False
-            )
-            if_exists = "append"
+        frame.to_postgis( 
+            "school_geocodes", db, schema="education", if_exists="replace", index=False
+        )
 
 
 if __name__ == "__main__":
