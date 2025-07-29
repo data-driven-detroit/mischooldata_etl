@@ -63,5 +63,5 @@ def geocode_schools():
         result.append(dated)
     
     collected = pd.concat(result)
-    gdf = gpd.GeoDataFrame(collected, geometry="geometry")
+    gdf = gpd.GeoDataFrame(collected, geometry=gpd.points_from_xy(collected["longitude"], collected["latitude"]))
     gdf.to_file(output_file, index=False)
