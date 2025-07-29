@@ -44,6 +44,16 @@ def load_school_geocode():
     with db_engine.connect() as db:
         frame = gpd.read_file(
             WORKING_DIR / "output" / "geocoded_schools.geojson",
+            dtype={
+            }
+        ).astype(
+            {
+                "building_code": pd.Int64Dtype(),
+                "state": pd.Int64Dtype(),
+                "county": pd.Int64Dtype(),
+                "tract": pd.Int64Dtype(),
+                "block": pd.Int64Dtype(),
+            },
         ).astype(
             {
                 "building_code": "str",
