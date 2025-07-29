@@ -57,7 +57,7 @@ def geocode_schools():
         dated = (
             chunk[[ID_COLUMN, "start_date", "end_date"]]
             .merge(geocoded.rename(columns={"id": ID_COLUMN}),  on=ID_COLUMN)
-            [ID_COLUMN, geocoded.drop("id"), "start_date", "end_date"]
+            [ID_COLUMN, geocoded.columns.drop("id"), "start_date", "end_date"]
         )
         
         result.append(dated)
