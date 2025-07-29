@@ -44,7 +44,8 @@ def load_school_geocode():
     with db_engine.connect() as db:
         frame = gpd.read_file(
             WORKING_DIR / "output" / "geocoded_schools.geojson",
-            dtype={
+        ).astype(
+            {
                 "building_code": "str",
                 "state": "str",
                 "county": "str",
@@ -54,16 +55,17 @@ def load_school_geocode():
         )
 
         frame["building_code"] = frame["building_code"].str.zfill(5)
-        frame["state"] = frame["building_code"].str.zfill(2)
-        frame["county"] = frame["building_code"].str.zfill(3)
-        frame["tract"] = frame["building_code"].str.zfill(6)
-        frame["block"] = frame["building_code"].str.zfill(4)
+        frame["state"] = frame["state"].str.zfill(2)
+        frame["county"] = frame["county"].str.zfill(3)
+        frame["tract"] = frame["tract"].str.zfill(6)
+        frame["block"] = frame["block"].str.zfill(4)
 
         frame["start_date"] = pd.to_datetime(frame["start_date"]).dt.date
         frame["end_date"] = pd.to_datetime(frame["end_date"]).dt.date
 
         frame.to_postgis( 
-            "school_geocodes", db, schema="education", if_exists="replace", index=False
+            "school_geocodes", db, schema="education", if_exists="replace", 
+             index=False
         )
 
 
