@@ -52,9 +52,8 @@ def load_school_geocode():
                 "county": "str",
                 "tract": "str",
                 "block": "str",
-                "start_date": pd.DatetimeTZDtype(),
-                "end_date": pd.DatetimeTZDtype(),
-            }
+            },
+            parse_dates=True
         )):
             print(f"Loading chunk {i} into database")
 
