@@ -51,8 +51,16 @@ def load_school_geocode():
                 "tract": "str",
                 "block": "str",
             },
-            parse_dates=True
         )
+
+        frame["building_code"] = frame["building_code"].str.zfill(5)
+        frame["state"] = frame["building_code"].str.zfill(2)
+        frame["county"] = frame["building_code"].str.zfill(3)
+        frame["tract"] = frame["building_code"].str.zfill(6)
+        frame["block"] = frame["building_code"].str.zfill(4)
+
+        frame["start_date"] = pd.to_datetime(frame["start_date"]).dt.date
+        frame["end_date"] = pd.to_datetime(frame["end_date"]).dt.date
 
         frame.to_postgis( 
             "school_geocodes", db, schema="education", if_exists="replace", index=False
