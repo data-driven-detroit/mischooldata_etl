@@ -1,0 +1,55 @@
+{
+    "in_types": {
+        "ISDCode": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    }, 
+    "renames": {
+        "ISDCode": "isd_code",
+        "DisctrictCode": "disctrict_code",
+        "BuildingCode": "building_code",
+        "IPEDSCode": "ipeds_code",
+        "IHENAME": "ihe_name",
+        "IHEStateAbbr": "ihe_state_abbr",
+        "IHELevel": "ihe_level",
+        "IHEControl": "ihe_control",
+        "IHEInStateOutState": "ihe_in_state_out_state",
+        "TotalEnrolled": "total_enrolled",
+        "TotalEnrolled_First": "total_enrolled_first",
+        "TotalGraduates": "total_graduates",
+        "GrandTotalEnrollments": "grand_total_enrollments",
+        "EnrollmentWithin": "enrollment_within"
+    },
+    "out_types": {
+        "ISDCode": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    }, 
+    "suppressed_cols": [
+        "total_enrolled",
+        "total_enrolled_first",
+        "total_graduates",
+        "grand_total_enrollments",
+        "enrollment_within"
+    ],
+    "stubnames": [],
+    "recodes": {},
+    "out_cols": [
+        "isd_code",
+        "disctrict_code",
+        "building_code",
+        "ipeds_code",
+        "ihe_name",
+        "ihe_state_abbr",
+        "ihe_level",
+        "ihe_control",
+        "ihe_in_state_out_state",
+        "total_enrolled",
+        "total_enrolled_first",
+        "total_graduates",
+        "grand_total_enrollments",
+        "enrollment_within"
+    ]
+}
+
+
