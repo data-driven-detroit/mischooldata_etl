@@ -38,21 +38,6 @@ def geocode_schools():
                                  address="address", city="city", state="state", 
                                  zip="zip_code")
         
-        # Columns returned
-        # - id
-        # - address
-        # - status
-        # - match_quality
-        # - match_address
-        # - tiger_line_id
-        # - tiger_side
-        # - state
-        # - county
-        # - tract
-        # - block
-        # - logitude
-        # - latitude
-
         dated = (
             chunk[[ID_COLUMN, "start_date", "end_date"]]
             .merge(geocoded.rename(columns={"id": ID_COLUMN}),  on=ID_COLUMN)

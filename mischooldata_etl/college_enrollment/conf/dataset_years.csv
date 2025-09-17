@@ -1,10 +1,10 @@
 year,start_date,end_date,field_reference_file,source_file
-2016,2015-07-01,2016-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2016/Raw/college_enrollment_2016.csv
-2017,2016-07-01,2017-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2017/Raw/college_enrollment_2017.csv
-2018,2017-07-01,2018-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2018/Raw/college_enrollment_2018.csv
-2019,2018-07-01,2019-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2019/Raw/college_enrollment_2019.csv
-2020,2019-07-01,2020-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2020/Raw/college_enrollment_2020.csv
-2021,2020-07-01,2021-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2021/Raw/college_enrollment_2021.csv
-2022,2021-07-01,2022-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2022/Raw/college_enrollment_2022.csv
-2023,2022-07-01,2023-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2023/Raw/college_enrollment_2023.csv
-2024,2023-07-01,2024-06-30,field_reference_2016_2024.json,/home/mistress/vault/DATA/Education/College enrollment/Data/2024/Raw/college_enrollment_2024.csv
+2016,2015-07-01,2016-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2016/Raw/college_enrollment_2016.csv
+2017,2016-07-01,2017-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2017/Raw/college_enrollment_2017.csv
+2018,2017-07-01,2018-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2018/Raw/college_enrollment_2018.csv
+2019,2018-07-01,2019-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2019/Raw/college_enrollment_2019.csv
+2020,2019-07-01,2020-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2020/Raw/college_enrollment_2020.csv
+2021,2020-07-01,2021-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2021/Raw/college_enrollment_2021.csv
+2022,2021-07-01,2022-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2022/Raw/college_enrollment_2022.csv
+2023,2022-07-01,2023-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2023/Raw/college_enrollment_2023.csv
+2024,2023-07-01,2024-06-30,field_reference_2016_2024.json,DATA/Education/College enrollment/Data/2024/Raw/college_enrollment_2024.csv

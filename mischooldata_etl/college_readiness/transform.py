@@ -4,8 +4,14 @@ import pandas as pd
 from inequalitytools import (
     parse_to_inequality
 )
+import tomli
+
 
 WORKING_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
+
+with open(BASE_DIR / "config.toml", "rb") as f:
+    config = tomli.load(f)
 
 
 def transform_process(frame, field_reference):
@@ -48,7 +54,7 @@ def transform_college_readiness():
 
         frame = (
             pd.read_csv(
-                year["source_file"],  # type: ignore
+                Path(config['vault_location']) / Path(year["source_file"]),  # type: ignore
                 dtype=field_reference["in_types"],
                 low_memory=False, 
             )

@@ -77,6 +77,8 @@ def apply_padding(frame):
 
 
 def generic_transform(module_name: str, working_dir: Path):
+    config = get_config()
+
     output_dir = working_dir / "output" / "combined_years.csv" 
     
     dataset_years = pd.read_csv(working_dir / "conf" / "dataset_years.csv")
@@ -133,7 +135,7 @@ def generic_transform(module_name: str, working_dir: Path):
 
         frame = (
             pd.read_csv(
-                year["source_file"],
+                Path(config["vault_location"]) / year["source_file"],
                 dtype=field_reference["in_types"],
                 low_memory=False, 
             )
