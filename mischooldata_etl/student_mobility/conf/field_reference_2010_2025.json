@@ -1,14 +1,43 @@
 {
+    "in_types": {
+        "ISDCode": "str",
+        "DistrictCode": "str",
+        "BuildingCode": "str"
+    },
     "renames": {
+        "ISDCode": "isd_code",
         "DistrictCode": "district_code",
         "BuildingCode": "building_code",
-        "ReportCategory": "report_category_orig",
+        "ReportCategory": "report_category",
         "StudentCount": "count",
         "StudentCountStable": "count_stable",
         "StudentCountMobile": "count_mobile",
         "StudentCountIncoming": "count_incoming",
         "MobilityRate": "mobility_rate"
     },
-    "recodes": {
+    "recodes": {},
+    "suppressed_cols": [
+        "count",
+        "count_stable",
+        "count_mobile",
+        "count_incoming"
+    ],
+    "out_cols": [
+        "isd_code",
+        "district_code",
+        "building_code",
+        "report_category",
+        "count",
+        "count_stable",
+        "count_mobile",
+        "count_incoming",
+        "mobility_rate",
+        "start_date",
+        "end_date"
+    ],
+    "out_types": {
+        "isd_code": "str",
+        "district_code": "str",
+        "building_code": "str"
     }
 }

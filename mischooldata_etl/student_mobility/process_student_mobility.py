@@ -1,10 +1,8 @@
-from mischooldata_etls import setup_logging
-
-from transform import transform_student_mobility
-from load import load_student_mobility
+from pathlib import Path
+from common import generic_transform, generic_load
 
 
-logger = setup_logging()
-
-transform_student_mobility(logger)
-load_student_mobility(logger)
+if __name__ == "__main__":
+    WORKING_DIR = Path(__file__).parent
+    generic_transform(WORKING_DIR)
+    generic_load("student_mobility", WORKING_DIR)

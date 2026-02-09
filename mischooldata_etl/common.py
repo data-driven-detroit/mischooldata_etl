@@ -46,25 +46,25 @@ def transform_process(frame, field_reference):
 def apply_output_schema(frame, output_schema):
     type_mapping = {
         'str': 'object',
-        'int': 'int64', 
+        'int': pd.Int64Dtype(),
         'float': 'float64'
     }
-    
+
     for _, row in output_schema.iterrows():
         col_name = row['column_name']
         data_type = row['data_type']
         required = row['required']
         default_value = row['default_value']
-        
+
         if col_name not in frame.columns:
-            if pd.isna(default_value) or default_value == '':
-                frame[col_name] = None
+            if pd.isna(default_value) or default_value == '' or default_value == 'NA':
+                frame[col_name] = pd.NA
             else:
                 frame[col_name] = default_value
-        
+
         if data_type in type_mapping:
             frame[col_name] = frame[col_name].astype(type_mapping[data_type])
-    
+
     schema_columns = output_schema['column_name'].tolist()
     return frame[schema_columns]
 
@@ -154,23 +154,38 @@ def generic_load(table_name: str, working_dir: Path, special_processing=None):
     field_reference_files = list((working_dir / "conf").glob("field_reference_*.json"))
     if not field_reference_files:
         raise FileNotFoundError(f"No field reference file found in {working_dir / 'conf'}")
-    
+
     field_reference = load_field_reference(working_dir, field_reference_files[0].name)
-    
+
     db_engine = get_db_engine()
+
+    # Check if table already exists to determine if_exists mode
+    table_exists = False
+    try:
+        with db_engine.connect() as db:
+            result = pd.read_sql(
+                f"SELECT 1 FROM education.{table_name} LIMIT 1",
+                db
+            )
+            table_exists = True
+            print(f"Table {table_name} exists, appending new data")
+    except Exception:
+        print(f"Table {table_name} doesn't exist, will create it")
+
+    if_exists = "append" if table_exists else "replace"
+
     with db_engine.connect() as db:
-        if_exists = "replace"
         for i, portion in enumerate(pd.read_csv(
             working_dir / "output" / "combined_years.csv",
             chunksize=20_000,
             dtype=field_reference["out_types"],
-        ), start=1): 
+        ), start=1):
             print(f"Loading chunk {i} into database.")
-            
+
             if special_processing:
                 portion = special_processing(portion)
-            
-            portion.to_sql( 
+
+            portion.to_sql(
                 table_name, db, schema="education", if_exists=if_exists, index=False
             )
             if_exists = "append"

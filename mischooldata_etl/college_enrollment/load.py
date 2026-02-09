@@ -1,5 +1,5 @@
 from pathlib import Path
-from ..common import generic_load
+from common import generic_load
 
 
 WORKING_DIR = Path(__file__).parent
