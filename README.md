@@ -16,6 +16,7 @@ password=""
 host=""
 name="data"
 port=5432
+vault_location="" # Path to the vault server
 
 metadata_schema="metadata"
 ```
