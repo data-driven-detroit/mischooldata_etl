@@ -6,10 +6,15 @@ import pandas as pd
 import datetime
 
 from schema import NON_RESIDENT_COLUMNS
+import tomli
 
 
 TODAY = datetime.date.today().strftime("%Y%m%d")
 WORKING_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
+
+with open(BASE_DIR / "config.toml", "rb") as f:
+    config = tomli.load(f)
 
 
 def transform_non_resident(logger):
@@ -30,7 +35,7 @@ def transform_non_resident(logger):
 
 
         df = (
-            pd.read_csv(year["source_file"])
+            pd.read_csv(Path(config["vault_location"]) / year["source_file"])
             .rename(columns=field_reference["rename"])
             .assign(
                 start_date=datetime.date.fromisoformat(year["start_date"]),

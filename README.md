@@ -86,6 +86,23 @@ uv run python ./mischooldata_etl/eem/process_eem.py
 
 ## Dataset Standards
 
+### Source file paths
+
+The `source_file` column in each module's `conf/dataset_years.csv` is a path
+**relative to the vault**, with **forward slashes** as the separator -- e.g.
+`DATA/Education/Graduation and drop outs/Data/2007/Raw/graduation_dropout_2007.csv`.
+
+Don't put the vault root (`V:\`, `/home/you/vault`) in the CSV. Transforms join
+it on at read time:
+
+```python
+Path(config["vault_location"]) / year["source_file"]
+```
+
+`Path` translates the forward slashes to the host separator, so the same CSV
+works on Windows and Linux. Use forward slashes even if you're on Windows.
+
+
 ### Break out columns
 
 Take care when querying these datasets, because they often include break outs. These breakouts are handled by two columns typically, `report_category` and `report_subgroup`. The following are typical `report_category` values:
