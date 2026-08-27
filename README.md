@@ -2,73 +2,85 @@
 
 ## Creating a `config.toml`
 
-In order to access the database strings automatically, you need to create a `config.toml` file in the base directory.
+The database connection string and the vault path are read from a `config.toml`
+that lives in the package directory, `mischooldata_etl/`, next to `common.py`.
+This file is gitignored -- don't commit it.
 
-It should have the following structure, pointing at EDW.
+Copy the checked-in example and fill in the blanks, pointing at EDW:
+
+```shell
+cp mischooldata_etl/config.toml.example mischooldata_etl/config.toml
+```
+
+It should end up with the following structure:
 
 ```toml
+# Path to the vault server, e.g. "/home/you/vault" or "V:\\".
+# Keep this above the table headers -- in TOML, a key written after a
+# header belongs to that table.
+vault_location = ""
+
 [app]
-name="education"
+name = "education"
 
 [db]
-user=""
-password=""
-host=""
-name="data"
-port=5432
-vault_location="" # Path to the vault server
-
-metadata_schema="metadata"
+user = ""
+password = ""
+host = ""
+name = "data"
+port = 5432
 ```
 
-## Create a virtual environment
+## Install with uv
 
-I typically use python's venv package. You may need to install this.
+This project uses [uv](https://docs.astral.sh/uv/). Install it first if you
+don't have it -- see the [install docs](https://docs.astral.sh/uv/getting-started/installation/).
 
-From the base folder of the project, run
+### Prerequisite: the `elote` sibling checkout
+
+`pyproject.toml` depends on `elote` as an editable local path, `../elote`, so it
+must be cloned as a sibling of this repo before you sync:
+
+```
+0_projects/
+    elote/
+    mischooldata_etl/   <-- you are here
+```
+
+Without it, `uv sync` fails with `Distribution not found at: .../elote`.
+
+### Sync the environment
+
+From the project root:
 
 ```shell
-python -m venv env
+uv sync
 ```
 
-`env` in this command is your environment name.
+That one command creates `.venv` (using the Python in `.python-version`),
+installs every dependency from `uv.lock`, and installs this package itself as
+editable -- there's no separate `pip install -e .` step, and no
+`requirements.txt`.
 
-### Activate the environment
+### Running commands
 
-For Windows:
-
-In the folder with the env file run
+`uv run` uses the project environment, so you don't need to activate anything:
 
 ```shell
-env\scripts\Activate.ps1
+uv run python -c "import mischooldata_etl"
 ```
 
-For OSX or Linux
+If you'd rather activate it the usual way:
 
 ```shell
-source env/bin/activate
-```
-
-## Install requirements
-
-Once your environment is activated, from the project root folder, install requirements with
-
-```shell
-pip install -r requirements.txt
-```
-
-## IMPORTANT: Installing this package 
-
-You need to install the package itself as 'editable.'
-
-```bash
-pip install -e .
+source .venv/bin/activate     # OSX or Linux
+.venv\Scripts\Activate.ps1    # Windows PowerShell
 ```
 
 ## When running a file you have to run from the root file
 
 ```bash
-python ./eem_schools/2024/eem_schools_2024_etl.py
+uv run python ./mischooldata_etl/eem/process_eem.py
 ```
 
 

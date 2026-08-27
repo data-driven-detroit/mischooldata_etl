@@ -1,5 +1,6 @@
 # Don't commit the python refuse
 env
+.venv
 __pycache__
 
 # Don't commit the config

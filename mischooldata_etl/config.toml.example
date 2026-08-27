@@ -1,0 +1,17 @@
+# Copy this file to `config.toml` in this same directory (mischooldata_etl/)
+# and fill in the blanks. `config.toml` is gitignored -- never commit it.
+
+# Path to the vault server, e.g. "/home/you/vault" or "V:\\".
+# NOTE: this must stay above the [app]/[db] table headers -- in TOML, any
+# key written after a table header belongs to that table.
+vault_location = ""
+
+[app]
+name = "education"
+
+[db]
+user = ""
+password = ""
+host = ""
+name = "data"
+port = 5432
