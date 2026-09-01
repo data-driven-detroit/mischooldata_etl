@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import geopandas as gpd
 from sqlalchemy import create_engine
+from sqlalchemy.engine import URL
 import tomli
 
 
@@ -14,8 +15,14 @@ with open(BASE_DIR / "config.toml", "rb") as f:
 
 
 db_engine = create_engine(
-    f"postgresql+psycopg://{config['db']['user']}:{config['db']['password']}"
-    f"@{config['db']['host']}:{config['db']['port']}/{config['db']['name']}",
+    URL.create(
+        "postgresql+psycopg",
+        username=config["db"]["user"],
+        password=config["db"]["password"],
+        host=config["db"]["host"],
+        port=config["db"]["port"],
+        database=config["db"]["name"],
+    ),
     connect_args={'options': f'-csearch_path={config["app"]["name"]},public'},
 )
 
