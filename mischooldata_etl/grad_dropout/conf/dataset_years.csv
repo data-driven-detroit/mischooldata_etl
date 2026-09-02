@@ -17,3 +17,4 @@ year,start_date,end_date,field_reference_file,source_file
 2022,2021-07-01,2022-06-30,field_reference_2007_2024.json,DATA/Education/Graduation and drop outs/Data/2022/Raw/grad_drop_out_2022.csv
 2023,2022-07-01,2023-06-30,field_reference_2007_2024.json,DATA/Education/Graduation and drop outs/Data/2023/Raw/grad_drop_out_2023.csv
 2024,2023-07-01,2024-06-30,field_reference_2007_2024.json,DATA/Education/Graduation and drop outs/Data/2024/Raw/graduation_dropout_2024.csv
+2025,2024-07-01,2025-06-30,field_reference_2007_2024.json,DATA/Education/Graduation and drop outs/Data/2024/Raw/graduation_dropout_2025.csv
