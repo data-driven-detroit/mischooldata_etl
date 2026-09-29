@@ -1,12 +1,10 @@
+from ..datasets import DATASETS
 from ..logging_setup import setup_logging
-from .transform import transform_attendance
-from .load import load_attendance
 
 
 def main():
     setup_logging()
-    transform_attendance()
-    load_attendance()
+    DATASETS["attendance"].run()
 
 
 if __name__ == "__main__":

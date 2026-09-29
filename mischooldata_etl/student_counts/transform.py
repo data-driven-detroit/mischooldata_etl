@@ -9,7 +9,7 @@ from inequalitytools import parse_to_inequality
 from ..pipeline import unwrap_value, unwrap_error
 
 from .schema import STUDENT_COUNTS_COLUMNS
-import tomli
+from ..config import get_config
 
 
 logger = logging.getLogger(__name__)
@@ -17,13 +17,10 @@ logger = logging.getLogger(__name__)
 
 TODAY = datetime.date.today().strftime("%Y%m%d")
 WORKING_DIR = Path(__file__).parent
-BASE_DIR = Path(__file__).parent.parent
-
-with open(BASE_DIR / "config.toml", "rb") as f:
-    config = tomli.load(f)
 
 
 def transform_student_counts():
+    config = get_config()
     logger.info("Beginning transformation of student count files.")
 
     dataset_years = pd.read_csv(WORKING_DIR / "conf" / "dataset_years.csv")

@@ -4,14 +4,10 @@ import pandas as pd
 from inequalitytools import (
     parse_to_inequality
 )
-import tomli
+from ..config import get_config
 
 
 WORKING_DIR = Path(__file__).parent
-BASE_DIR = Path(__file__).parent.parent
-
-with open(BASE_DIR / "config.toml", "rb") as f:
-    config = tomli.load(f)
 
 
 def transform_process(frame, field_reference):
@@ -37,6 +33,7 @@ def apply_padding(frame):
 
 
 def transform_eem():
+    config = get_config()
     output_dir = WORKING_DIR / "output" / "combined_years.csv" 
     if output_dir.exists():
         print("Files already compiled. To rerun complication script delete 'output/combined_years.csv'")

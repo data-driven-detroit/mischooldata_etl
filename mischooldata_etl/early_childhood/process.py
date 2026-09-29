@@ -1,12 +1,10 @@
+from ..datasets import DATASETS
 from ..logging_setup import setup_logging
-from .transform import transform_early_childhood
-from .load import load_early_childhood
 
 
 def main():
     setup_logging()
-    transform_early_childhood()
-    load_early_childhood()
+    DATASETS["early_childhood"].run()
 
 
 if __name__ == "__main__":

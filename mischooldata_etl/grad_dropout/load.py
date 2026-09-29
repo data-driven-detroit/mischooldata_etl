@@ -1,29 +1,10 @@
 from pathlib import Path
 import json
 import pandas as pd
-from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
-import tomli
+from ..db import get_db_engine
 
 
 WORKING_DIR = Path(__file__).parent
-BASE_DIR = Path(__file__).parent.parent
-
-with open(BASE_DIR / "config.toml", "rb") as f:
-    config = tomli.load(f)
-
-
-db_engine = create_engine(
-    URL.create(
-        "postgresql+psycopg",
-        username=config["db"]["user"],
-        password=config["db"]["password"],
-        host=config["db"]["host"],
-        port=config["db"]["port"],
-        database=config["db"]["name"],
-    ),
-    connect_args={'options': f'-csearch_path={config["app"]["name"]},public'},
-)
 
 
 def load_grad_dropout():
@@ -31,7 +12,7 @@ def load_grad_dropout():
         (WORKING_DIR / "conf" / "field_reference_2007_2024.json").read_text()
     )
 
-    with db_engine.connect() as db:
+    with get_db_engine().connect() as db:
         if_exists = "replace"
         for i, portion in enumerate(pd.read_csv(
             WORKING_DIR / "output" / "combined_years.csv",
