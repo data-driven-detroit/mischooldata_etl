@@ -17,11 +17,18 @@
             "class": "logging.handlers.RotatingFileHandler",
             "level": "DEBUG",
             "formatter": "simple",
+            "filename": "mischooldata_etl.log",
             "maxBytes": 5000000,
             "backupCount": 5
         }
     },
     "loggers": {
-        "root": {"level": "DEBUG", "handlers": ["stderr", "file"]}
+        "root": {
+            "level": "DEBUG",
+            "handlers": [
+                "stderr",
+                "file"
+            ]
+        }
     }
 }

@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 import datetime
 import json
@@ -5,10 +6,13 @@ import pandas as pd
 import numpy as np
 
 from inequalitytools import parse_to_inequality
-from mischooldata_etls import unwrap_value, unwrap_error
+from ..pipeline import unwrap_value, unwrap_error
 
-from schema import STUDENT_COUNTS_COLUMNS
+from .schema import STUDENT_COUNTS_COLUMNS
 import tomli
+
+
+logger = logging.getLogger(__name__)
 
 
 TODAY = datetime.date.today().strftime("%Y%m%d")
@@ -19,7 +23,7 @@ with open(BASE_DIR / "config.toml", "rb") as f:
     config = tomli.load(f)
 
 
-def transform_student_counts(logger):
+def transform_student_counts():
     logger.info("Beginning transformation of student count files.")
 
     dataset_years = pd.read_csv(WORKING_DIR / "conf" / "dataset_years.csv")

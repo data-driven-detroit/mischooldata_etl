@@ -1,16 +1,20 @@
+import logging
 from pathlib import Path
 import datetime
 import pandas as pd
 
-from mischooldata_etls import db_engine
-from schema import StudentCounts
+from ..db import get_db_engine
+from .schema import StudentCounts
+
+
+logger = logging.getLogger(__name__)
 
 
 WORKING_DIR = Path(__file__).parent
 TODAY = datetime.date.today().strftime("%Y%m%d")
 
 
-def load_student_counts(logger):
+def load_student_counts():
     logger.info("Loading student_counts for all years into DB.")
 
     file = pd.read_csv(
@@ -22,5 +26,5 @@ def load_student_counts(logger):
 
     # We're doing full replaces on these tables
     validated.to_sql(
-        "student_counts", db_engine, schema="education", if_exists="replace"
+        "student_counts", get_db_engine(), schema="education", if_exists="replace"
     )

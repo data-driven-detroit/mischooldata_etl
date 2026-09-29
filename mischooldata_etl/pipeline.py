@@ -1,31 +1,11 @@
+"""The shared transform/load steps the dataset modules build on."""
 from pathlib import Path
 import json
 import pandas as pd
-from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
-import tomli
 from inequalitytools import parse_to_inequality
 
-
-def get_config():
-    base_dir = Path(__file__).parent
-    with open(base_dir / "config.toml", "rb") as f:
-        return tomli.load(f)
-
-
-def get_db_engine():
-    config = get_config()
-    return create_engine(
-        URL.create(
-            "postgresql+psycopg",
-            username=config["db"]["user"],
-            password=config["db"]["password"],
-            host=config["db"]["host"],
-            port=config["db"]["port"],
-            database=config["db"]["name"],
-        ),
-        connect_args={'options': f'-csearch_path={config["app"]["name"]},public'},
-    )
+from .config import get_config
+from .db import get_db_engine
 
 
 def load_field_reference(working_dir: Path, field_reference_file: str) -> dict:
@@ -34,6 +14,18 @@ def load_field_reference(working_dir: Path, field_reference_file: str) -> dict:
 
 def load_output_schema(working_dir: Path) -> pd.DataFrame:
     return pd.read_csv(working_dir / "conf" / "output_schema.csv")
+
+
+def unwrap_value(inequality):
+    """The value half of a parsed Inequality -- see transform_process below."""
+    value, _ = inequality.unwrap()
+    return value
+
+
+def unwrap_error(inequality):
+    """The error half of a parsed Inequality -- see transform_process below."""
+    _, error = inequality.unwrap()
+    return error
 
 
 def transform_process(frame, field_reference):

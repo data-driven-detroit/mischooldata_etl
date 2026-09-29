@@ -77,11 +77,41 @@ source .venv/bin/activate     # OSX or Linux
 .venv\Scripts\Activate.ps1    # Windows PowerShell
 ```
 
-## When running a file you have to run from the root file
+## Running a module
+
+Every dataset is a subpackage with a `process.py` entry point. Run it as a
+module from the project root:
 
 ```bash
-uv run python ./mischooldata_etl/eem/process_eem.py
+uv run python -m mischooldata_etl.eem.process
 ```
+
+The `transform` and `load` halves can be run on their own the same way, which is
+handy when you only want to redo one step:
+
+```bash
+uv run python -m mischooldata_etl.grad_dropout.transform
+uv run python -m mischooldata_etl.grad_dropout.load
+```
+
+Run them with `-m`, not by file path. The modules import their siblings
+relatively (`from ..pipeline import generic_transform`), and relative imports
+don't resolve when a file is executed directly.
+
+## Logging
+
+Each module gets its own logger at the top of the file:
+
+```python
+import logging
+
+logger = logging.getLogger(__name__)
+```
+
+Nothing takes a logger as an argument. The only place logging is *configured* is
+`process.py`, which calls `setup_logging()` once before doing any work; that
+reads `logging_config.json` and writes to both stdout and a rotating
+`mischooldata_etl.log` at the project root.
 
 
 ## Dataset Standards

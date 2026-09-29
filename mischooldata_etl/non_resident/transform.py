@@ -1,3 +1,4 @@
+import logging
 import json
 import datetime
 from pathlib import Path
@@ -5,8 +6,11 @@ import pandas as pd
 
 import datetime
 
-from schema import NON_RESIDENT_COLUMNS
+from .schema import NON_RESIDENT_COLUMNS
 import tomli
+
+
+logger = logging.getLogger(__name__)
 
 
 TODAY = datetime.date.today().strftime("%Y%m%d")
@@ -17,7 +21,7 @@ with open(BASE_DIR / "config.toml", "rb") as f:
     config = tomli.load(f)
 
 
-def transform_non_resident(logger):
+def transform_non_resident():
     logger.info("Transforming non_resident files!")
 
     dataset_years = pd.read_csv(WORKING_DIR / "conf" / "dataset_years.csv")
