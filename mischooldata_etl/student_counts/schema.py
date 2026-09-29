@@ -1,6 +1,6 @@
 from datetime import date
-import pandera as pa
-from pandera.typing import Series
+import pandera.pandas as pa
+from pandera.typing.pandas import Series
 
 
 class StudentCounts(pa.DataFrameModel):

@@ -36,19 +36,6 @@ port = 5432
 This project uses [uv](https://docs.astral.sh/uv/). Install it first if you
 don't have it -- see the [install docs](https://docs.astral.sh/uv/getting-started/installation/).
 
-### Prerequisite: the `elote` sibling checkout
-
-`pyproject.toml` depends on `elote` as an editable local path, `../elote`, so it
-must be cloned as a sibling of this repo before you sync:
-
-```
-0_projects/
-    elote/
-    mischooldata_etl/   <-- you are here
-```
-
-Without it, `uv sync` fails with `Distribution not found at: .../elote`.
-
 ### Sync the environment
 
 From the project root:

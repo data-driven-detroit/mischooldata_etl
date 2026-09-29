@@ -85,8 +85,7 @@ rather than adding `dagster` to `pyproject.toml` here. Each source repo stays
 runnable and testable without Dagster installed, and the orchestration layer
 redeploys on its own schedule.
 
-With several source-specific ETL projects, a sibling layout works well -- the
-same shape this repo already assumes for `../elote`:
+With several source-specific ETL projects, a sibling layout works well:
 
 ```
 etl/

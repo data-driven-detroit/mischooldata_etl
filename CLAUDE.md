@@ -8,11 +8,8 @@ ETL for Michigan school data (MI School Data) into the `education` schema of EDW
 uv sync
 ```
 
-Two prerequisites:
+One prerequisite:
 
-- **`../elote` must be a sibling checkout.** `pyproject.toml` depends on it as an
-  editable local path; without it `uv sync` fails with
-  `Distribution not found at: .../elote`.
 - **`mischooldata_etl/config.toml` must exist.** Copy it from
   `mischooldata_etl/config.toml.example` and fill in the blanks. It is gitignored.
   It holds `vault_location` (top-level) plus the `[app]` and `[db]` tables.
@@ -83,6 +80,10 @@ per platform.
 `sqlalchemy.engine.URL.create()` — never f-string a DSN, or passwords containing
 `@` or `:` break the connection.
 
+**Schemas.** Validation schemas use pandera's pandas namespace --
+`import pandera.pandas as pa` and `from pandera.typing.pandas import Series`, not
+the top-level `import pandera as pa`, which is deprecated and warns.
+
 **Logging.** Each module declares its own logger at the top:
 
 ```python
@@ -100,7 +101,5 @@ rotating `mischooldata_etl.log` at the project root.
 - `cohort` is unfinished: `load_cohort.py` is empty, `create_cohort.py` builds a
   DataFrame and discards it. `assessments` has conf but no code yet.
 - Eight modules still use `print()` rather than the logger.
-- `geopandas`, `pandera`, and `numpy` are imported but not declared in
-  `pyproject.toml`; they currently arrive transitively.
 - `unwrap_value` / `unwrap_error` in `pipeline.py` are reconstructed, not
   verified against `inequalitytools`.

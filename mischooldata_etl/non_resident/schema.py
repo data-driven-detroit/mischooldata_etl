@@ -1,5 +1,5 @@
 from datetime import date
-import pandera as pa
+import pandera.pandas as pa
 import pandas as pd
 
 

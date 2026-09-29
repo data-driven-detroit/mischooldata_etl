@@ -5,9 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "elote",
+    "geopandas>=1.1.1",
     "inequalitytools",
+    "numpy>=2.3.1",
     "pandas>=2.3.0",
+    "pandera>=0.20.0",
     "psycopg>=3.2.9",
     "pygris>=0.2.0",
     "sqlalchemy>=2.0.41",
@@ -17,7 +19,6 @@ dependencies = [
 [tool.uv.sources]
 mischooldata-etl = { workspace = true }
 inequalitytools = { git = "https://github.com/data-driven-detroit/inequalitytools.git" }
-elote = { path = "../elote", editable = true }
 
 [dependency-groups]
 dev = [
