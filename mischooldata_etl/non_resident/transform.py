@@ -4,8 +4,6 @@ import datetime
 from pathlib import Path
 import pandas as pd
 
-import datetime
-
 from .schema import NON_RESIDENT_COLUMNS
 from ..config import get_config
 
@@ -13,7 +11,6 @@ from ..config import get_config
 logger = logging.getLogger(__name__)
 
 
-TODAY = datetime.date.today().strftime("%Y%m%d")
 WORKING_DIR = Path(__file__).parent
 
 
@@ -22,10 +19,6 @@ def transform_non_resident():
     logger.info("Transforming non_resident files!")
 
     dataset_years = pd.read_csv(WORKING_DIR / "conf" / "dataset_years.csv")
-
-    if (WORKING_DIR / "input" / f"resident_grade_prepped_{TODAY}.csv").exists():
-        logger.warning("File created today already exists -- remove to rerun transform.")
-        return
 
     all_years = []
     for _, year in dataset_years.iterrows():
@@ -62,6 +55,6 @@ def transform_non_resident():
 
     logger.info("Saving compiled file from all available years.")
     pd.concat(all_years)[NON_RESIDENT_COLUMNS].to_csv(
-        WORKING_DIR / "input" / f"resident_grade_prepped_{TODAY}.csv",
+        WORKING_DIR / "input" / "resident_grade_prepped.csv",
         index=False,
     )

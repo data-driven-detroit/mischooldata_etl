@@ -239,27 +239,21 @@ python_logs:
 
 These are properties of the ETL as it stands, not of Dagster.
 
-**Materializations self-skip.** Several transforms return early if their output file
-already exists (`"Files already compiled..."`), and `generic_transform` queries
-the destination table and skips date ranges already present. A Dagster re-run
-can therefore succeed while doing nothing. If you want Dagster's materialization
-record to mean "this data was rebuilt", these guards need to come out and the
-skipping logic needs to become partition selection.
+**Every materialization is a full rebuild.** Transforms re-read every year in
+`dataset_years.csv` and overwrite their scratch file; loads replace the table.
+Nothing checks what's already in the database or on disk, so a materialization
+record means the table was rebuilt from the vault. The tables are small enough
+that this is cheaper than tracking what changed.
 
-**`TODAY` is captured at import.** `non_resident` and `student_counts` compute
-`TODAY = datetime.date.today()` at module level and put it in their filenames. A
-long-lived Dagster code server imports once, so a run that happens after
-midnight will look for a file stamped with an earlier date. Move those into the
-functions before scheduling these two.
+**Loads are atomic, so retries are safe.** Each load writes its whole table
+inside one `engine.begin()` transaction -- replace on the first chunk, append
+the rest, commit at the end. If anything fails partway, Postgres rolls back and
+the previous table is untouched. Readers of the table block for the duration of
+a load, since the replace holds a lock until commit.
 
-**One load path isn't idempotent.** Most loads are safe to retry: the
-module-specific ones (`eem`, `early_childhood`, `college_readiness`,
-`grad_dropout`) replace on the first chunk and append the rest within a run, and
-`non_resident` / `student_counts` do a straight `if_exists="replace"`. But
-`generic_load` in `pipeline.py` *appends* whenever the table already exists, so
-retrying it after a partial failure duplicates rows. That path is used by
-`attendance`, `college_destination`, `college_enrollment` and `student_mobility`
--- check those four before enabling automatic retries.
+**`school_geocodes` calls the Census geocoder every time.** It re-geocodes every
+building on each materialization. That's the slowest asset and the only one
+that depends on an outside service; don't put it on a tight schedule.
 
 **Output lands inside the package.** Steps write to
 `mischooldata_etl/<dataset>/output/`, resolved from `__file__`. In a container
@@ -271,13 +265,13 @@ read-only. Deploying properly means making the output root configurable.
 The natural partition is the school year: every module's
 `conf/dataset_years.csv` already lists one row per year with `start_date` /
 `end_date`. Mapping that onto a Dagster partition set would give you per-year
-backfills, retries, and a real materialization history, and would replace the
-ad-hoc "have I already loaded this year?" checks.
+backfills, retries, and a per-year materialization history.
 
-It needs an interface change first: `materialize` (and the `transform_*` / `load_*` it
-calls) takes no arguments today and always process every row of `dataset_years.csv`. They'd need to accept
-a year (or date range) and handle only that one. That's the main piece of work
-between "Dagster can run this" and "Dagster is managing this properly".
+It needs an interface change first: `materialize` (and the `transform_*` /
+`load_*` it calls) takes no arguments and always processes every row of
+`dataset_years.csv`. They'd need to accept a year and handle only that one, and
+loads would delete-and-insert that year's rows rather than replacing the table.
+Only worth it if full rebuilds get too slow.
 
 ---
 

@@ -13,7 +13,7 @@ def load_eem():
         (WORKING_DIR / "conf" / "field_reference_2010_2025.json").read_text()
     )
 
-    with get_db_engine().connect() as db:
+    with get_db_engine().begin() as db:
         if_exists = "replace"
         for i, portion in enumerate(pd.read_csv(
             WORKING_DIR / "output" / "combined_years.csv",
@@ -29,7 +29,7 @@ def load_eem():
 
 
 def load_school_geocode():
-    with get_db_engine().connect() as db:
+    with get_db_engine().begin() as db:
         frame = gpd.read_file(
             WORKING_DIR / "output" / "geocoded_schools.geojson",
             dtype={

@@ -10,11 +10,6 @@ WORKING_DIR = Path(__file__).parent
 
 def geocode_schools():
     output_file = WORKING_DIR / "output" / "geocoded_schools.geojson"
-    
-    if output_file.exists():
-        print(f"Geocoded file already completed at {str(output_file)}. Delete this "
-              "if you'd like to re-run the geocode.")
-        return
 
     field_reference = json.loads(
         (WORKING_DIR / "conf" / "field_reference_2010_2025.json").read_text()

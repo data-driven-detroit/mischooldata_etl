@@ -1,6 +1,5 @@
 import logging
 from pathlib import Path
-import datetime
 import pandas as pd
 
 from ..db import get_db_engine
@@ -11,14 +10,13 @@ logger = logging.getLogger(__name__)
 
 
 WORKING_DIR = Path(__file__).parent
-TODAY = datetime.date.today().strftime("%Y%m%d")
 
 
 def load_student_counts():
     logger.info("Loading student_counts for all years into DB.")
 
     file = pd.read_csv(
-        WORKING_DIR / "output" / f"student_counts_{TODAY}.csv",
+        WORKING_DIR / "output" / "student_counts.csv",
         dtype={"district_code": "str", "building_code": "str"}
     )
 

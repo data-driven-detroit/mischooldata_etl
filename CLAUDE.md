@@ -87,6 +87,13 @@ per platform.
 `import pandera.pandas as pa` and `from pandera.typing.pandas import Series`, not
 the top-level `import pandera as pa`, which is deprecated and warns.
 
+**Full rebuilds.** Every materialization rebuilds its table from the vault. No
+"already exists, skipping" guards -- not on output files, not by querying the
+table. Transforms overwrite their scratch file; loads replace the table inside a
+single `with get_db_engine().begin() as db:` so a failed load rolls back and
+leaves the old table intact. Never `connect()` for a load: pandas commits each
+chunk on its own there.
+
 **Logging.** Each module declares its own logger at the top:
 
 ```python

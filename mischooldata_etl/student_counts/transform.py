@@ -1,6 +1,5 @@
 import logging
 from pathlib import Path
-import datetime
 import json
 import pandas as pd
 import numpy as np
@@ -15,7 +14,6 @@ from ..config import get_config
 logger = logging.getLogger(__name__)
 
 
-TODAY = datetime.date.today().strftime("%Y%m%d")
 WORKING_DIR = Path(__file__).parent
 
 
@@ -24,10 +22,6 @@ def transform_student_counts():
     logger.info("Beginning transformation of student count files.")
 
     dataset_years = pd.read_csv(WORKING_DIR / "conf" / "dataset_years.csv")
-
-    if (WORKING_DIR / "output" / f"student_counts_{TODAY}.csv").exists():
-        logger.warning("File created today already exists -- remove to rerun transform.")
-        return
 
     all_years = []
     for _, year in dataset_years.iterrows():
@@ -102,5 +96,5 @@ def transform_student_counts():
 
     (
         pd.concat(all_years)[STUDENT_COUNTS_COLUMNS]
-        .to_csv(WORKING_DIR / "output" / f"student_counts_{TODAY}.csv", index=False)
+        .to_csv(WORKING_DIR / "output" / "student_counts.csv", index=False)
     )

@@ -12,7 +12,7 @@ def load_early_childhood():
         (WORKING_DIR / "conf" / "field_reference_2012_2024.json").read_text()
     )
 
-    with get_db_engine().connect() as db:
+    with get_db_engine().begin() as db:
         if_exists = "replace"
         for i, portion in enumerate(pd.read_csv(
             WORKING_DIR / "output" / "combined_years.csv",

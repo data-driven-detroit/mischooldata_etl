@@ -35,10 +35,6 @@ def apply_padding(frame):
 def transform_eem():
     config = get_config()
     output_dir = WORKING_DIR / "output" / "combined_years.csv" 
-    if output_dir.exists():
-        print("Files already compiled. To rerun complication script delete 'output/combined_years.csv'")
-        return
-
     dataset_years = pd.read_csv(WORKING_DIR / "conf" / "dataset_years.csv")
     
     mode, header = "w", True

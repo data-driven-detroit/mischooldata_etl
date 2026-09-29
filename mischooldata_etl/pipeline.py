@@ -76,56 +76,19 @@ def apply_padding(frame):
 
 
 def generic_transform(module_name: str, working_dir: Path):
+    """Rebuild output/combined_years.csv from every year in dataset_years.csv."""
     config = get_config()
 
-    output_dir = working_dir / "output" / "combined_years.csv" 
-    
+    output_dir = working_dir / "output" / "combined_years.csv"
+    output_dir.parent.mkdir(exist_ok=True)
+
     dataset_years = pd.read_csv(working_dir / "conf" / "dataset_years.csv")
-    
-    # Check existing dates in the database table
-    db_engine = get_db_engine()
-    existing_dates = set()
-    try:
-        with db_engine.connect() as db:
-            existing_df = pd.read_sql(
-                f"SELECT DISTINCT start_date, end_date FROM education.{module_name}", 
-                db
-            )
-            existing_dates = set(zip(existing_df['start_date'], existing_df['end_date']))
-            print(f"Found {len(existing_dates)} existing date ranges in {module_name} table")
-    except Exception as e:
-        print(f"Table {module_name} doesn't exist or error querying: {e}")
-        print("Will process all files")
-    
-    # Filter to only include years not already in database
-    new_years = []
-    for _, year in dataset_years.iterrows():
-        date_pair = (year['start_date'], year['end_date'])
-        if date_pair not in existing_dates:
-            new_years.append(year)
-        else:
-            print(f"Skipping {year['start_date']} to {year['end_date']} - already exists in database")
-    
-    if not new_years:
-        print("No new data to process - all years already exist in database")
-        if output_dir.exists():
-            print("Removing existing combined_years.csv since no new data to add")
-            output_dir.unlink()
-        return
-    
-    print(f"Processing {len(new_years)} new date ranges")
-    
-    # Load output schema
     output_schema = load_output_schema(working_dir)
-    
-    # If we have existing data and new data, we need to append mode
-    # If output file exists but we have new data, remove it and recreate with all data
-    if output_dir.exists():
-        print("Removing existing combined_years.csv to recreate with new data")
-        output_dir.unlink()
-    
+
+    print(f"Processing {len(dataset_years)} date ranges for {module_name}")
+
     mode, header = "w", True
-    for year in new_years:
+    for _, year in dataset_years.iterrows():
         print(f"Opening {year['source_file']}")
 
         field_reference = json.loads(
@@ -156,24 +119,9 @@ def generic_load(table_name: str, working_dir: Path, special_processing=None):
 
     field_reference = load_field_reference(working_dir, field_reference_files[0].name)
 
-    db_engine = get_db_engine()
-
-    # Check if table already exists to determine if_exists mode
-    table_exists = False
-    try:
-        with db_engine.connect() as db:
-            result = pd.read_sql(
-                f"SELECT 1 FROM education.{table_name} LIMIT 1",
-                db
-            )
-            table_exists = True
-            print(f"Table {table_name} exists, appending new data")
-    except Exception:
-        print(f"Table {table_name} doesn't exist, will create it")
-
-    if_exists = "append" if table_exists else "replace"
-
-    with db_engine.connect() as db:
+    # Full replace in one transaction: if any chunk fails, the old table survives.
+    if_exists = "replace"
+    with get_db_engine().begin() as db:
         for i, portion in enumerate(pd.read_csv(
             working_dir / "output" / "combined_years.csv",
             chunksize=20_000,

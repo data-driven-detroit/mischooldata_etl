@@ -1,5 +1,4 @@
 import logging
-import datetime
 from pathlib import Path
 import pandas as pd
 
@@ -11,13 +10,12 @@ logger = logging.getLogger(__name__)
 
 
 WORKING_DIR = Path(__file__).parent
-TODAY = datetime.date.today().strftime("%Y%m%d")
 
 
 def load_non_resident():
     logger.info("Loading non_resident to database.")
     file = pd.read_csv(
-        WORKING_DIR / "input" / f"resident_grade_prepped_{TODAY}.csv",
+        WORKING_DIR / "input" / "resident_grade_prepped.csv",
         dtype={"resident_district_code": "str", "operating_district_code": "str", "grade_code": "str"}
     )
 
