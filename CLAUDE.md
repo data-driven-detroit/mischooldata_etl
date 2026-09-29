@@ -23,7 +23,8 @@ from the project root:
 uv run python -m mischooldata_etl.eem.process
 ```
 
-The transform and load halves run the same way, for redoing one step:
+`process.py` materializes every table the module owns. The transform and load
+halves still run on their own, for debugging one half:
 
 ```bash
 uv run python -m mischooldata_etl.grad_dropout.transform
@@ -48,7 +49,7 @@ mischooldata_etl/
     db.py               # get_db_engine()
     logging_setup.py    # setup_logging()
     pipeline.py         # generic_transform / generic_load + shared helpers
-    datasets.py         # DATASETS registry: every dataset and its ordered steps
+    datasets.py         # ASSETS registry: every table and how to build it
     <dataset>/
         __init__.py
         conf/           # dataset_years.csv, field_reference_*.json
@@ -61,10 +62,12 @@ Shared code lives in peer submodules, never in `__init__.py`. Nothing imports
 "upward" into the package root.
 
 New modules are scaffolded from the cookiecutter template in
-`mischooldata_etl/template/`. Add them to `DATASETS` in `datasets.py` too --
-`process.py` and any orchestrator both drive off that registry.
+`mischooldata_etl/template/`. Add their tables to `ASSETS` in `datasets.py` too --
+`process.py` and any orchestrator both drive off that registry. An asset is a
+table, not a step: its `materialize` runs transform then load. Only add `deps`
+for a real table-to-table dependency (e.g. `school_geocodes` on `eem`).
 
-Config and database engines are read lazily, inside the steps, so importing the
+Config and database engines are read lazily, inside `materialize`, so importing the
 package never requires `config.toml` or touches the database. Keep it that way;
 see `DAGSTER.md`.
 

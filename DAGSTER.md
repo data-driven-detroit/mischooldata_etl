@@ -1,82 +1,79 @@
 # Running this project from Dagster
 
-This package is a library of ETL steps, not an orchestrator. Dagster wraps it:
-each step becomes an asset, Dagster decides when to run them and keeps the
+This package is a library that builds tables, not an orchestrator. Dagster wraps it:
+each table becomes an asset, Dagster decides when to run them and keeps the
 history. Nothing in here imports Dagster, and it shouldn't — keeping the ETL
 orchestrator-agnostic means you can still run any module from the command line
 (see `CLAUDE.md`).
 
 ## The interface Dagster uses
 
-`mischooldata_etl/datasets.py` exposes every dataset and its ordered steps:
+`mischooldata_etl/datasets.py` exposes every **table** this project produces as
+an asset:
 
 ```python
-from mischooldata_etl.datasets import DATASETS
+from mischooldata_etl.datasets import ASSETS
 
-DATASETS["eem"].steps        # (Step("transform"), Step("geocode"), Step("load"), Step("load_geocode"))
-DATASETS["eem"].run()        # run them all in order, like process.py does
-DATASETS["eem"].steps[0].run()   # or just one
+ASSETS["attendance"]                  # Asset(name="attendance", group="attendance", deps=())
+ASSETS["school_geocodes"].deps        # ("eem",)
+ASSETS["school_geocodes"].materialize()   # rebuild that one table
 ```
 
-Every `Step.run` is a zero-argument callable. Walk this registry rather than
-importing each module by hand, so a new dataset shows up in Dagster as soon as
-it's added to the registry.
+An asset is a thing that exists -- `education.attendance`,
+`education.school_geocodes` -- not a step. Transforming and loading are
+behaviors *inside* `materialize`; the intermediate CSV under `output/` is a
+scratch file, not something Dagster tracks. The one real cross-asset dependency
+is `school_geocodes`, which is built from the eem data.
+
+Every `materialize` is a zero-argument callable. Walk this registry rather than
+importing each module by hand, so a new table shows up in Dagster as soon as
+it's added to the registry. Entries are declared in dependency order.
 
 Importing `mischooldata_etl.datasets` does **not** require `config.toml` to
 exist and does not open a database connection. Config and engines are read
-lazily, inside the steps. That means a Dagster code location loads cleanly in a
-container that hasn't been given secrets yet.
+lazily, inside `materialize`. That means a Dagster code location loads cleanly
+in a container that hasn't been given secrets yet.
 
 ## A code location
 
-This builds one asset per step, chained in the order the dataset declares:
-
 ```python
 # defs.py
-from dagster import AssetExecutionContext, Definitions, asset
+from dagster import AssetExecutionContext, AssetKey, Definitions, asset
 
-from mischooldata_etl.datasets import DATASETS
+from mischooldata_etl.datasets import ASSETS, SCHEMA
 
 
-def _build_asset(dataset_name, step, upstream):
+def _build_asset(a):
     @asset(
-        name=f"{dataset_name}_{step.name}",
-        group_name=dataset_name,
-        deps=[upstream] if upstream else None,
+        key=AssetKey([SCHEMA, a.name]),
+        group_name=a.group,
+        deps=[AssetKey([SCHEMA, d]) for d in a.deps],
+        description=a.description or None,
     )
     def _asset(context: AssetExecutionContext) -> None:
-        context.log.info("running %s.%s", dataset_name, step.name)
-        step.run()
+        context.log.info("materializing %s.%s", SCHEMA, a.name)
+        a.materialize()
 
     return _asset
 
 
-def build_assets():
-    assets = []
-    for dataset in DATASETS.values():
-        upstream = None
-        for step in dataset.steps:
-            a = _build_asset(dataset.name, step, upstream)
-            assets.append(a)
-            upstream = a.key
-    return assets
-
-
-defs = Definitions(assets=build_assets())
+defs = Definitions(assets=[_build_asset(a) for a in ASSETS.values()])
 ```
 
 ```bash
 dagster dev -f defs.py
 ```
 
-That yields 22 assets in 10 groups — `attendance_transform` → `attendance_load`,
-and for eem the four-step chain `eem_transform` → `eem_geocode` → `eem_load` →
-`eem_load_geocode`.
+That yields 11 assets, one per table, keyed `education/<table>`. Ten are
+independent; `education/school_geocodes` depends on `education/eem`.
 
-The steps pass data through files on disk, not return values, so these are
-non-argument dependencies (`deps=`) rather than Dagster inputs. No I/O manager is
-involved, and every step of a dataset has to run somewhere that shares a
-filesystem with the previous one.
+Keys match the tables, so if you later add downstream assets (dbt models, SQL
+views) that read these tables, the lineage lines up without any mapping.
+
+Assets write to the database themselves rather than returning DataFrames, so no
+I/O manager is involved and `deps=` rather than Dagster inputs express the
+dependency. `school_geocodes` still reads the eem scratch CSV off disk, so it
+has to run somewhere that shares a filesystem with the eem materialization.
 
 ## Project layout
 
@@ -93,7 +90,7 @@ etl/
         pyproject.toml
         etl_core/
             __init__.py
-            datasets.py        # Step, Dataset
+            datasets.py        # Asset
             config.py          # get_config()
             db.py              # get_db_engine()
             logging_setup.py   # setup_logging()
@@ -101,8 +98,8 @@ etl/
     mischooldata_etl/          # this repo -- one source
         pyproject.toml
         mischooldata_etl/
-            datasets.py        # DATASETS, built from etl_core's Step/Dataset
-            pipeline.py        # shared steps specific to THIS source
+            datasets.py        # ASSETS, built from etl_core's Asset
+            pipeline.py        # shared transform/load helpers for THIS source
             attendance/
             eem/
             ...
@@ -123,7 +120,7 @@ etl/
 
 ### What belongs in `etl_core`
 
-The `Step` and `Dataset` dataclasses currently live in
+The `Asset` dataclass currently live in
 `mischooldata_etl/datasets.py`. With more than one source they should move to a
 shared package, so the pipeline project can treat every source uniformly instead
 of relying on each one having independently-defined lookalike classes.
@@ -142,8 +139,8 @@ Explicit imports are fine and obvious:
 
 ```python
 # pipeline/definitions.py
-from mischooldata_etl.datasets import DATASETS as MISCHOOLDATA
-from census_etl.datasets import DATASETS as CENSUS
+from mischooldata_etl.datasets import ASSETS as MISCHOOLDATA
+from census_etl.datasets import ASSETS as CENSUS
 
 SOURCES = {"mischooldata": MISCHOOLDATA, "census": CENSUS}
 ```
@@ -153,7 +150,7 @@ point in each source's `pyproject.toml`:
 
 ```toml
 [project.entry-points."etl.sources"]
-mischooldata = "mischooldata_etl.datasets:DATASETS"
+mischooldata = "mischooldata_etl.datasets:ASSETS"
 ```
 
 and discover them:
@@ -167,10 +164,10 @@ def load_sources():
 
 Installing a new `*_etl` package is then enough for its assets to appear. Prefix
 the asset keys with the source name so two sources can both have, say, an
-`enrollment` dataset without colliding:
+`enrollment` table without colliding:
 
 ```python
-@asset(key_prefix=[source_name], name=f"{dataset.name}_{step.name}", ...)
+@asset(key=AssetKey([source_name, a.name]), ...)
 ```
 
 Start with explicit imports; move to entry points when editing the pipeline for
@@ -219,7 +216,7 @@ Once there's more than one source, prefer the single shared config file
 described under [Project layout](#config-across-several-sources) — one mounted
 secret for the whole deployment rather than one per source package.
 
-Either way, the vault itself must be mounted wherever the steps run — they read
+Either way, the vault itself must be mounted wherever assets materialize — they read
 source files straight off it via `config["vault_location"]`.
 
 ## Logging
@@ -242,7 +239,7 @@ python_logs:
 
 These are properties of the ETL as it stands, not of Dagster.
 
-**Steps self-skip.** Several transforms return early if their output file
+**Materializations self-skip.** Several transforms return early if their output file
 already exists (`"Files already compiled..."`), and `generic_transform` queries
 the destination table and skips date ranges already present. A Dagster re-run
 can therefore succeed while doing nothing. If you want Dagster's materialization
@@ -277,13 +274,13 @@ The natural partition is the school year: every module's
 backfills, retries, and a real materialization history, and would replace the
 ad-hoc "have I already loaded this year?" checks.
 
-It needs an interface change first: `transform_*` and `load_*` take no arguments
-today and always process every row of `dataset_years.csv`. They'd need to accept
+It needs an interface change first: `materialize` (and the `transform_*` / `load_*` it
+calls) takes no arguments today and always process every row of `dataset_years.csv`. They'd need to accept
 a year (or date range) and handle only that one. That's the main piece of work
 between "Dagster can run this" and "Dagster is managing this properly".
 
 ---
 
 *The code above was checked against Dagster 1.13.24: the code location loads, builds
-the 22-asset graph with the dependencies shown, and materializing an asset runs
-the underlying ETL step. Adjust for your own Dagster version.*
+the per-step asset graph an earlier version of this doc described. The
+table-per-asset version above has not been re-run against Dagster. Adjust for your own Dagster version.*

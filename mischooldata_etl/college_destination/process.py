@@ -1,10 +1,10 @@
-from ..datasets import DATASETS
+from ..datasets import materialize_group
 from ..logging_setup import setup_logging
 
 
 def main():
     setup_logging()
-    DATASETS["college_destination"].run()
+    materialize_group("college_destination")
 
 
 if __name__ == "__main__":
