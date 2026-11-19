@@ -11,6 +11,8 @@ dependency order, so iterating them in order is always safe.
 from dataclasses import dataclass, field
 from typing import Callable
 
+from .assessments.transform import transform_assessments
+from .assessments.load import load_assessments
 from .attendance.transform import transform_attendance
 from .attendance.load import load_attendance
 from .college_destination.transform import transform_college_destination
@@ -63,6 +65,7 @@ def _simple(name: str, transform: Callable[[], None], load: Callable[[], None]) 
 
 
 _ASSETS = [
+    _simple("assessments", transform_assessments, load_assessments),
     _simple("attendance", transform_attendance, load_attendance),
     _simple("college_destination", transform_college_destination, load_college_destination),
     _simple("college_enrollment", transform_college_enrollment, load_college_enrollment),

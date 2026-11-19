@@ -38,7 +38,12 @@ def transform_process(frame, field_reference):
             .apply(lambda i: i.unwrap())
             .to_list()
         )
-    
+
+    # Numeric columns whose suppressed values ("< 10", "*", ...) should simply
+    # become nulls, with no inequalitytools parsing and no `_error` column.
+    for field in field_reference.get("coerce_cols", []):
+        frame[field] = pd.to_numeric(frame[field], errors="coerce")
+
     return frame
 
 
