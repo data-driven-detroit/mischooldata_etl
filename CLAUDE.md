@@ -36,9 +36,8 @@ uv run python -m mischooldata_etl.grad_dropout.load
 package identity, so those imports raise
 `ImportError: attempted relative import with no known parent package`.
 
-Modules: `assessments`, `attendance`, `college_destination`, `college_enrollment`,
-`college_readiness`, `early_childhood`, `eem`, `grad_dropout`, `non_resident`,
-`student_counts`, `student_mobility`.
+Modules: `assessments`, `college_destination`, `early_childhood`, `eem`,
+`grad_dropout`, `non_resident`, `student_counts`.
 
 ## Layout
 

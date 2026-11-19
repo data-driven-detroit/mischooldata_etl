@@ -13,14 +13,8 @@ from typing import Callable
 
 from .assessments.transform import transform_assessments
 from .assessments.load import load_assessments
-from .attendance.transform import transform_attendance
-from .attendance.load import load_attendance
 from .college_destination.transform import transform_college_destination
 from .college_destination.load import load_college_destination
-from .college_enrollment.transform import transform_college_enrollment
-from .college_enrollment.load import load_college_enrollment
-from .college_readiness.transform import transform_college_readiness
-from .college_readiness.load import load_college_readiness
 from .early_childhood.transform import transform_early_childhood
 from .early_childhood.load import load_early_childhood
 from .eem.transform import transform_eem
@@ -32,8 +26,6 @@ from .non_resident.transform import transform_non_resident
 from .non_resident.load import load_non_resident
 from .student_counts.transform import transform_student_counts
 from .student_counts.load import load_student_counts
-from .student_mobility.transform import transform_student_mobility
-from .student_mobility.load import load_student_mobility
 
 
 SCHEMA = "education"
@@ -66,15 +58,11 @@ def _simple(name: str, transform: Callable[[], None], load: Callable[[], None]) 
 
 _ASSETS = [
     _simple("assessments", transform_assessments, load_assessments),
-    _simple("attendance", transform_attendance, load_attendance),
     _simple("college_destination", transform_college_destination, load_college_destination),
-    _simple("college_enrollment", transform_college_enrollment, load_college_enrollment),
-    _simple("college_readiness", transform_college_readiness, load_college_readiness),
     _simple("early_childhood", transform_early_childhood, load_early_childhood),
     _simple("grad_dropout", transform_grad_dropout, load_grad_dropout),
     _simple("non_resident", transform_non_resident, load_non_resident),
     _simple("student_counts", transform_student_counts, load_student_counts),
-    _simple("student_mobility", transform_student_mobility, load_student_mobility),
     _simple("eem", transform_eem, load_eem),
     Asset(
         name="school_geocodes",

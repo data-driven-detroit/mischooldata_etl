@@ -14,12 +14,12 @@ an asset:
 ```python
 from mischooldata_etl.datasets import ASSETS
 
-ASSETS["attendance"]                  # Asset(name="attendance", group="attendance", deps=())
+ASSETS["eem"]                         # Asset(name="eem", group="eem", deps=())
 ASSETS["school_geocodes"].deps        # ("eem",)
 ASSETS["school_geocodes"].materialize()   # rebuild that one table
 ```
 
-An asset is a thing that exists -- `education.attendance`,
+An asset is a thing that exists -- `education.eem`,
 `education.school_geocodes` -- not a step. Transforming and loading are
 behaviors *inside* `materialize`; the intermediate CSV under `output/` is a
 scratch file, not something Dagster tracks. The one real cross-asset dependency
@@ -64,7 +64,7 @@ defs = Definitions(assets=[_build_asset(a) for a in ASSETS.values()])
 dagster dev -f defs.py
 ```
 
-That yields 12 assets, one per table, keyed `education/<table>`. Eleven are
+That yields 8 assets, one per table, keyed `education/<table>`. Seven are
 independent; `education/school_geocodes` depends on `education/eem`.
 
 Keys match the tables, so if you later add downstream assets (dbt models, SQL
@@ -100,7 +100,7 @@ etl/
         mischooldata_etl/
             datasets.py        # ASSETS, built from etl_core's Asset
             pipeline.py        # shared transform/load helpers for THIS source
-            attendance/
+            assessments/
             eem/
             ...
 
