@@ -18,7 +18,7 @@ dependencies = [
 
 [tool.uv.sources]
 mischooldata-etl = { workspace = true }
-inequalitytools = { git = "https://github.com/data-driven-detroit/inequalitytools.git" }
+inequalitytools = { path = "../inequalitytools", editable = true }
 
 [dependency-groups]
 dev = [
