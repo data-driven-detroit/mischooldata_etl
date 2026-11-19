@@ -8,6 +8,7 @@ ihe_state_abbr,str,false,,Institution state
 ihe_level,str,false,,Institution level
 ihe_control,str,false,,Institution control (public/private)
 ihe_in_state_out_state,str,false,,In-state or out-of-state institution
+enrollment_within,str,false,,Time window after graduation the enrollment falls in (e.g. 'within 0-48 months')
 total_enrolled,int,false,,Students enrolled at the institution
 total_enrolled_error,int,false,,Suppression error bound for total_enrolled
 total_enrolled_first,int,false,,Students enrolled whose first institution this was
@@ -16,7 +17,5 @@ total_graduates,int,false,,Total graduates
 total_graduates_error,int,false,,Suppression error bound for total_graduates
 grand_total_enrollments,int,false,,Grand total enrollments
 grand_total_enrollments_error,int,false,,Suppression error bound for grand_total_enrollments
-enrollment_within,int,false,,Enrollment within the reporting window
-enrollment_within_error,int,false,,Suppression error bound for enrollment_within
 start_date,str,true,,Academic year start date
 end_date,str,true,,Academic year end date

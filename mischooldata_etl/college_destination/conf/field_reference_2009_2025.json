@@ -3,7 +3,8 @@
         "ISDCode": "str",
         "DistrictCode": "str",
         "BuildingCode": "str",
-        "IPEDSCode": "str"
+        "IPEDSCode": "str",
+        "EnrollmentWithin": "str"
     },
     "renames": {
         "ISDCode": "isd_code",
@@ -25,14 +26,14 @@
         "isd_code": "str",
         "district_code": "str",
         "building_code": "str",
-        "ipeds_code": "str"
+        "ipeds_code": "str",
+        "enrollment_within": "str"
     },
     "suppressed_cols": [
         "total_enrolled",
         "total_enrolled_first",
         "total_graduates",
-        "grand_total_enrollments",
-        "enrollment_within"
+        "grand_total_enrollments"
     ],
     "stubnames": [],
     "recodes": {},
@@ -46,6 +47,7 @@
         "ihe_level",
         "ihe_control",
         "ihe_in_state_out_state",
+        "enrollment_within",
         "total_enrolled",
         "total_enrolled_error",
         "total_enrolled_first",
@@ -54,8 +56,6 @@
         "total_graduates_error",
         "grand_total_enrollments",
         "grand_total_enrollments_error",
-        "enrollment_within",
-        "enrollment_within_error",
         "start_date",
         "end_date"
     ]
