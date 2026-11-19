@@ -4,11 +4,13 @@
         "DistrictCode": "str",
         "BuildingCode": "str",
         "IPEDSCode": "str",
-        "EnrollmentWithin": "str"
+        "EnrollmentWithin": "str",
+        "DisctrictCode": "str"
     },
     "renames": {
         "ISDCode": "isd_code",
         "DistrictCode": "district_code",
+        "DisctrictCode": "district_code",
         "BuildingCode": "building_code",
         "IPEDSCode": "ipeds_code",
         "IHENAME": "ihe_name",

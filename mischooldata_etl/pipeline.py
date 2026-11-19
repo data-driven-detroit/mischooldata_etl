@@ -1,12 +1,15 @@
 """The shared transform/load steps the dataset modules build on."""
 from pathlib import Path
 import json
+import logging
 import pandas as pd
 from inequalitytools import parse_to_inequality
 
 from .config import get_config
 from .db import get_db_engine
 
+
+logger = logging.getLogger(__name__)
 
 def load_field_reference(working_dir: Path, field_reference_file: str) -> dict:
     return json.loads((working_dir / "conf" / field_reference_file).read_text())
@@ -80,6 +83,33 @@ def apply_padding(frame):
     return frame
 
 
+def check_source_columns(raw, field_reference, source_path):
+    """Fail with the file and its actual headers when expected columns are missing.
+
+    A rename whose source column isn't in the file silently does nothing, so
+    without this the failure surfaces later as a bare KeyError on the renamed
+    name, with no hint which file or header was to blame.
+    """
+    renames = field_reference["renames"]
+    produced = {renames.get(c, c) for c in raw.columns}
+    # Several source names may map to one output column (header spellings that
+    # changed between years); only complain when none of them is present.
+    missing = {}
+    for source, target in renames.items():
+        if target not in produced:
+            missing.setdefault(target, []).append(source)
+    if not missing:
+        return
+
+    message = (
+        f"{source_path}: no source column found for {sorted(missing)} "
+        f"(looked for {missing}). Columns actually in the file: {list(raw.columns)}"
+    )
+    if any(code in missing for code in ("isd_code", "district_code", "building_code")):
+        raise KeyError(message)
+    logger.warning(message)
+
+
 def generic_transform(module_name: str, working_dir: Path):
     """Rebuild output/combined_years.csv from every year in dataset_years.csv."""
     config = get_config()
@@ -100,12 +130,16 @@ def generic_transform(module_name: str, working_dir: Path):
             (working_dir / "conf" / year["field_reference_file"]).read_text()
         )
 
+        source_path = Path(config["vault_location"]) / year["source_file"]
+        raw = pd.read_csv(
+            source_path,
+            dtype=field_reference["in_types"],
+            low_memory=False,
+        )
+        check_source_columns(raw, field_reference, source_path)
+
         frame = (
-            pd.read_csv(
-                Path(config["vault_location"]) / year["source_file"],
-                dtype=field_reference["in_types"],
-                low_memory=False, 
-            )
+            raw
             .rename(columns=field_reference["renames"])
             .pipe(lambda frame: transform_process(frame, field_reference))
             .pipe(apply_padding)
