@@ -31,14 +31,18 @@ def transform_student_counts():
             (WORKING_DIR / "conf" / year["field_reference_file"]).read_text()
         )
 
+        source_path = Path(config["vault_location"]) / year["source_file"]
         try:
             df = pd.read_csv(
-                Path(config["vault_location"]) / year["source_file"], 
+                source_path,
                 dtype={"district_code": "str", "building_code": "str"}
             )
 
         except FileNotFoundError:
-            logger.error(f"File for year {year["year"]} doesn't exist!")
+            logger.error(
+                "File for year %s doesn't exist! Checked: %s",
+                year["year"], source_path.absolute(),
+            )
             continue
 
         wide_table = (
