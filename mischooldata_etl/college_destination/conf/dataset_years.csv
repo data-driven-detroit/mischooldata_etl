@@ -15,4 +15,4 @@ year,start_date,end_date,field_reference_file,source_file
 2022,2021-07-01,2022-06-30,field_reference_2009_2025.json,DATA/Education/College enrollment destination/Data/2022/Raw/college_enrollment_destination_2022.csv
 2023,2022-07-01,2023-06-30,field_reference_2009_2025.json,DATA/Education/College enrollment destination/Data/2023/Raw/college_enrollment_destination_2023.csv
 2024,2023-07-01,2024-06-30,field_reference_2009_2025.json,DATA/Education/College enrollment destination/Data/2024/Raw/college_enrollment_destination_2024.csv
-2025,2024-07-01,2025-06-30,field_reference_2009_2025.json,DATA/Education/College enrollment destination/college_enrollment_destination_2025.csv
+2025,2024-07-01,2025-06-30,field_reference_2009_2025.json,DATA/Education/College enrollment destination/Data/college_enrollment_destination_2025.csv
