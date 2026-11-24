@@ -7,6 +7,7 @@ known-addresses cache and then the Census geocoder, whose answers are cached,
 so later runs only send Census the addresses it hasn't seen.
 """
 import logging
+from dataclasses import replace
 from pathlib import Path
 
 import geocoder
@@ -31,11 +32,17 @@ NOT_A_BUILDING = "00000"
 
 
 def geocoder_settings() -> geocoder.Settings:
-    """d3geocoder settings pointing at this project's warehouse ([db] in config.toml).
+    """d3geocoder settings, connected to this project's warehouse.
+
+    The connection always comes from [db] in config.toml, so the geocoder
+    writes to the same database as the rest of the ETL. Everything else --
+    which schemas hold Base Units, job tables and the cache, the cache table
+    names, Census options -- is d3geocoder's own configuration: GEOCODER_*
+    environment variables, or a geocoder.toml (GEOCODER_CONFIG names one
+    explicitly), else d3geocoder's defaults.
 
     make_conninfo quotes each value, so passwords containing spaces, quotes or
-    `@` survive. Everything else (cache table, work schema, Census options)
-    keeps d3geocoder's defaults.
+    `@` survive.
     """
     db = get_config()["db"]
     dsn = make_conninfo(
@@ -45,7 +52,8 @@ def geocoder_settings() -> geocoder.Settings:
         user=db["user"],
         password=db["password"],
     )
-    return geocoder.Settings(postgres=geocoder.PostgresSettings(dsn=dsn))
+    settings = geocoder.load_settings()
+    return replace(settings, postgres=replace(settings.postgres, dsn=dsn))
 
 
 def geocode_schools():

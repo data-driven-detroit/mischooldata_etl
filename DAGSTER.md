@@ -256,7 +256,10 @@ geocodes with d3geocoder (package `geocoder`, checked out at `../d3geocoder`),
 connecting with this project's `[db]` settings. That database must have Base
 Units loaded (`geocode-build`) and the PostGIS and pg_trgm extensions, and the
 asset writes job tables to `geocoder_work` and cache rows to
-`public.known_addresses`. Each distinct building address is looked up once per
+`public.known_addresses` by default; set `GEOCODER_POSTGRES_WORK_SCHEMA`,
+`GEOCODER_POSTGRES_BASE_UNITS_SCHEMA`, `GEOCODER_POSTGRES_SCHEMA` and
+`GEOCODER_CACHE_TABLE` (or a `geocoder.toml` named by `GEOCODER_CONFIG`) to move
+them. The connection itself always comes from `[db]`. Each distinct building address is looked up once per
 run; Detroit addresses resolve against Base Units, the rest against the cache
 and then the Census geocoder. Census answers are cached, so only addresses new
 since the last run reach the outside service. Add `geocoder` to
