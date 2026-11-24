@@ -14,7 +14,7 @@ config.toml
 *.csv
 *.parquet
 *.parquet.gzip
-
+*.geojson
 # The logging config is okay
 !logging_config.json
 
