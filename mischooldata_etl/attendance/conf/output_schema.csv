@@ -1,0 +1,20 @@
+column_name,data_type,required,default_value,description
+isd_code,str,false,,Intermediate School District Code
+district_code,str,false,,District Code
+building_code,str,false,,Building Code
+report_category,str,false,,Reporting category
+report_sub_group,str,false,,Reporting subgroup
+total_students,float,false,,Total students
+total_students_error,float,false,,Suppression error bound for total_students
+chronically_absent_count,float,false,,Chronically absent count
+chronically_absent_count_error,float,false,,Suppression error bound for chronically_absent_count
+not_chronically_absent_count,float,false,,Not chronically absent count
+not_chronically_absent_count_error,float,false,,Suppression error bound for not_chronically_absent_count
+ar_all_students,float,false,,Attendance rate all students
+ar_all_students_error,float,false,,Suppression error bound for ar_all_students
+ar_chronically_absent,float,false,,Attendance rate chronically absent
+ar_chronically_absent_error,float,false,,Suppression error bound for ar_chronically_absent
+ar_not_chronically_absent,float,false,,Attendance rate not chronically absent
+ar_not_chronically_absent_error,float,false,,Suppression error bound for ar_not_chronically_absent
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date

@@ -13,6 +13,8 @@ from typing import Callable
 
 from .assessments.transform import transform_assessments
 from .assessments.load import load_assessments
+from .attendance.transform import transform_attendance
+from .attendance.load import load_attendance
 from .college_destination.transform import transform_college_destination
 from .college_destination.load import load_college_destination
 from .early_childhood.transform import transform_early_childhood
@@ -58,6 +60,7 @@ def _simple(name: str, transform: Callable[[], None], load: Callable[[], None]) 
 
 _ASSETS = [
     _simple("assessments", transform_assessments, load_assessments),
+    _simple("attendance", transform_attendance, load_attendance),
     _simple("college_destination", transform_college_destination, load_college_destination),
     _simple("early_childhood", transform_early_childhood, load_early_childhood),
     _simple("grad_dropout", transform_grad_dropout, load_grad_dropout),
