@@ -9,13 +9,13 @@ ihe_level,str,false,,Institution level
 ihe_control,str,false,,Institution control (public/private)
 ihe_in_state_out_state,str,false,,In-state or out-of-state institution
 enrollment_within,str,false,,Time window after graduation the enrollment falls in (e.g. 'within 0-48 months')
-total_enrolled,int,false,,Students enrolled at the institution
-total_enrolled_error,int,false,,Suppression error bound for total_enrolled
-total_enrolled_first,int,false,,Students enrolled whose first institution this was
-total_enrolled_first_error,int,false,,Suppression error bound for total_enrolled_first
-total_graduates,int,false,,Total graduates
-total_graduates_error,int,false,,Suppression error bound for total_graduates
-grand_total_enrollments,int,false,,Grand total enrollments
-grand_total_enrollments_error,int,false,,Suppression error bound for grand_total_enrollments
+total_enrolled,float,false,,Students enrolled at the institution
+total_enrolled_error,float,false,,Suppression error bound for total_enrolled
+total_enrolled_first,float,false,,Students enrolled whose first institution this was
+total_enrolled_first_error,float,false,,Suppression error bound for total_enrolled_first
+total_graduates,float,false,,Total graduates
+total_graduates_error,float,false,,Suppression error bound for total_graduates
+grand_total_enrollments,float,false,,Grand total enrollments
+grand_total_enrollments_error,float,false,,Suppression error bound for grand_total_enrollments
 start_date,date,true,,Academic year start date
 end_date,date,true,,Academic year end date

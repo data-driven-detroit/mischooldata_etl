@@ -107,6 +107,23 @@ def check_error_columns(field_reference, output_schema, source):
             "doesn't list them, so they'd be dropped. Add them to output_schema.csv."
         )
 
+    # inequalitytools estimates a suppressed value as the midpoint of its range
+    # -- "<5" becomes 2.5 +/- 2.5 -- so these columns can't be integers even
+    # when the underlying data are counts.
+    types = dict(zip(output_schema["column_name"], output_schema["data_type"]))
+    parsed = [
+        col
+        for c in field_reference["suppressed_cols"]
+        for col in (c, f"{c}_error")
+        if types.get(col) != "float"
+    ]
+    if parsed:
+        raise ValueError(
+            f"{source}: {parsed} come from inequalitytools, which can produce "
+            "fractional estimates (\"<5\" -> 2.5); set their data_type to float "
+            "in output_schema.csv."
+        )
+
 
 def apply_output_schema(frame, output_schema):
     """Add any missing columns with their defaults, then validate against the schema."""
