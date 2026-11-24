@@ -1,0 +1,25 @@
+column_name,data_type,required,default_value,description
+isd_code,str,false,,Intermediate School District Code
+district_code,str,false,,District Code
+building_code,str,false,,Building Code
+subgroup,str,false,,Student subgroup
+all_subject_num_assessed,float,false,,All subject num assessed
+all_subject_num_assessed_error,float,false,,Suppression error bound for all_subject_num_assessed
+all_count_ready,float,false,,All count ready
+all_count_ready_error,float,false,,Suppression error bound for all_count_ready
+all_subject_score_average,float,false,,All subject score average
+all_subject_score_average_error,float,false,,Suppression error bound for all_subject_score_average
+ebrw_num_assessed,float,false,,Ebrw num assessed
+ebrw_num_assessed_error,float,false,,Suppression error bound for ebrw_num_assessed
+ebrw_count_ready,float,false,,Ebrw count ready
+ebrw_count_ready_error,float,false,,Suppression error bound for ebrw_count_ready
+ebrw_score_average,float,false,,Ebrw score average
+ebrw_score_average_error,float,false,,Suppression error bound for ebrw_score_average
+math_num_assessed,float,false,,Math num assessed
+math_num_assessed_error,float,false,,Suppression error bound for math_num_assessed
+math_count_ready,float,false,,Math count ready
+math_count_ready_error,float,false,,Suppression error bound for math_count_ready
+math_score_average,float,false,,Math score average
+math_score_average_error,float,false,,Suppression error bound for math_score_average
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date
