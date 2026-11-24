@@ -1,0 +1,33 @@
+column_name,data_type,required,default_value,description
+isd_code,str,false,,Intermediate School District Code
+district_code,str,false,,District Code
+building_code,str,false,,Building Code
+total_graduates,float,false,,Total Graduates (All Students)
+total_graduates_error,float,false,,Suppression error bound for total_graduates
+ihe_type,str,false,,IHE Type
+subgroup,str,false,,Subgroup
+gender,str,false,,Gender
+enrolled_within_6_mos,float,false,,Total Enrolled in an IHE within 0-6 months
+enrolled_within_6_mos_error,float,false,,Suppression error bound for enrolled_within_6_mos
+enrolled_within_12_mos,float,false,,Total Enrolled in an IHE within 0-12 months
+enrolled_within_12_mos_error,float,false,,Suppression error bound for enrolled_within_12_mos
+enrolled_within_16_mos,float,false,,Total Enrolled in an IHE within 0-16 months
+enrolled_within_16_mos_error,float,false,,Suppression error bound for enrolled_within_16_mos
+enrolled_within_24_mos,float,false,,Total Enrolled in an IHE within 0-24 months
+enrolled_within_24_mos_error,float,false,,Suppression error bound for enrolled_within_24_mos
+enrolled_within_36_mos,float,false,,Total Enrolled in an IHE within 0-36 months
+enrolled_within_36_mos_error,float,false,,Suppression error bound for enrolled_within_36_mos
+enrolled_within_48_mos,float,false,,Total Enrolled in an IHE within 0-48 months
+enrolled_within_48_mos_error,float,false,,Suppression error bound for enrolled_within_48_mos
+acc_24_credits_12_mos,float,false,,Total Accumulating 24 Credits within 0-12 months
+acc_24_credits_12_mos_error,float,false,,Suppression error bound for acc_24_credits_12_mos
+acc_24_credits_16_mos,float,false,,Total Accumulating 24 Credits within 0-16 months
+acc_24_credits_16_mos_error,float,false,,Suppression error bound for acc_24_credits_16_mos
+acc_24_credits_24_mos,float,false,,Total Accumulating 24 Credits within 0-24 months
+acc_24_credits_24_mos_error,float,false,,Suppression error bound for acc_24_credits_24_mos
+acc_24_credits_36_mos,float,false,,Total Accumulating 24 Credits within 0-36 months
+acc_24_credits_36_mos_error,float,false,,Suppression error bound for acc_24_credits_36_mos
+acc_24_credits_48_mos,float,false,,Total Accumulating 24 Credits within 0-48 months
+acc_24_credits_48_mos_error,float,false,,Suppression error bound for acc_24_credits_48_mos
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date

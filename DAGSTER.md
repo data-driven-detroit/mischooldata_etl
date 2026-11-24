@@ -64,7 +64,7 @@ defs = Definitions(assets=[_build_asset(a) for a in ASSETS.values()])
 dagster dev -f defs.py
 ```
 
-That yields 10 assets, one per table, keyed `education/<table>`. Nine are
+That yields 11 assets, one per table, keyed `education/<table>`. Ten are
 independent; `education/eem_geocoded` depends on `education/eem`.
 
 Keys match the tables, so if you later add downstream assets (dbt models, SQL
