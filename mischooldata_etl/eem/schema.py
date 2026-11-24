@@ -1,9 +1,9 @@
-"""Validation schema for education.school_geocodes."""
+"""Validation schema for education.eem_geocoded."""
 import geocoder
 import pandera.pandas as pa
 
 
-def school_geocodes_schema() -> pa.DataFrameSchema:
+def eem_geocoded_schema() -> pa.DataFrameSchema:
     """One row per building-year: its address, d3geocoder's match columns, a point.
 
     The match columns (bu_*, lon/lat, geo_*) and geometry come from
@@ -11,9 +11,14 @@ def school_geocodes_schema() -> pa.DataFrameSchema:
     whatever d3geocoder version is installed.
     """
     return geocoder.dataframe_schema(cache=True, geometry=True, strict=True).add_columns({
+        "isd_code": pa.Column(str, pa.Check.str_length(2, 2), nullable=True, coerce=True),
+        "district_code": pa.Column(
+            str, pa.Check.str_length(5, 5), nullable=True, coerce=True
+        ),
         "building_code": pa.Column(
             str, pa.Check.str_length(5, 5), nullable=False, coerce=True
         ),
+        "status": pa.Column(str, nullable=True, coerce=True),
         "address": pa.Column(str, nullable=False, coerce=True),
         "city": pa.Column(str, nullable=True, coerce=True),
         "state": pa.Column(str, nullable=True, coerce=True),

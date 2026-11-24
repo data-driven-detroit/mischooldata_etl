@@ -18,8 +18,8 @@ from .college_destination.load import load_college_destination
 from .early_childhood.transform import transform_early_childhood
 from .early_childhood.load import load_early_childhood
 from .eem.transform import transform_eem
-from .eem.geocode import geocode_schools
-from .eem.load import load_eem, load_school_geocode
+from .eem.geocode import geocode_eem
+from .eem.load import load_eem, load_eem_geocoded
 from .grad_dropout.transform import transform_grad_dropout
 from .grad_dropout.load import load_grad_dropout
 from .non_resident.transform import transform_non_resident
@@ -65,9 +65,9 @@ _ASSETS = [
     _simple("student_counts", transform_student_counts, load_student_counts),
     _simple("eem", transform_eem, load_eem),
     Asset(
-        name="school_geocodes",
+        name="eem_geocoded",
         group="eem",
-        materialize=_chain(geocode_schools, load_school_geocode),
+        materialize=_chain(geocode_eem, load_eem_geocoded),
         deps=("eem",),
         description="Geocoded building addresses from the eem directory.",
     ),

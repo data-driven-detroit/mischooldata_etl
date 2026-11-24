@@ -64,8 +64,8 @@ New modules are scaffolded from the cookiecutter template in
 `mischooldata_etl/template/`. Add their tables to `ASSETS` in `datasets.py` too --
 `process.py` and any orchestrator both drive off that registry. An asset is a
 table, not a step: its `materialize` runs transform then load. Only add `deps`
-for a real table-to-table dependency (e.g. `school_geocodes` on `eem`).
-`school_geocodes` geocodes with d3geocoder (`../d3geocoder`, package
+for a real table-to-table dependency (e.g. `eem_geocoded` on `eem`).
+`eem_geocoded` geocodes with d3geocoder (`../d3geocoder`, package
 `geocoder`); see `DAGSTER.md` for what it needs in the database.
 
 Config and database engines are read lazily, inside `materialize`, so importing the

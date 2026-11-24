@@ -15,15 +15,15 @@ an asset:
 from mischooldata_etl.datasets import ASSETS
 
 ASSETS["eem"]                         # Asset(name="eem", group="eem", deps=())
-ASSETS["school_geocodes"].deps        # ("eem",)
-ASSETS["school_geocodes"].materialize()   # rebuild that one table
+ASSETS["eem_geocoded"].deps        # ("eem",)
+ASSETS["eem_geocoded"].materialize()   # rebuild that one table
 ```
 
 An asset is a thing that exists -- `education.eem`,
-`education.school_geocodes` -- not a step. Transforming and loading are
+`education.eem_geocoded` -- not a step. Transforming and loading are
 behaviors *inside* `materialize`; the intermediate CSV under `output/` is a
 scratch file, not something Dagster tracks. The one real cross-asset dependency
-is `school_geocodes`, which is built from the eem data.
+is `eem_geocoded`, which is built from the eem data.
 
 Every `materialize` is a zero-argument callable. Walk this registry rather than
 importing each module by hand, so a new table shows up in Dagster as soon as
@@ -65,14 +65,14 @@ dagster dev -f defs.py
 ```
 
 That yields 8 assets, one per table, keyed `education/<table>`. Seven are
-independent; `education/school_geocodes` depends on `education/eem`.
+independent; `education/eem_geocoded` depends on `education/eem`.
 
 Keys match the tables, so if you later add downstream assets (dbt models, SQL
 views) that read these tables, the lineage lines up without any mapping.
 
 Assets write to the database themselves rather than returning DataFrames, so no
 I/O manager is involved and `deps=` rather than Dagster inputs express the
-dependency. `school_geocodes` still reads the eem scratch CSV off disk, so it
+dependency. `eem_geocoded` still reads the eem scratch CSV off disk, so it
 has to run somewhere that shares a filesystem with the eem materialization.
 
 ## Project layout
@@ -251,7 +251,7 @@ the rest, commit at the end. If anything fails partway, Postgres rolls back and
 the previous table is untouched. Readers of the table block for the duration of
 a load, since the replace holds a lock until commit.
 
-**`school_geocodes` needs d3geocoder and the warehouse's Base Units.** It
+**`eem_geocoded` needs d3geocoder and the warehouse's Base Units.** It
 geocodes with d3geocoder (package `geocoder`, checked out at `../d3geocoder`),
 connecting with this project's `[db]` settings. That database must have Base
 Units loaded (`geocode-build`) and the PostGIS and pg_trgm extensions, and the

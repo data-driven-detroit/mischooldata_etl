@@ -7,7 +7,7 @@ from sqlalchemy.types import Date
 from ..db import get_db_engine
 from ..pipeline import generic_load
 from .geocode import OUTPUT_FILE
-from .schema import school_geocodes_schema
+from .schema import eem_geocoded_schema
 
 
 logger = logging.getLogger(__name__)
@@ -20,15 +20,15 @@ def load_eem():
     generic_load("eem", WORKING_DIR)
 
 
-def load_school_geocode():
+def load_eem_geocoded():
     frame = gpd.read_file(OUTPUT_FILE)
-    validated = school_geocodes_schema().validate(frame)
-    logger.info("Loading %s rows into school_geocodes.", len(validated))
+    validated = eem_geocoded_schema().validate(frame)
+    logger.info("Loading %s rows into eem_geocoded.", len(validated))
 
     # Full replace in one transaction: if it fails, the old table survives.
     with get_db_engine().begin() as db:
         validated.to_postgis(
-            "school_geocodes", db, schema="education", if_exists="replace",
+            "eem_geocoded", db, schema="education", if_exists="replace",
             index=False, dtype={"start_date": Date(), "end_date": Date()},
         )
 

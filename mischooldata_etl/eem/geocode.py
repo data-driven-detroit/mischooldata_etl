@@ -1,4 +1,4 @@
-"""Geocode every school building in the eem directory with d3geocoder.
+"""Build education.eem_geocoded: every eem building-year, geocoded with d3geocoder.
 
 Each distinct building address is geocoded once, however many years list it,
 and the points are joined back to every building-year. Detroit addresses go
@@ -22,7 +22,10 @@ logger = logging.getLogger(__name__)
 
 
 WORKING_DIR = Path(__file__).parent
-OUTPUT_FILE = WORKING_DIR / "output" / "geocoded_schools.geojson"
+OUTPUT_FILE = WORKING_DIR / "output" / "eem_geocoded.geojson"
+
+# Carried through to the table: what downstream queries join on.
+ID_COLUMNS = ["isd_code", "district_code", "building_code", "status"]
 
 # What identifies an address; buildings sharing all four share one lookup.
 ADDRESS_COLUMNS = ["address", "city", "state", "zip_code"]
@@ -56,10 +59,10 @@ def geocoder_settings() -> geocoder.Settings:
     return replace(settings, postgres=replace(settings.postgres, dsn=dsn))
 
 
-def geocode_schools():
+def geocode_eem():
     eem = pd.read_csv(
         WORKING_DIR / "output" / "combined_years.csv",
-        usecols=["building_code", *ADDRESS_COLUMNS, "start_date", "end_date"],
+        usecols=[*ID_COLUMNS, *ADDRESS_COLUMNS, "start_date", "end_date"],
         dtype=str,  # keep codes and ZIPs as text, leading zeros included
     )
     buildings = eem[(eem["building_code"] != NOT_A_BUILDING) & eem["address"].notna()]
