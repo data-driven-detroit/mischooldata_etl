@@ -1,0 +1,24 @@
+column_name,data_type,required,default_value,description
+isd_code,str,false,,Intermediate School District Code
+isd_name,str,false,,Intermediate School District name
+district_code,str,false,,District Code
+district_name,str,false,,District name
+building_code,str,false,,Building Code
+building_name,str,false,,Building name
+county_code,str,false,,County code
+county_name,str,false,,County name
+entity_type,str,false,,Entity type
+school_level,str,false,,School level
+locale_name,str,false,,Locale name
+school_emphasis,str,false,,School emphasis
+setting,str,false,,Setting
+email_address,str,false,,Email address
+phone_number,str,false,,Phone number
+address,str,false,,Address
+city,str,false,,City
+state,str,false,,State
+zip_code,str,false,,Zip code
+school_type,str,false,,School type
+status,str,false,,Status
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date

@@ -1,0 +1,13 @@
+column_name,data_type,required,default_value,description
+isd_code,str,false,,Intermediate School District Code
+district_code,str,false,,District Code
+entity_type,str,false,,Entity type
+school_level,str,false,,School level
+locale,str,false,,Locale
+program,str,false,,Program
+ethnicity,str,false,,Ethnicity
+testing_group,str,false,,Testing group
+count,,false,,Count
+percent,,false,,Percent
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date

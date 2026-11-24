@@ -1,0 +1,21 @@
+column_name,data_type,required,default_value,description
+isd_code,str,false,,Intermediate School District Code
+district_code,str,false,,District Code
+building_code,str,false,,Building Code
+building_name,str,false,,Building name
+cohort_year,,false,,Cohort year
+rate_year,,false,,Rate year
+subgroup,str,false,,Subgroup
+crosstabs,str,false,,Crosstabs
+cohort_count,int,false,,Cohort count
+cohort_count_error,int,false,,Suppression error bound for cohort_count
+dropout_count,int,false,,Dropout count
+dropout_count_error,int,false,,Suppression error bound for dropout_count
+on_track_graduated_count,int,false,,On track graduated count
+on_track_graduated_count_error,int,false,,Suppression error bound for on_track_graduated_count
+off_track_continuing_count,int,false,,Off track continuing count
+off_track_continuing_count_error,int,false,,Suppression error bound for off_track_continuing_count
+other_completer_count,int,false,,Other completer count
+other_completer_count_error,int,false,,Suppression error bound for other_completer_count
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date

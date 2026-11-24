@@ -17,5 +17,5 @@ total_graduates,int,false,,Total graduates
 total_graduates_error,int,false,,Suppression error bound for total_graduates
 grand_total_enrollments,int,false,,Grand total enrollments
 grand_total_enrollments_error,int,false,,Suppression error bound for grand_total_enrollments
-start_date,str,true,,Academic year start date
-end_date,str,true,,Academic year end date
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date

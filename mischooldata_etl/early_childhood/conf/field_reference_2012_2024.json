@@ -4,7 +4,7 @@
         "DistrictCode": "str",
         "ONSR": "str",
         "ONSR Name": "str"
-    }, 
+    },
     "renames": {
         "ISD Code": "isd_code",
         "DistrictCode": "district_code",
@@ -24,11 +24,14 @@
         "district_code": "str",
         "onsr": "str",
         "onsr_name": "str"
-    }, 
-    "suppressed_cols": [
-    ],
-    "stubnames": [
-    ],
+    },
+    "padding": {
+        "isd_code": 2,
+        "district_code": 5,
+        "onsr": 9
+    },
+    "suppressed_cols": [],
+    "stubnames": [],
     "recodes": {},
     "out_cols": [
         "isd_code",
@@ -45,5 +48,3 @@
         "end_date"
     ]
 }
-
-

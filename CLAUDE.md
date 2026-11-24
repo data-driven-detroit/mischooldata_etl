@@ -51,7 +51,7 @@ mischooldata_etl/
     datasets.py         # ASSETS registry: every table and how to build it
     <dataset>/
         __init__.py
-        conf/           # dataset_years.csv, field_reference_*.json
+        conf/           # dataset_years.csv, field_reference_*.json, output_schema.csv
         transform.py    # reads the vault, writes output/
         load.py         # writes to the database
         process.py      # entry point: main() behind a __main__ guard
@@ -82,6 +82,18 @@ per platform.
 `sqlalchemy.engine.URL.create()` — never f-string a DSN, or passwords containing
 `@` or `:` break the connection.
 
+**Output types.** Every table's column types are declared by a pandera schema,
+and dates are always `date` so they load as SQL `DATE`, never `TEXT`. Modules on
+`generic_transform` / `generic_load` (all but `non_resident` and
+`student_counts`) declare theirs in `conf/output_schema.csv`: `data_type` is
+`str`, `int`, `float`, `date`, or blank for a column whose contents haven't been
+checked yet. `pipeline.output_dataframe_schema()` turns that file into a pandera
+schema, validated at the end of the transform and again on load (the scratch CSV
+loses types). `non_resident` and `student_counts` reshape too much for the
+generic path and keep a `DataFrameModel` in their own `schema.py`. A field
+reference can set `"padding"` when its code columns differ from
+isd/district/building.
+
 **Schemas.** Validation schemas use pandera's pandas namespace --
 `import pandera.pandas as pa` and `from pandera.typing.pandas import Series`, not
 the top-level `import pandera as pa`, which is deprecated and warns.
@@ -109,6 +121,8 @@ rotating `mischooldata_etl.log` at the project root.
 
 - `cohort` is unfinished: `load_cohort.py` is empty, `create_cohort.py` builds a
   DataFrame and discards it.
-- Eight modules still use `print()` rather than the logger.
+- `eem/geocode.py` still uses `print()` rather than the logger.
+- Blank `data_type`s still to fill in: `grad_dropout` `cohort_year`/`rate_year`,
+  `early_childhood` `count`/`percent`.
 - `unwrap_value` / `unwrap_error` in `pipeline.py` are reconstructed, not
   verified against `inequalitytools`.

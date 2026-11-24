@@ -1,31 +1,15 @@
 from pathlib import Path
-import json
 import pandas as pd
 import geopandas as gpd
 from ..db import get_db_engine
+from ..pipeline import generic_load
 
 
 WORKING_DIR = Path(__file__).parent
 
 
 def load_eem():
-    field_reference = json.loads(
-        (WORKING_DIR / "conf" / "field_reference_2010_2025.json").read_text()
-    )
-
-    with get_db_engine().begin() as db:
-        if_exists = "replace"
-        for i, portion in enumerate(pd.read_csv(
-            WORKING_DIR / "output" / "combined_years.csv",
-            chunksize=20_000,
-            dtype=field_reference["out_types"],
-        ), start=1): 
-            print(f"Loading chunk {i} into database")
-
-            portion.to_sql( 
-                "eem", db, schema="education", if_exists=if_exists, index=False
-            )
-            if_exists = "append"
+    generic_load("eem", WORKING_DIR)
 
 
 def load_school_geocode():

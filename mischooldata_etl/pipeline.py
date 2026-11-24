@@ -3,6 +3,8 @@ from pathlib import Path
 import json
 import logging
 import pandas as pd
+import pandera.pandas as pa
+from sqlalchemy.types import Date
 from inequalitytools import parse_to_inequality
 
 from .config import get_config
@@ -11,12 +13,50 @@ from .db import get_db_engine
 
 logger = logging.getLogger(__name__)
 
+
+# `data_type` values allowed in a module's conf/output_schema.csv. A blank
+# data_type means "leave the column as pandas reads it": use it only for columns
+# whose contents haven't been checked yet, and fill it in once they have.
+OUTPUT_TYPES = {
+    "str": str,
+    "int": "Int64",
+    "float": "Float64",
+    "date": pa.Date,
+}
+
+# Code columns zero-padded to a fixed width. A field reference can replace this
+# with its own "padding" mapping when its codes differ.
+DEFAULT_PADDING = {"isd_code": 2, "district_code": 5, "building_code": 5}
+
+
 def load_field_reference(working_dir: Path, field_reference_file: str) -> dict:
     return json.loads((working_dir / "conf" / field_reference_file).read_text())
 
 
 def load_output_schema(working_dir: Path) -> pd.DataFrame:
     return pd.read_csv(working_dir / "conf" / "output_schema.csv")
+
+
+def output_dataframe_schema(output_schema: pd.DataFrame) -> pa.DataFrameSchema:
+    """The pandera schema a module's output_schema.csv describes.
+
+    Exactly the listed columns, in order, each coerced to its data_type.
+    start_date and end_date may never be null; other columns may.
+    """
+    columns = {}
+    for row in output_schema.itertuples():
+        data_type = None if pd.isna(row.data_type) else row.data_type
+        if data_type is not None and data_type not in OUTPUT_TYPES:
+            raise ValueError(
+                f"output_schema.csv: unknown data_type {data_type!r} for {row.column_name}; "
+                f"expected one of {sorted(OUTPUT_TYPES)} or blank"
+            )
+        columns[row.column_name] = pa.Column(
+            OUTPUT_TYPES.get(data_type),
+            coerce=data_type is not None,
+            nullable=row.column_name not in ("start_date", "end_date"),
+        )
+    return pa.DataFrameSchema(columns, strict=True, ordered=True)
 
 
 def unwrap_value(inequality):
@@ -33,7 +73,7 @@ def unwrap_error(inequality):
 
 def transform_process(frame, field_reference):
     frame = frame.rename(columns=field_reference["renames"])
-    
+
     for field in field_reference["suppressed_cols"]:
         frame[[field, f"{field}_error"]] = (
             frame[field]
@@ -51,35 +91,20 @@ def transform_process(frame, field_reference):
 
 
 def apply_output_schema(frame, output_schema):
-    type_mapping = {
-        'str': 'object',
-        'int': pd.Int64Dtype(),
-        'float': 'float64'
-    }
+    """Add any missing columns with their defaults, then validate against the schema."""
+    for row in output_schema.itertuples():
+        if row.column_name not in frame.columns:
+            default = row.default_value
+            frame[row.column_name] = pd.NA if pd.isna(default) or default in ("", "NA") else default
 
-    for _, row in output_schema.iterrows():
-        col_name = row['column_name']
-        data_type = row['data_type']
-        required = row['required']
-        default_value = row['default_value']
-
-        if col_name not in frame.columns:
-            if pd.isna(default_value) or default_value == '' or default_value == 'NA':
-                frame[col_name] = pd.NA
-            else:
-                frame[col_name] = default_value
-
-        if data_type in type_mapping:
-            frame[col_name] = frame[col_name].astype(type_mapping[data_type])
-
-    schema_columns = output_schema['column_name'].tolist()
-    return frame[schema_columns]
+    columns = output_schema["column_name"].tolist()
+    return output_dataframe_schema(output_schema).validate(frame[columns])
 
 
-def apply_padding(frame):
-    for col, padding in [("isd_code", 2), ("district_code", 5), ("building_code", 5)]:
-        frame[col] = frame[col].str.zfill(padding)
-    
+def apply_padding(frame, padding=None):
+    for col, width in (padding or DEFAULT_PADDING).items():
+        frame[col] = frame[col].str.zfill(width)
+
     return frame
 
 
@@ -105,7 +130,9 @@ def check_source_columns(raw, field_reference, source_path):
         f"{source_path}: no source column found for {sorted(missing)} "
         f"(looked for {missing}). Columns actually in the file: {list(raw.columns)}"
     )
-    if any(code in missing for code in ("isd_code", "district_code", "building_code")):
+    # The padded code columns are what every row is keyed on; without one the
+    # file can't be used at all.
+    if any(code in missing for code in field_reference.get("padding", DEFAULT_PADDING)):
         raise KeyError(message)
     logger.warning(message)
 
@@ -120,11 +147,11 @@ def generic_transform(module_name: str, working_dir: Path):
     dataset_years = pd.read_csv(working_dir / "conf" / "dataset_years.csv")
     output_schema = load_output_schema(working_dir)
 
-    print(f"Processing {len(dataset_years)} date ranges for {module_name}")
+    logger.info("Processing %s date ranges for %s", len(dataset_years), module_name)
 
     mode, header = "w", True
     for _, year in dataset_years.iterrows():
-        print(f"Opening {year['source_file']}")
+        logger.info("Opening %s", year["source_file"])
 
         field_reference = json.loads(
             (working_dir / "conf" / year["field_reference_file"]).read_text()
@@ -142,7 +169,7 @@ def generic_transform(module_name: str, working_dir: Path):
             raw
             .rename(columns=field_reference["renames"])
             .pipe(lambda frame: transform_process(frame, field_reference))
-            .pipe(apply_padding)
+            .pipe(apply_padding, field_reference.get("padding"))
             .assign(start_date=year["start_date"], end_date=year["end_date"])
             .pipe(lambda frame: apply_output_schema(frame, output_schema))
         )
@@ -152,11 +179,20 @@ def generic_transform(module_name: str, working_dir: Path):
 
 
 def generic_load(table_name: str, working_dir: Path, special_processing=None):
-    field_reference_files = list((working_dir / "conf").glob("field_reference_*.json"))
-    if not field_reference_files:
-        raise FileNotFoundError(f"No field reference file found in {working_dir / 'conf'}")
+    output_schema = load_output_schema(working_dir)
+    schema = output_dataframe_schema(output_schema)
 
-    field_reference = load_field_reference(working_dir, field_reference_files[0].name)
+    # The scratch CSV loses types, so read text columns as text (keeping the
+    # codes' leading zeros) and let the schema restore everything else --
+    # dates included, which otherwise land in the database as TEXT.
+    text_columns = {
+        row.column_name: "str" for row in output_schema.itertuples() if row.data_type == "str"
+    }
+    # Pin the date columns' SQL type too, so it doesn't depend on what pandas
+    # infers from the first chunk.
+    sql_types = {
+        row.column_name: Date() for row in output_schema.itertuples() if row.data_type == "date"
+    }
 
     # Full replace in one transaction: if any chunk fails, the old table survives.
     if_exists = "replace"
@@ -164,14 +200,17 @@ def generic_load(table_name: str, working_dir: Path, special_processing=None):
         for i, portion in enumerate(pd.read_csv(
             working_dir / "output" / "combined_years.csv",
             chunksize=20_000,
-            dtype=field_reference["out_types"],
+            dtype=text_columns,
         ), start=1):
-            print(f"Loading chunk {i} into database.")
+            logger.info("Loading chunk %s of %s into database.", i, table_name)
 
             if special_processing:
                 portion = special_processing(portion)
 
+            portion = schema.validate(portion)
+
             portion.to_sql(
-                table_name, db, schema="education", if_exists=if_exists, index=False
+                table_name, db, schema="education", if_exists=if_exists, index=False,
+                dtype=sql_types,
             )
             if_exists = "append"

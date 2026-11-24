@@ -25,5 +25,5 @@ total_not_proficient,int,false,,Total students not proficient
 total_partially_proficient,int,false,,Total students partially proficient
 total_proficient,int,false,,Total students proficient
 total_surpassed,int,false,,Total students who surpassed standards
-start_date,str,true,,Academic year start date
-end_date,str,true,,Academic year end date
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date
