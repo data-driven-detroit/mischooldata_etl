@@ -32,6 +32,8 @@ from .non_resident.transform import transform_non_resident
 from .non_resident.load import load_non_resident
 from .student_counts.transform import transform_student_counts
 from .student_counts.load import load_student_counts
+from .student_mobility.transform import transform_student_mobility
+from .student_mobility.load import load_student_mobility
 
 
 SCHEMA = "education"
@@ -72,6 +74,7 @@ _ASSETS = [
     _simple("grad_dropout", transform_grad_dropout, load_grad_dropout),
     _simple("non_resident", transform_non_resident, load_non_resident),
     _simple("student_counts", transform_student_counts, load_student_counts),
+    _simple("student_mobility", transform_student_mobility, load_student_mobility),
     _simple("eem", transform_eem, load_eem),
     Asset(
         name="eem_geocoded",

@@ -1,0 +1,16 @@
+column_name,data_type,required,default_value,description
+isd_code,str,false,,Intermediate School District Code
+district_code,str,false,,District Code
+building_code,str,false,,Building Code
+report_category,str,false,,Reporting category
+count,float,false,,Student count
+count_error,float,false,,Suppression error bound for count
+count_stable,float,false,,Stable student count
+count_stable_error,float,false,,Suppression error bound for count_stable
+count_mobile,float,false,,Mobile student count
+count_mobile_error,float,false,,Suppression error bound for count_mobile
+count_incoming,float,false,,Incoming student count
+count_incoming_error,float,false,,Suppression error bound for count_incoming
+mobility_rate,,false,,Mobility rate
+start_date,date,true,,Academic year start date
+end_date,date,true,,Academic year end date

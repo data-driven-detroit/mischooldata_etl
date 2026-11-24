@@ -37,7 +37,7 @@ package identity, so those imports raise
 `ImportError: attempted relative import with no known parent package`.
 
 Modules: `assessments`, `attendance`, `college_destination`, `college_enrollment`, `college_readiness`, `early_childhood`, `eem`,
-`grad_dropout`, `non_resident`, `student_counts`.
+`grad_dropout`, `non_resident`, `student_counts`, `student_mobility`.
 
 ## Layout
 
@@ -124,6 +124,6 @@ rotating `mischooldata_etl.log` at the project root.
 - `cohort` is unfinished: `load_cohort.py` is empty, `create_cohort.py` builds a
   DataFrame and discards it.
 - Blank `data_type`s still to fill in: `grad_dropout` `cohort_year`/`rate_year`,
-  `early_childhood` `count`/`percent`.
+  `early_childhood` `count`/`percent`, `student_mobility` `mobility_rate`.
 - `unwrap_value` / `unwrap_error` in `pipeline.py` are reconstructed, not
   verified against `inequalitytools`.
