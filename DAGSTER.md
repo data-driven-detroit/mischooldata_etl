@@ -251,9 +251,16 @@ the rest, commit at the end. If anything fails partway, Postgres rolls back and
 the previous table is untouched. Readers of the table block for the duration of
 a load, since the replace holds a lock until commit.
 
-**`school_geocodes` calls the Census geocoder every time.** It re-geocodes every
-building on each materialization. That's the slowest asset and the only one
-that depends on an outside service; don't put it on a tight schedule.
+**`school_geocodes` needs d3geocoder and the warehouse's Base Units.** It
+geocodes with d3geocoder (package `geocoder`, checked out at `../d3geocoder`),
+connecting with this project's `[db]` settings. That database must have Base
+Units loaded (`geocode-build`) and the PostGIS and pg_trgm extensions, and the
+asset writes job tables to `geocoder_work` and cache rows to
+`public.known_addresses`. Each distinct building address is looked up once per
+run; Detroit addresses resolve against Base Units, the rest against the cache
+and then the Census geocoder. Census answers are cached, so only addresses new
+since the last run reach the outside service. Add `geocoder` to
+`managed_python_loggers` to see its step counts in Dagster.
 
 **Output lands inside the package.** Steps write to
 `mischooldata_etl/<dataset>/output/`, resolved from `__file__`. In a container

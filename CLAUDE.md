@@ -65,6 +65,8 @@ New modules are scaffolded from the cookiecutter template in
 `process.py` and any orchestrator both drive off that registry. An asset is a
 table, not a step: its `materialize` runs transform then load. Only add `deps`
 for a real table-to-table dependency (e.g. `school_geocodes` on `eem`).
+`school_geocodes` geocodes with d3geocoder (`../d3geocoder`, package
+`geocoder`); see `DAGSTER.md` for what it needs in the database.
 
 Config and database engines are read lazily, inside `materialize`, so importing the
 package never requires `config.toml` or touches the database. Keep it that way;
@@ -121,7 +123,6 @@ rotating `mischooldata_etl.log` at the project root.
 
 - `cohort` is unfinished: `load_cohort.py` is empty, `create_cohort.py` builds a
   DataFrame and discards it.
-- `eem/geocode.py` still uses `print()` rather than the logger.
 - Blank `data_type`s still to fill in: `grad_dropout` `cohort_year`/`rate_year`,
   `early_childhood` `count`/`percent`.
 - `unwrap_value` / `unwrap_error` in `pipeline.py` are reconstructed, not
