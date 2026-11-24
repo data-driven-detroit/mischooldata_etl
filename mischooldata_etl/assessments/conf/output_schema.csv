@@ -12,18 +12,28 @@ max_scale_score,float,false,,Maximum scale score
 mean_pts_earned,float,false,,Mean points earned
 min_scale_score,float,false,,Minimum scale score
 number_assessed,int,false,,Number of students assessed
+number_assessed_error,int,false,,Suppression error bound for number_assessed
 scale_score_25,float,false,,25th percentile scale score
 scale_score_50,float,false,,50th percentile scale score
 scale_score_75,float,false,,75th percentile scale score
 std_dev_scale_score,float,false,,Standard deviation of scale scores
 total_advanced,int,false,,Total students at advanced level
+total_advanced_error,int,false,,Suppression error bound for total_advanced
 total_attained,int,false,,Total students who attained proficiency
+total_attained_error,int,false,,Suppression error bound for total_attained
 total_did_not_meet,int,false,,Total students who did not meet standards
+total_did_not_meet_error,int,false,,Suppression error bound for total_did_not_meet
 total_emerging_towards,int,false,,Total students emerging towards proficiency
+total_emerging_towards_error,int,false,,Suppression error bound for total_emerging_towards
 total_met,int,false,,Total students who met standards
+total_met_error,int,false,,Suppression error bound for total_met
 total_not_proficient,int,false,,Total students not proficient
+total_not_proficient_error,int,false,,Suppression error bound for total_not_proficient
 total_partially_proficient,int,false,,Total students partially proficient
+total_partially_proficient_error,int,false,,Suppression error bound for total_partially_proficient
 total_proficient,int,false,,Total students proficient
+total_proficient_error,int,false,,Suppression error bound for total_proficient
 total_surpassed,int,false,,Total students who surpassed standards
+total_surpassed_error,int,false,,Suppression error bound for total_surpassed
 start_date,date,true,,Academic year start date
 end_date,date,true,,Academic year end date

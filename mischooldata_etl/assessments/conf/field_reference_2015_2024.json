@@ -39,8 +39,7 @@
         "building_code": "str",
         "test_population": "str"
     },
-    "suppressed_cols": [],
-    "coerce_cols": [
+    "suppressed_cols": [
         "total_advanced",
         "total_proficient",
         "total_partially_proficient",
@@ -50,7 +49,9 @@
         "total_emerging_towards",
         "total_met",
         "total_did_not_meet",
-        "number_assessed",
+        "number_assessed"
+    ],
+    "coerce_cols": [
         "avg_scale_score",
         "std_dev_scale_score",
         "mean_pts_earned",
@@ -76,19 +77,29 @@
         "mean_pts_earned",
         "min_scale_score",
         "number_assessed",
+        "number_assessed_error",
         "scale_score_25",
         "scale_score_50",
         "scale_score_75",
         "std_dev_scale_score",
         "total_advanced",
+        "total_advanced_error",
         "total_attained",
+        "total_attained_error",
         "total_did_not_meet",
+        "total_did_not_meet_error",
         "total_emerging_towards",
+        "total_emerging_towards_error",
         "total_met",
+        "total_met_error",
         "total_not_proficient",
+        "total_not_proficient_error",
         "total_partially_proficient",
+        "total_partially_proficient_error",
         "total_proficient",
+        "total_proficient_error",
         "total_surpassed",
+        "total_surpassed_error",
         "start_date",
         "end_date"
     ]

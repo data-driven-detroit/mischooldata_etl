@@ -90,6 +90,24 @@ def transform_process(frame, field_reference):
     return frame
 
 
+def check_error_columns(field_reference, output_schema, source):
+    """Every suppressed column must keep its `_error` column in the output.
+
+    apply_output_schema keeps only the columns output_schema.csv lists, so an
+    `_error` column missing from it would be silently dropped -- and downstream
+    work relies on those error bounds.
+    """
+    listed = set(output_schema["column_name"])
+    missing = [
+        f"{c}_error" for c in field_reference["suppressed_cols"] if f"{c}_error" not in listed
+    ]
+    if missing:
+        raise ValueError(
+            f"{source}: suppressed_cols produce {missing}, but output_schema.csv "
+            "doesn't list them, so they'd be dropped. Add them to output_schema.csv."
+        )
+
+
 def apply_output_schema(frame, output_schema):
     """Add any missing columns with their defaults, then validate against the schema."""
     for row in output_schema.itertuples():
@@ -156,6 +174,7 @@ def generic_transform(module_name: str, working_dir: Path):
         field_reference = json.loads(
             (working_dir / "conf" / year["field_reference_file"]).read_text()
         )
+        check_error_columns(field_reference, output_schema, year["field_reference_file"])
 
         source_path = Path(config["vault_location"]) / year["source_file"]
         raw = pd.read_csv(
